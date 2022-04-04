@@ -22,6 +22,18 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitContent(AhllParser.ContentContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AhllParser#setupDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSetupDef(AhllParser.SetupDefContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#loopDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLoopDef(AhllParser.LoopDefContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AhllParser#funcDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -52,6 +64,30 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBody(AhllParser.BodyContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AhllParser#comment}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitComment(AhllParser.CommentContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#funcCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncCall(AhllParser.FuncCallContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCall(AhllParser.CallContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#args}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArgs(AhllParser.ArgsContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AhllParser#stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -63,6 +99,24 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAssign(AhllParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#pinFunc}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPinFunc(AhllParser.PinFuncContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#con}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCon(AhllParser.ConContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#readFunc}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReadFunc(AhllParser.ReadFuncContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#varDecl}.
 	 * @param ctx the parse tree
@@ -82,57 +136,45 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOperand(AhllParser.OperandContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AhllParser#literal}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitLiteral(AhllParser.LiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AhllParser#operator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitOperator(AhllParser.OperatorContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#returnstmt}.
+	 * Visit a parse tree produced by {@link AhllParser#returnExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturnstmt(AhllParser.ReturnstmtContext ctx);
+	T visitReturnExpr(AhllParser.ReturnExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#ifstmt}.
+	 * Visit a parse tree produced by {@link AhllParser#ifStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIfstmt(AhllParser.IfstmtContext ctx);
+	T visitIfStmt(AhllParser.IfStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#type}.
+	 * Visit a parse tree produced by {@link AhllParser#elseStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitType(AhllParser.TypeContext ctx);
+	T visitElseStmt(AhllParser.ElseStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#id}.
+	 * Visit a parse tree produced by {@link AhllParser#whileExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitId(AhllParser.IdContext ctx);
+	T visitWhileExpr(AhllParser.WhileExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#pinLiteral}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPinLiteral(AhllParser.PinLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#pinName}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPinName(AhllParser.PinNameContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#pinNumber}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPinNumber(AhllParser.PinNumberContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#pinType}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPinType(AhllParser.PinTypeContext ctx);
 }

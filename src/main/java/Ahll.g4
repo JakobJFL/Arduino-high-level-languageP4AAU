@@ -1,11 +1,13 @@
 grammar Ahll;
 //Parse Rules
-program : setupDef loopDef content
-        | loopDef setupDef content
-        | content loopDef setupDef
-        | content setupDef loopDef;
+program : content;
 
-content : funcDef | varDecl END | funcDef content | varDecl END content;
+content : funcDef?
+        | funcDef content
+        | setupDef loopDef content
+        | loopDef setupDef content
+        | varDecl END content
+        | comment content;
 
 setupDef : FUNC SETUP LPAREN RPAREN LBRACE body RBRACE;
 loopDef : FUNC LOOP LPAREN RPAREN LBRACE body RBRACE;
@@ -22,32 +24,50 @@ parameters : parameter
 parameter : TYPE ID;
 
 body : stmt?
-     | stmt body;
+     | stmt body
+     | funcDef body
+     | comment body;
 
-funcCall : ID LPAREN args RPAREN;
+comment : COMMENT
+        | LINECOMMENT;
+
+
+funcCall : call | call '.' funcCall;
+call : ID LPAREN args RPAREN;
 args     : (expr (',' expr)*)?;
 
 stmt : varDecl END
      | assign END
      | returnExpr END
      | funcCall END
-     | pinFunction END
+     | pinFunc END
+     | readFunc END
      | ifStmt
      | whileExpr;
 
+assign: ID EQUAL expr;
 
-assign: ID '=' expr;
-
-pinFunction: ID '.Write' LPAREN con RPAREN;
+pinFunc: ID WRITE LPAREN con RPAREN;
 con: HIGH | LOW | INT | ID;
 
+readFunc: ID READPWM LPAREN RPAREN
+        | ID READA LPAREN RPAREN
+        | ID READD LPAREN RPAREN;
+
 varDecl : TYPE ID
-        | TYPE ID '=' expr
+        | TYPE ID EQUAL expr
         | pinLiteral;
-expr : operand | operand operator operand | funcCall;
+
+expr : NEG? operand
+     | NEG? operand operator expr
+     | NEG? readFunc
+     | NEG? readFunc operator expr
+     | NEG? LPAREN expr RPAREN
+     | NEG? LPAREN expr RPAREN operator expr;
 
 operand : ID
-        | literal;
+        | literal
+        | funcCall;
 
 literal: INT | BOOL;
 
@@ -62,13 +82,13 @@ elseStmt : (ELSE LBRACE body RBRACE)?
 
 //loopStructure : whileExpr
 //              | forExpr;
-whileExpr : WHILE LPAREN expr RPAREN LBRACE body RBRACE;
+whileExpr : WHILE LPAREN expr RPAREN LBRACE body;
 
-pinLiteral: 'Pin ' ID '{'PINNUMBER','PINMODE'}';
+pinLiteral: PIN ID LBRACE PINNUMBER ',' PINMODE RBRACE;
 
 //Lexer Rules
 
-TYPE: 'Number ' | 'Bool ' | 'String ' | 'Pwm ';
+TYPE: 'Num ' | 'Bool ' | 'String ' | 'Pwm ';
 
 SETUP : 'setup';
 LOOP : 'loop';
@@ -80,6 +100,13 @@ RBRACE : '}';
 LBRACKET : '[';
 RBRACKET : ']';
 END : ';';
+EQUAL : '=';
+
+PIN : 'Pin ';
+WRITE : '.Write';
+READPWM : '.ReadPwm';
+READA : '.ReadAnalog';
+READD : '.ReadDigital';
 ELSE: 'else';
 HIGH: 'HIGH';
 LOW: 'LOW';
@@ -93,15 +120,17 @@ WHILE : 'while';
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
 ID: [a-zA-Z_] [a-zA-Z_0-9]* ;
 
-INT : [0-9]+;
+INT : '-' [0-9]+ | [0-9]+;
 BOOL : 'true' | 'false';
 
 RELATIONAL : | '<' | '>' | '==' | '!=' ;
 ARITHMETIC :  '+' | '-' | '/' | '*' | '%' ;
-LOGICAL : '&&' | '||' | '!';
+LOGICAL : '&&' | '||';
 
-Letter : [a-zA-Z]+;
-Char : INT | [_];
+NEG: '!';
+
+COMMENT : '/*' .*?  '*/' -> skip;
+LINECOMMENT : '//' ~( '\r' | '\n' )* -> skip;
 
 WS : (' '|'\t'|NEWLINE)+ -> skip;
 NEWLINE : ('\r\n'|'\n'|'\r');

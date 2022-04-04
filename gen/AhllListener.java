@@ -27,6 +27,26 @@ public interface AhllListener extends ParseTreeListener {
 	 */
 	void exitContent(AhllParser.ContentContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AhllParser#setupDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetupDef(AhllParser.SetupDefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#setupDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetupDef(AhllParser.SetupDefContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#loopDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopDef(AhllParser.LoopDefContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#loopDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopDef(AhllParser.LoopDefContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AhllParser#funcDef}.
 	 * @param ctx the parse tree
 	 */
@@ -77,6 +97,46 @@ public interface AhllListener extends ParseTreeListener {
 	 */
 	void exitBody(AhllParser.BodyContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AhllParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void enterComment(AhllParser.CommentContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void exitComment(AhllParser.CommentContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#funcCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncCall(AhllParser.FuncCallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#funcCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncCall(AhllParser.FuncCallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#call}.
+	 * @param ctx the parse tree
+	 */
+	void enterCall(AhllParser.CallContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#call}.
+	 * @param ctx the parse tree
+	 */
+	void exitCall(AhllParser.CallContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#args}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgs(AhllParser.ArgsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#args}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgs(AhllParser.ArgsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AhllParser#stmt}.
 	 * @param ctx the parse tree
 	 */
@@ -96,6 +156,36 @@ public interface AhllListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAssign(AhllParser.AssignContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#pinFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterPinFunc(AhllParser.PinFuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#pinFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitPinFunc(AhllParser.PinFuncContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#con}.
+	 * @param ctx the parse tree
+	 */
+	void enterCon(AhllParser.ConContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#con}.
+	 * @param ctx the parse tree
+	 */
+	void exitCon(AhllParser.ConContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterReadFunc(AhllParser.ReadFuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitReadFunc(AhllParser.ReadFuncContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#varDecl}.
 	 * @param ctx the parse tree
@@ -127,6 +217,16 @@ public interface AhllListener extends ParseTreeListener {
 	 */
 	void exitOperand(AhllParser.OperandContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AhllParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void enterLiteral(AhllParser.LiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#literal}.
+	 * @param ctx the parse tree
+	 */
+	void exitLiteral(AhllParser.LiteralContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AhllParser#operator}.
 	 * @param ctx the parse tree
 	 */
@@ -137,45 +237,45 @@ public interface AhllListener extends ParseTreeListener {
 	 */
 	void exitOperator(AhllParser.OperatorContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AhllParser#returnstmt}.
+	 * Enter a parse tree produced by {@link AhllParser#returnExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterReturnstmt(AhllParser.ReturnstmtContext ctx);
+	void enterReturnExpr(AhllParser.ReturnExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AhllParser#returnstmt}.
+	 * Exit a parse tree produced by {@link AhllParser#returnExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitReturnstmt(AhllParser.ReturnstmtContext ctx);
+	void exitReturnExpr(AhllParser.ReturnExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AhllParser#ifstmt}.
+	 * Enter a parse tree produced by {@link AhllParser#ifStmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfstmt(AhllParser.IfstmtContext ctx);
+	void enterIfStmt(AhllParser.IfStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AhllParser#ifstmt}.
+	 * Exit a parse tree produced by {@link AhllParser#ifStmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfstmt(AhllParser.IfstmtContext ctx);
+	void exitIfStmt(AhllParser.IfStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AhllParser#type}.
+	 * Enter a parse tree produced by {@link AhllParser#elseStmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterType(AhllParser.TypeContext ctx);
+	void enterElseStmt(AhllParser.ElseStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AhllParser#type}.
+	 * Exit a parse tree produced by {@link AhllParser#elseStmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitType(AhllParser.TypeContext ctx);
+	void exitElseStmt(AhllParser.ElseStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AhllParser#id}.
+	 * Enter a parse tree produced by {@link AhllParser#whileExpr}.
 	 * @param ctx the parse tree
 	 */
-	void enterId(AhllParser.IdContext ctx);
+	void enterWhileExpr(AhllParser.WhileExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AhllParser#id}.
+	 * Exit a parse tree produced by {@link AhllParser#whileExpr}.
 	 * @param ctx the parse tree
 	 */
-	void exitId(AhllParser.IdContext ctx);
+	void exitWhileExpr(AhllParser.WhileExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#pinLiteral}.
 	 * @param ctx the parse tree
@@ -186,34 +286,4 @@ public interface AhllListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPinLiteral(AhllParser.PinLiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AhllParser#pinName}.
-	 * @param ctx the parse tree
-	 */
-	void enterPinName(AhllParser.PinNameContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AhllParser#pinName}.
-	 * @param ctx the parse tree
-	 */
-	void exitPinName(AhllParser.PinNameContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AhllParser#pinNumber}.
-	 * @param ctx the parse tree
-	 */
-	void enterPinNumber(AhllParser.PinNumberContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AhllParser#pinNumber}.
-	 * @param ctx the parse tree
-	 */
-	void exitPinNumber(AhllParser.PinNumberContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AhllParser#pinType}.
-	 * @param ctx the parse tree
-	 */
-	void enterPinType(AhllParser.PinTypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AhllParser#pinType}.
-	 * @param ctx the parse tree
-	 */
-	void exitPinType(AhllParser.PinTypeContext ctx);
 }
