@@ -1,0 +1,21 @@
+func setup() {
+    Num var1 = outer(5).inner(5); // = 10;
+    Num var2 = outer(5); // = 15;
+
+    Num var3 = fun1(2).fun2(4).fun3().fun1(2).fun2(4).fun3(); // 14; // 14
+}
+
+func loop() {
+	if (Mus == jr() && 440323+334) {
+	
+	}
+	else if (jajajaja) {
+	}
+	else if (FUCK+3) {
+	}
+	else {
+		kat = kat() + 333;
+	}
+
+
+}

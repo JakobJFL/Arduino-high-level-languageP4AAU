@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -195,25 +195,37 @@ public class AhllBaseListener implements AhllListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPinFunc(AhllParser.PinFuncContext ctx) { }
+	@Override public void enterArrayDef(AhllParser.ArrayDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPinFunc(AhllParser.PinFuncContext ctx) { }
+	@Override public void exitArrayDef(AhllParser.ArrayDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCon(AhllParser.ConContext ctx) { }
+	@Override public void enterWriteFunc(AhllParser.WriteFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCon(AhllParser.ConContext ctx) { }
+	@Override public void exitWriteFunc(AhllParser.WriteFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVal(AhllParser.ValContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVal(AhllParser.ValContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -250,6 +262,18 @@ public class AhllBaseListener implements AhllListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExpr(AhllParser.ExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterString(AhllParser.StringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitString(AhllParser.StringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -346,6 +370,30 @@ public class AhllBaseListener implements AhllListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPinLiteral(AhllParser.PinLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSInt(AhllParser.SIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSInt(AhllParser.SIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUInt(AhllParser.UIntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUInt(AhllParser.UIntContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

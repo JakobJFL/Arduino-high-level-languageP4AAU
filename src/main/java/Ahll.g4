@@ -36,19 +36,24 @@ funcCall : call | call '.' funcCall;
 call : ID LPAREN args RPAREN;
 args     : (expr (',' expr)*)?;
 
+//array    : ID LBRACKET value? RBRACKET;
+//value    : UINT | LETTER;
+
 stmt : varDecl END
      | assign END
      | returnExpr END
      | funcCall END
-     | pinFunc END
+     | writeFunc END
      | readFunc END
      | ifStmt
      | whileExpr;
 
 assign: ID EQUAL expr;
 
-pinFunc: ID WRITE LPAREN con RPAREN;
-con: HIGH | LOW | INT | ID;
+arrayDef : TYPE ID LBRACKET uInt RBRACKET;
+
+writeFunc: ID WRITE LPAREN val RPAREN;
+val: HIGH | LOW | sInt | ID | TOGGLE;
 
 readFunc: ID READPWM LPAREN RPAREN
         | ID READA LPAREN RPAREN
@@ -56,20 +61,24 @@ readFunc: ID READPWM LPAREN RPAREN
 
 varDecl : TYPE ID
         | TYPE ID EQUAL expr
-        | pinLiteral;
+        | pinLiteral
+        | arrayDef;
 
 expr : NEG? operand
      | NEG? operand operator expr
      | NEG? readFunc
      | NEG? readFunc operator expr
      | NEG? LPAREN expr RPAREN
-     | NEG? LPAREN expr RPAREN operator expr;
+     | NEG? LPAREN expr RPAREN operator expr
+     | string ('+' expr)?;
+
+string : QUOTE STRING QUOTE;
 
 operand : ID
         | literal
         | funcCall;
 
-literal: INT | BOOL;
+literal: sInt | BOOL;
 
 operator : RELATIONAL | ARITHMETIC | LOGICAL;
 
@@ -80,11 +89,12 @@ ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt;
 elseStmt : (ELSE LBRACE body RBRACE)?
          | ELSE ifStmt;
 
-//loopStructure : whileExpr
-//              | forExpr;
-whileExpr : WHILE LPAREN expr RPAREN LBRACE body;
+whileExpr : WHILE LPAREN expr RPAREN LBRACE body RBRACE;
 
 pinLiteral: PIN ID LBRACE PINNUMBER ',' PINMODE RBRACE;
+
+sInt : '-' INT | INT;
+uInt : INT;
 
 //Lexer Rules
 
@@ -101,7 +111,6 @@ LBRACKET : '[';
 RBRACKET : ']';
 END : ';';
 EQUAL : '=';
-
 PIN : 'Pin ';
 WRITE : '.Write';
 READPWM : '.ReadPwm';
@@ -110,7 +119,9 @@ READD : '.ReadDigital';
 ELSE: 'else';
 HIGH: 'HIGH';
 LOW: 'LOW';
+TOGGLE: 'TOGGLE';
 RETURN: 'return';
+QUOTE : '"';
 
 PINMODE: 'out' | 'in';
 
@@ -119,9 +130,11 @@ WHILE : 'while';
 
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
 ID: [a-zA-Z_] [a-zA-Z_0-9]* ;
+LETTER : [a-zA-Z];
 
-INT : '-' [0-9]+ | [0-9]+;
+INT : [0-9]+;
 BOOL : 'true' | 'false';
+STRING : .*? ~( '"' )*;
 
 RELATIONAL : | '<' | '>' | '==' | '!=' ;
 ARITHMETIC :  '+' | '-' | '/' | '*' | '%' ;

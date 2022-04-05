@@ -1,0 +1,26 @@
+Pin ledPin1 {D5,out};
+Pin ledPin2 {D6,out};
+Pin analogInPin {A0,in};
+
+func setup() { }
+
+func loop() {
+    while (shouldBlink()) {
+        ledPin1.Write(HIGH);
+        ledPin2.Write(LOW);
+        whileWait(2000, shouldBlink);
+        ledPin1.Write(LOW);
+        ledPin2.Write(HIGH);
+        whileWait(2000, shouldBlink);
+    } 
+    ledPin1.Write(LOW);
+    ledPin2.Write(LOW);
+}
+
+func Num shouldBlink() {
+    Pwm outputValue = sensorPin.ReadPwm();
+    if(outputValue > 128) {
+        return false; 
+    } 
+    return true;
+}

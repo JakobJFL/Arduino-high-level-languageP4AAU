@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -100,17 +100,23 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAssign(AhllParser.AssignContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#pinFunc}.
+	 * Visit a parse tree produced by {@link AhllParser#arrayDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPinFunc(AhllParser.PinFuncContext ctx);
+	T visitArrayDef(AhllParser.ArrayDefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#con}.
+	 * Visit a parse tree produced by {@link AhllParser#writeFunc}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCon(AhllParser.ConContext ctx);
+	T visitWriteFunc(AhllParser.WriteFuncContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#val}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVal(AhllParser.ValContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#readFunc}.
 	 * @param ctx the parse tree
@@ -129,6 +135,12 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExpr(AhllParser.ExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#string}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitString(AhllParser.StringContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#operand}.
 	 * @param ctx the parse tree
@@ -177,4 +189,16 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPinLiteral(AhllParser.PinLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#sInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSInt(AhllParser.SIntContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#uInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUInt(AhllParser.UIntContext ctx);
 }
