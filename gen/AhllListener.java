@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -217,16 +217,6 @@ public interface AhllListener extends ParseTreeListener {
 	 */
 	void exitExpr(AhllParser.ExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AhllParser#string}.
-	 * @param ctx the parse tree
-	 */
-	void enterString(AhllParser.StringContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AhllParser#string}.
-	 * @param ctx the parse tree
-	 */
-	void exitString(AhllParser.StringContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link AhllParser#operand}.
 	 * @param ctx the parse tree
 	 */
@@ -236,16 +226,6 @@ public interface AhllListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOperand(AhllParser.OperandContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AhllParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void enterLiteral(AhllParser.LiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AhllParser#literal}.
-	 * @param ctx the parse tree
-	 */
-	void exitLiteral(AhllParser.LiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#operator}.
 	 * @param ctx the parse tree
@@ -286,6 +266,26 @@ public interface AhllListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitElseStmt(AhllParser.ElseStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#arrayStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterArrayStmt(AhllParser.ArrayStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#arrayStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitArrayStmt(AhllParser.ArrayStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue(AhllParser.ValueContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#value}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue(AhllParser.ValueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#whileExpr}.
 	 * @param ctx the parse tree

@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Started");
         //Syntax analysis
-        FileHandler fileHandler = new FileHandler("testCode\\test3.txt");
+        FileHandler fileHandler = new FileHandler("syntaxTestCode\\test5.txt");
 
         CharStream stream = CharStreams.fromString(fileHandler.getFileContent());
         AhllLexer lexer = new AhllLexer(stream);

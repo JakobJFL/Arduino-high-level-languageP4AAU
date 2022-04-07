@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -136,23 +136,11 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpr(AhllParser.ExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#string}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitString(AhllParser.StringContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AhllParser#operand}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitOperand(AhllParser.OperandContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#literal}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLiteral(AhllParser.LiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#operator}.
 	 * @param ctx the parse tree
@@ -177,6 +165,18 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitElseStmt(AhllParser.ElseStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#arrayStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayStmt(AhllParser.ArrayStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue(AhllParser.ValueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#whileExpr}.
 	 * @param ctx the parse tree

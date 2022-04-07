@@ -31,13 +31,9 @@ body : stmt?
 comment : COMMENT
         | LINECOMMENT;
 
-
 funcCall : call | call '.' funcCall;
 call : ID LPAREN args RPAREN;
-args     : (expr (',' expr)*)?;
-
-//array    : ID LBRACKET value? RBRACKET;
-//value    : UINT | LETTER;
+args : (expr (',' expr)*)?;
 
 stmt : varDecl END
      | assign END
@@ -70,15 +66,14 @@ expr : NEG? operand
      | NEG? readFunc operator expr
      | NEG? LPAREN expr RPAREN
      | NEG? LPAREN expr RPAREN operator expr
-     | string ('+' expr)?;
-
-string : QUOTE STRING QUOTE;
+     | arrayStmt operator expr
+     | arrayStmt;
 
 operand : ID
-        | literal
+        | NEGATIVE INT
+        | INT?
+        | BOOL
         | funcCall;
-
-literal: sInt | BOOL;
 
 operator : RELATIONAL | ARITHMETIC | LOGICAL;
 
@@ -89,16 +84,23 @@ ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt;
 elseStmt : (ELSE LBRACE body RBRACE)?
          | ELSE ifStmt;
 
+arrayStmt : ID LBRACKET value RBRACKET;
+value : INT | ID;
+
 whileExpr : WHILE LPAREN expr RPAREN LBRACE body RBRACE;
 
 pinLiteral: PIN ID LBRACE PINNUMBER ',' PINMODE RBRACE;
 
-sInt : '-' INT | INT;
+sInt : NEGATIVE INT | INT;
 uInt : INT;
 
 //Lexer Rules
 
-TYPE: 'Num ' | 'Bool ' | 'String ' | 'Pwm ';
+TYPE: 'Num ' | 'Bool ' | 'Pwm ';
+
+RELATIONAL : | '<' | '>' | '==' | '!=' ;
+ARITHMETIC :  '+' | '-' | '/' | '*' | '%' ;
+LOGICAL : '&&' | '||';
 
 SETUP : 'setup';
 LOOP : 'loop';
@@ -121,26 +123,20 @@ HIGH: 'HIGH';
 LOW: 'LOW';
 TOGGLE: 'TOGGLE';
 RETURN: 'return';
-QUOTE : '"';
+IF : 'if';
+WHILE : 'while';
+NEG: '!';
+NEGATIVE: '-';
 
 PINMODE: 'out' | 'in';
 
-IF : 'if';
-WHILE : 'while';
-
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
 ID: [a-zA-Z_] [a-zA-Z_0-9]* ;
-LETTER : [a-zA-Z];
 
 INT : [0-9]+;
 BOOL : 'true' | 'false';
-STRING : .*? ~( '"' )*;
 
-RELATIONAL : | '<' | '>' | '==' | '!=' ;
-ARITHMETIC :  '+' | '-' | '/' | '*' | '%' ;
-LOGICAL : '&&' | '||';
 
-NEG: '!';
 
 COMMENT : '/*' .*?  '*/' -> skip;
 LINECOMMENT : '//' ~( '\r' | '\n' )* -> skip;

@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -267,18 +267,6 @@ public class AhllBaseListener implements AhllListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterString(AhllParser.StringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitString(AhllParser.StringContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterOperand(AhllParser.OperandContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -286,18 +274,6 @@ public class AhllBaseListener implements AhllListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOperand(AhllParser.OperandContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterLiteral(AhllParser.LiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitLiteral(AhllParser.LiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -346,6 +322,30 @@ public class AhllBaseListener implements AhllListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitElseStmt(AhllParser.ElseStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArrayStmt(AhllParser.ArrayStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArrayStmt(AhllParser.ArrayStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValue(AhllParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValue(AhllParser.ValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
