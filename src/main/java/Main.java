@@ -11,7 +11,6 @@ public class Main {
         System.out.println("Started");
         //Syntax analysis
         FileHandler fileHandler = new FileHandler("syntaxTestCode\\test5.txt");
-
         CharStream stream = CharStreams.fromString(fileHandler.getFileContent());
         AhllLexer lexer = new AhllLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -21,6 +20,7 @@ public class Main {
         System.out.println("Syntax GOOD");
 
         // Contextual analysis
-
+        TypeChecker typeChecker = new TypeChecker();
+        typeChecker.visit(CST);
     }
 }
