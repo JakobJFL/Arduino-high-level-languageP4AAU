@@ -40,14 +40,10 @@ varDecl: TYPE ID
        | pinLiteral
        | arrayDef;
 
-expr: NEG? operand
-    | NEG? operand operator expr
-    | NEG? readFunc
-    | NEG? readFunc operator expr
-    | NEG? LPAREN expr RPAREN
-    | NEG? LPAREN expr RPAREN operator expr
-    | arrayStmt operator expr
-    | arrayStmt;
+expr: NEG? operand (operator expr)?             # operandExpr
+    | NEG? readFunc (operator expr)?            # readFuncExpr
+    | NEG? LPAREN expr RPAREN (operator expr)?  # parensOpExpr
+    | arrayStmt (operator expr)?                # arrayExpr;
 
 operand: ID
        | NEGATIVE? INT
@@ -96,10 +92,14 @@ TYPE: 'Num ' | 'Bool ' | 'Pwm ';
 PIN: 'Pin ';
 
 RELATIONAL: '<' | '>' | '==' | '!=';
-ARITHMETIC: '+' | '-' | '/' | '*' | '%';
+ARITHMETIC: PLUS | MINUS | DIVIDE | MULT | MODULU;
 LOGICAL: '&&' | '||';
 NEG: '!';
-
+PLUS: '+';
+MINUS: '-';
+DIVIDE: '/';
+MULT: '*';
+MODULU: '%';
 
 SETUP: 'setup';
 LOOP: 'loop';

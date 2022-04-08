@@ -1,7 +1,7 @@
 Pin ledPin1 {D5,out};
 Pin ledPin2 {D6,out};
 Pin analogInPin {A0,in};
-
+//kat
 func setup() { }
 
 func loop() {

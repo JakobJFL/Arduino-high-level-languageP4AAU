@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -21,18 +21,6 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitContent(AhllParser.ContentContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#setupDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSetupDef(AhllParser.SetupDefContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#loopDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitLoopDef(AhllParser.LoopDefContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#funcDef}.
 	 * @param ctx the parse tree
@@ -64,11 +52,99 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBody(AhllParser.BodyContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#comment}.
+	 * Visit a parse tree produced by {@link AhllParser#stmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitComment(AhllParser.CommentContext ctx);
+	T visitStmt(AhllParser.StmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#varDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDecl(AhllParser.VarDeclContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code operandExpr}
+	 * labeled alternative in {@link AhllParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperandExpr(AhllParser.OperandExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code readFuncExpr}
+	 * labeled alternative in {@link AhllParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReadFuncExpr(AhllParser.ReadFuncExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code parensOpExpr}
+	 * labeled alternative in {@link AhllParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParensOpExpr(AhllParser.ParensOpExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code arrayExpr}
+	 * labeled alternative in {@link AhllParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayExpr(AhllParser.ArrayExprContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#operand}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperand(AhllParser.OperandContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#operator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOperator(AhllParser.OperatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#readFunc}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReadFunc(AhllParser.ReadFuncContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#arrayStmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayStmt(AhllParser.ArrayStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#value}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValue(AhllParser.ValueContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#pinLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPinLiteral(AhllParser.PinLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#arrayDef}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitArrayDef(AhllParser.ArrayDefContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#assign}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAssign(AhllParser.AssignContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#returnExpr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitReturnExpr(AhllParser.ReturnExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#funcCall}.
 	 * @param ctx the parse tree
@@ -88,24 +164,6 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArgs(AhllParser.ArgsContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#stmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStmt(AhllParser.StmtContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#assign}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssign(AhllParser.AssignContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#arrayDef}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayDef(AhllParser.ArrayDefContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AhllParser#writeFunc}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -117,42 +175,6 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVal(AhllParser.ValContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#readFunc}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitReadFunc(AhllParser.ReadFuncContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#varDecl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVarDecl(AhllParser.VarDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpr(AhllParser.ExprContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#operand}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperand(AhllParser.OperandContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#operator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperator(AhllParser.OperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#returnExpr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitReturnExpr(AhllParser.ReturnExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#ifStmt}.
 	 * @param ctx the parse tree
@@ -166,39 +188,27 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitElseStmt(AhllParser.ElseStmtContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#arrayStmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayStmt(AhllParser.ArrayStmtContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AhllParser#value}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitValue(AhllParser.ValueContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AhllParser#whileExpr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitWhileExpr(AhllParser.WhileExprContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#pinLiteral}.
+	 * Visit a parse tree produced by {@link AhllParser#setupDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPinLiteral(AhllParser.PinLiteralContext ctx);
+	T visitSetupDef(AhllParser.SetupDefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#sInt}.
+	 * Visit a parse tree produced by {@link AhllParser#loopDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSInt(AhllParser.SIntContext ctx);
+	T visitLoopDef(AhllParser.LoopDefContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AhllParser#uInt}.
+	 * Visit a parse tree produced by {@link AhllParser#comment}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitUInt(AhllParser.UIntContext ctx);
+	T visitComment(AhllParser.CommentContext ctx);
 }
