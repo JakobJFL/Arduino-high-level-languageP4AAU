@@ -70,8 +70,7 @@ expr : NEG? operand
      | arrayStmt;
 
 operand : ID
-        | NEGATIVE INT
-        | INT?
+        | NEGATIVE? INT
         | BOOL
         | funcCall;
 
@@ -126,7 +125,7 @@ RETURN: 'return';
 IF : 'if';
 WHILE : 'while';
 NEG: '!';
-NEGATIVE: '-';
+NEGATIVE: '~';
 
 PINMODE: 'out' | 'in';
 
