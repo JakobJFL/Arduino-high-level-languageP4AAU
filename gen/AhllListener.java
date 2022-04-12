@@ -97,49 +97,49 @@ public interface AhllListener extends ParseTreeListener {
 	 */
 	void exitVarDecl(AhllParser.VarDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code operandExpr}
+	 * Enter a parse tree produced by the {@code OperandExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void enterOperandExpr(AhllParser.OperandExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code operandExpr}
+	 * Exit a parse tree produced by the {@code OperandExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void exitOperandExpr(AhllParser.OperandExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code readFuncExpr}
+	 * Enter a parse tree produced by the {@code ReadFuncExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void enterReadFuncExpr(AhllParser.ReadFuncExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code readFuncExpr}
+	 * Exit a parse tree produced by the {@code ReadFuncExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void exitReadFuncExpr(AhllParser.ReadFuncExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code parensOpExpr}
+	 * Enter a parse tree produced by the {@code ParensOpExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void enterParensOpExpr(AhllParser.ParensOpExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code parensOpExpr}
+	 * Exit a parse tree produced by the {@code ParensOpExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void exitParensOpExpr(AhllParser.ParensOpExprContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code arrayExpr}
+	 * Enter a parse tree produced by the {@code ArrayExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
 	void enterArrayExpr(AhllParser.ArrayExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code arrayExpr}
+	 * Exit a parse tree produced by the {@code ArrayExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
@@ -154,6 +154,16 @@ public interface AhllListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOperand(AhllParser.OperandContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#sInt}.
+	 * @param ctx the parse tree
+	 */
+	void enterSInt(AhllParser.SIntContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#sInt}.
+	 * @param ctx the parse tree
+	 */
+	void exitSInt(AhllParser.SIntContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#operator}.
 	 * @param ctx the parse tree

@@ -1,6 +1,8 @@
 package Contents;
 
-public class VarDecl {
+import java.util.List;
+
+public class VarDecl implements Node {
     public Expr expr;
     public PinLiteral pinLiteral;
     public ArrayDef arrayDef;
@@ -15,5 +17,15 @@ public class VarDecl {
 
     public void addArrayDef(ArrayDef a) {
         arrayDef = a;
+    }
+
+    @Override
+    public List<Node> GetChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(Node v) {
+
     }
 }

@@ -40,15 +40,17 @@ varDecl: TYPE ID
        | pinLiteral
        | arrayDef;
 
-expr: NEG? operand (operator expr)?             # operandExpr
-    | NEG? readFunc (operator expr)?            # readFuncExpr
-    | NEG? LPAREN expr RPAREN (operator expr)?  # parensOpExpr
-    | arrayStmt (operator expr)?                # arrayExpr;
+expr: NEG? operand (operator expr)?             # OperandExpr
+    | NEG? readFunc (operator expr)?            # ReadFuncExpr
+    | NEG? LPAREN expr RPAREN (operator expr)?  # ParensOpExpr
+    | arrayStmt (operator expr)?                # ArrayExpr;
 
 operand: ID
-       | NEGATIVE? INT
+       | sInt
        | BOOL
        | funcCall;
+
+sInt: NEGATIVE? INT;
 
 operator: RELATIONAL | ARITHMETIC | LOGICAL;
 
@@ -72,7 +74,7 @@ call: ID LPAREN args RPAREN;
 args: (expr (',' expr)*)?;
 
 writeFunc: ID WRITE LPAREN val RPAREN;
-val: HIGH | LOW | NEGATIVE? INT | ID | TOGGLE;
+val: HIGH | LOW | sInt | ID | TOGGLE;
 
 ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt;
 elseStmt: (ELSE LBRACE body RBRACE)?

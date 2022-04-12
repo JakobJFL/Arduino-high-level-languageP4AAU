@@ -1,6 +1,8 @@
 package Contents;
 
-public class FuncDef extends Content {
+import java.util.List;
+
+public class FuncDef implements Node {
     public Head head;
     public Body body;
     public Parameters parameters;
@@ -15,5 +17,15 @@ public class FuncDef extends Content {
 
     public void addParameters(Parameters p) {
         parameters = p;
+    }
+
+    @Override
+    public List<Node> GetChildren() {
+        return null;
+    }
+
+    @Override
+    public void accept(Node v) {
+
     }
 }

@@ -64,28 +64,28 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarDecl(AhllParser.VarDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code operandExpr}
+	 * Visit a parse tree produced by the {@code OperandExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitOperandExpr(AhllParser.OperandExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code readFuncExpr}
+	 * Visit a parse tree produced by the {@code ReadFuncExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitReadFuncExpr(AhllParser.ReadFuncExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code parensOpExpr}
+	 * Visit a parse tree produced by the {@code ParensOpExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitParensOpExpr(AhllParser.ParensOpExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code arrayExpr}
+	 * Visit a parse tree produced by the {@code ArrayExpr}
 	 * labeled alternative in {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -97,6 +97,12 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOperand(AhllParser.OperandContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#sInt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSInt(AhllParser.SIntContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#operator}.
 	 * @param ctx the parse tree
