@@ -873,17 +873,6 @@ public class AhllParser extends Parser {
 	}
 
 	public static class ExprContext extends ParserRuleContext {
-		public ExprContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_expr; }
-	 
-		public ExprContext() { }
-		public void copyFrom(ExprContext ctx) {
-			super.copyFrom(ctx);
-		}
-	}
-	public static class OperandExprContext extends ExprContext {
 		public OperandContext operand() {
 			return getRuleContext(OperandContext.class,0);
 		}
@@ -891,100 +880,35 @@ public class AhllParser extends Parser {
 		public OperatorContext operator() {
 			return getRuleContext(OperatorContext.class,0);
 		}
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public OperandExprContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).enterOperandExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).exitOperandExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AhllVisitor ) return ((AhllVisitor<? extends T>)visitor).visitOperandExpr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ArrayExprContext extends ExprContext {
-		public ArrayStmtContext arrayStmt() {
-			return getRuleContext(ArrayStmtContext.class,0);
-		}
-		public OperatorContext operator() {
-			return getRuleContext(OperatorContext.class,0);
-		}
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
-		public ArrayExprContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).enterArrayExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).exitArrayExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AhllVisitor ) return ((AhllVisitor<? extends T>)visitor).visitArrayExpr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ParensOpExprContext extends ExprContext {
-		public TerminalNode LPAREN() { return getToken(AhllParser.LPAREN, 0); }
 		public List<ExprContext> expr() {
 			return getRuleContexts(ExprContext.class);
 		}
 		public ExprContext expr(int i) {
 			return getRuleContext(ExprContext.class,i);
 		}
-		public TerminalNode RPAREN() { return getToken(AhllParser.RPAREN, 0); }
-		public TerminalNode NEG() { return getToken(AhllParser.NEG, 0); }
-		public OperatorContext operator() {
-			return getRuleContext(OperatorContext.class,0);
-		}
-		public ParensOpExprContext(ExprContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).enterParensOpExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).exitParensOpExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AhllVisitor ) return ((AhllVisitor<? extends T>)visitor).visitParensOpExpr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class ReadFuncExprContext extends ExprContext {
 		public ReadFuncContext readFunc() {
 			return getRuleContext(ReadFuncContext.class,0);
 		}
-		public TerminalNode NEG() { return getToken(AhllParser.NEG, 0); }
-		public OperatorContext operator() {
-			return getRuleContext(OperatorContext.class,0);
+		public TerminalNode LPAREN() { return getToken(AhllParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AhllParser.RPAREN, 0); }
+		public ArrayStmtContext arrayStmt() {
+			return getRuleContext(ArrayStmtContext.class,0);
 		}
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
+		public ExprContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
 		}
-		public ReadFuncExprContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override public int getRuleIndex() { return RULE_expr; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).enterReadFuncExpr(this);
+			if ( listener instanceof AhllListener ) ((AhllListener)listener).enterExpr(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AhllListener ) ((AhllListener)listener).exitReadFuncExpr(this);
+			if ( listener instanceof AhllListener ) ((AhllListener)listener).exitExpr(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AhllVisitor ) return ((AhllVisitor<? extends T>)visitor).visitReadFuncExpr(this);
+			if ( visitor instanceof AhllVisitor ) return ((AhllVisitor<? extends T>)visitor).visitExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -998,7 +922,6 @@ public class AhllParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 			case 1:
-				_localctx = new OperandExprContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(173);
@@ -1028,7 +951,6 @@ public class AhllParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new ReadFuncExprContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(182);
@@ -1058,7 +980,6 @@ public class AhllParser extends Parser {
 				}
 				break;
 			case 3:
-				_localctx = new ParensOpExprContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(191);
@@ -1092,7 +1013,6 @@ public class AhllParser extends Parser {
 				}
 				break;
 			case 4:
-				_localctx = new ArrayExprContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(201);

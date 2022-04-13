@@ -3,7 +3,7 @@ package Contents;
 public class SetupDef {
     public Body body;
 
-    public void addBody(Body b) {
+    public void setBody(Body b) {
         body = b;
     }
 }

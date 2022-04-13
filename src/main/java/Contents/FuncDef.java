@@ -5,18 +5,13 @@ import java.util.List;
 public class FuncDef implements Node {
     public Head head;
     public Body body;
-    public Parameters parameters;
 
-    public void addHead(Head h) {
+    public void setHead(Head h) {
         head = h;
     }
 
-    public void addBody(Body b) {
+    public void setBody(Body b) {
         body = b;
-    }
-
-    public void addParameters(Parameters p) {
-        parameters = p;
     }
 
     @Override

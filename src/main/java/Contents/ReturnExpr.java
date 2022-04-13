@@ -3,7 +3,7 @@ package Contents;
 public class ReturnExpr {
     public Expr expr;
 
-    public void addExpr(Expr e) {
+    public void setExpr(Expr e) {
         expr = e;
     }
 }

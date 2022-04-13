@@ -7,15 +7,15 @@ public class VarDecl implements Node {
     public PinLiteral pinLiteral;
     public ArrayDef arrayDef;
 
-    public void addExpr(Expr e) {
+    public void setExpr(Expr e) {
         expr = e;
     }
 
-    public void addPinLiteral(PinLiteral p) {
+    public void setPinLiteral(PinLiteral p) {
         pinLiteral = p;
     }
 
-    public void addArrayDef(ArrayDef a) {
+    public void setArrayDef(ArrayDef a) {
         arrayDef = a;
     }
 

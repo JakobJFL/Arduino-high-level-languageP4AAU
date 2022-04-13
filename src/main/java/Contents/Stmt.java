@@ -1,6 +1,8 @@
 package Contents;
 
-public abstract class Stmt {
+import java.util.List;
+
+public class Stmt implements Node {
     public ReturnExpr returnExpr;
     public Assign assign;
     public VarDecl varDecl;
@@ -13,35 +15,44 @@ public abstract class Stmt {
     public Stmt() {
     }
 
-    public void addReturnExpr(ReturnExpr r) {
+    public void setReturnExpr(ReturnExpr r) {
         returnExpr = r;
     }
 
-    public void addAssign(Assign a) {
+    public void setAssign(Assign a) {
         assign = a;
     }
 
-    public void addVarDecl(VarDecl v) {
+    public void setVarDecl(VarDecl v) {
         varDecl = v;
     }
 
-    public void addFuncCall(FuncCall f) {
+    public void setFuncCall(FuncCall f) {
         funcCall = f;
     }
 
-    public void addWriteFunc(WriteFunc w) {
+    public void setWriteFunc(WriteFunc w) {
         writeFunc = w;
     }
 
-    public void addReadFunc(ReadFunc r) {
+    public void setReadFunc(ReadFunc r) {
         readFunc = r;
     }
 
-    public void addIfStmt(IfStmt i) {
+    public void setIfStmt(IfStmt i) {
         ifStmt = i;
     }
 
-    public void addWhileExpr(WhileExpr r) {
+    public void setWhileExpr(WhileExpr r) {
         whileExpr = r;
+    }
+
+    @Override
+    public List<Node> GetChildren() {
+        return null;
+    }
+
+    public void accept(Node v) {
+        v.accept(this);
     }
 }

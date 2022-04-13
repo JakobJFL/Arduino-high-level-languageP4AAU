@@ -40,10 +40,10 @@ varDecl: TYPE ID
        | pinLiteral
        | arrayDef;
 
-expr: NEG? operand (operator expr)?             # OperandExpr
-    | NEG? readFunc (operator expr)?            # ReadFuncExpr
-    | NEG? LPAREN expr RPAREN (operator expr)?  # ParensOpExpr
-    | arrayStmt (operator expr)?                # ArrayExpr;
+expr: NEG? operand (operator expr)?
+    | NEG? readFunc (operator expr)?
+    | NEG? LPAREN expr RPAREN (operator expr)?
+    | arrayStmt (operator expr)?;
 
 operand: ID
        | sInt

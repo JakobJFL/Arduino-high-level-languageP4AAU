@@ -64,33 +64,11 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarDecl(AhllParser.VarDeclContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code OperandExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
+	 * Visit a parse tree produced by {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperandExpr(AhllParser.OperandExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ReadFuncExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitReadFuncExpr(AhllParser.ReadFuncExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ParensOpExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParensOpExpr(AhllParser.ParensOpExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ArrayExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrayExpr(AhllParser.ArrayExprContext ctx);
+	T visitExpr(AhllParser.ExprContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#operand}.
 	 * @param ctx the parse tree

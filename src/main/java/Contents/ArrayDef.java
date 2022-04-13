@@ -5,16 +5,26 @@ import java.util.List;
 
 public class ArrayDef implements Node {
     public int size;
-    public ArrayDef arrayDef;
+    public Type type;
+    public Id id;
 
-    public void addArrayDef(ArrayDef arrayDef) {
-        this.arrayDef = arrayDef;
+    public void setSize(int i) {
+        this.size = i;
+    }
+    public void setType(Type t) {
+        this.type = t;
+    }
+    public void setId(Id i) {
+        this.id = i;
     }
 
     @Override
     public List<Node> GetChildren() {
         List<Node> child = new ArrayList<>();
-        child.add(arrayDef);
+        child.add(size);
+        child.add(type);
+        child.add(id);
+
         return child;
     }
 

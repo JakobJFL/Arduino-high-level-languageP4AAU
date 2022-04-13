@@ -4,11 +4,11 @@ public class FuncCall {
     public Call call;
     public FuncCall funcCall;
 
-    public void addFuncCall(FuncCall f) {
+    public void setFuncCall(FuncCall f) {
         funcCall = f;
     }
 
-    public void addCall(Call c) {
+    public void setCall(Call c) {
         call = c;
     }
 }

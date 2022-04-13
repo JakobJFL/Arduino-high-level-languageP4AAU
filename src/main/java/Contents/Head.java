@@ -1,9 +1,24 @@
 package Contents;
 
-public class Head {
-    public Parameters parameters;
+import java.util.ArrayList;
+import java.util.List;
 
-    public void addParameters(Parameters p) {
-        parameters = p;
+public class Head implements Node  {
+    public List<Parameter> parameters;
+
+    public void addParameter(Parameter p) {
+        parameters.add(p);
+    }
+
+    @Override
+    public List<Node> GetChildren() {
+        List<Node> list = new ArrayList<Node>();
+        list.addAll(parameters);
+        return list;
+    }
+
+    @Override
+    public void accept(Node v) {
+        v.accept(this);
     }
 }

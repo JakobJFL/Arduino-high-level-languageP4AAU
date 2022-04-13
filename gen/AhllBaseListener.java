@@ -123,49 +123,13 @@ public class AhllBaseListener implements AhllListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperandExpr(AhllParser.OperandExprContext ctx) { }
+	@Override public void enterExpr(AhllParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperandExpr(AhllParser.OperandExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterReadFuncExpr(AhllParser.ReadFuncExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitReadFuncExpr(AhllParser.ReadFuncExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterParensOpExpr(AhllParser.ParensOpExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParensOpExpr(AhllParser.ParensOpExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrayExpr(AhllParser.ArrayExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrayExpr(AhllParser.ArrayExprContext ctx) { }
+	@Override public void exitExpr(AhllParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

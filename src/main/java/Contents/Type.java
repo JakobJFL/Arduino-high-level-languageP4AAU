@@ -3,16 +3,13 @@ package Contents;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Parameter implements Node  {
-    public Parameter parameter;
+public class Type implements Node {
 
-    public void setParameter(Parameter p) {
-        parameter = p;
-    }
-
+    public Type type;
     @Override
     public List<Node> GetChildren() {
         List<Node> list = new ArrayList<Node>();
+        list.add(type);
         return list;
     }
 

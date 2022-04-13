@@ -3,12 +3,21 @@ package Contents;
 public class Operand extends Expr {
     public FuncCall funcCall;
     public SInt sInt;
+    public Id id;
+    public Bool bool;
 
-    public void addFuncCall(FuncCall f) {
+    public void setFuncCall(FuncCall f) {
         funcCall = f;
     }
-    public void addSInt(SInt i) {
+    public void setSInt(SInt i) {
         sInt = i;
     }
+    public void setBool(Bool b) {
+        bool = b;
+    }
+    public void setId(Id i) {
+        id = i;
+    }
+
 
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Args implements Node {
     public Expr expr;
-    public void addExpr(Expr e) {
+    public void setExpr(Expr e) {
         expr = e;
     }
 

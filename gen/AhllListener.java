@@ -97,53 +97,15 @@ public interface AhllListener extends ParseTreeListener {
 	 */
 	void exitVarDecl(AhllParser.VarDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code OperandExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
+	 * Enter a parse tree produced by {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperandExpr(AhllParser.OperandExprContext ctx);
+	void enterExpr(AhllParser.ExprContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code OperandExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
+	 * Exit a parse tree produced by {@link AhllParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperandExpr(AhllParser.OperandExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ReadFuncExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterReadFuncExpr(AhllParser.ReadFuncExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ReadFuncExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitReadFuncExpr(AhllParser.ReadFuncExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ParensOpExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterParensOpExpr(AhllParser.ParensOpExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ParensOpExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitParensOpExpr(AhllParser.ParensOpExprContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code ArrayExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterArrayExpr(AhllParser.ArrayExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code ArrayExpr}
-	 * labeled alternative in {@link AhllParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitArrayExpr(AhllParser.ArrayExprContext ctx);
+	void exitExpr(AhllParser.ExprContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#operand}.
 	 * @param ctx the parse tree

@@ -4,11 +4,11 @@ public class IfStmt {
     public Body body;
     public ElseStmt elseStmt;
 
-    public void addBody(Body b) {
+    public void setBody(Body b) {
         body = b;
     }
 
-    public void addElseStmt(ElseStmt e) {
+    public void setElseStmt(ElseStmt e) {
         elseStmt = e;
     }
 }

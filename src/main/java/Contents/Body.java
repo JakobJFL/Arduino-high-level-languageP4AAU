@@ -3,14 +3,12 @@ package Contents;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Body {
+public class Body implements Node {
     public List<Stmt> stmt;
-    public List<Body> body;
     public List<FuncDef> funcDef;
 
     public Body() {
         this.stmt = new ArrayList<>();
-        this.body = new ArrayList<>();
         this.funcDef = new ArrayList<>();
     }
 
@@ -22,8 +20,16 @@ public class Body {
         stmt.add(c);
     }
 
-    public void addBody(Body b) {
-        body.add(b);
+    @Override
+    public List<Node> GetChildren() {
+        List<Node> list = new ArrayList<Node>();
+        list.addAll(stmt);
+        list.addAll(funcDef);
+        return list;
     }
 
+    @Override
+    public void accept(Node v) {
+        v.accept(this);
+    }
 }
