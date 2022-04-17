@@ -1,5 +1,6 @@
 package Contents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Bool implements Node {

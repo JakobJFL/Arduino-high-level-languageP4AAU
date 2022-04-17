@@ -8,9 +8,11 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
 
     @Override
     public Node visitContent(AhllParser.ContentContext ctx) {
+        System.out.println("d");
         Content con = new Content();
         for (ParseTree t: ctx.children) {
              Node child = t.accept(this);
+             // Det er klasserne der er lort - vi ved ikke noget om klasser
              if (child instanceof VarDecl) {
                  con.addVarDecl((VarDecl) child);
              }
@@ -22,6 +24,9 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
              }
              else if (child instanceof FuncDef) {
                 con.addFuncDefs((FuncDef) child);
+             }
+             else if (child instanceof Content) {
+                 con.addContent((Content) child);
              }
         }
         return con;
@@ -69,6 +74,8 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
     @Override
     public Node visitBody(AhllParser.BodyContext ctx) {
         Body body = new Body();
+        if (ctx.children == null)
+            return null;
         for (ParseTree t : ctx.children) {
             Node child = t.accept(this);
             if (child instanceof Stmt) {
@@ -77,6 +84,7 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
             else if (child instanceof FuncDef) {
                 body.addFuncDef((FuncDef) child);
             }
+
         }
         return body;
     }
@@ -179,6 +187,19 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
 
     @Override
     public Node visitSInt(AhllParser.SIntContext ctx) {
+        /*
+        if (ctx.children != null) {
+            for (ParseTree t : ctx.children) {
+                Node child = t.accept(this);
+                try {
+                    return new SInt(Integer.parseInt(child.toString()));
+                } catch (NumberFormatException ex) {
+                    return null;
+                }
+            }
+        }
+        */
+
         return null;
     }
 
@@ -279,8 +300,8 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
         for (ParseTree t : ctx.children) {
             Node child = t.accept(this);
 
-            if (child instanceof int) {
-                arrayDef.setSize((int) child);
+            if (child instanceof SInt) {
+                arrayDef.setSize((SInt) child);
             }
             else if (child instanceof Type) {
                 arrayDef.setType((Type) child);
@@ -290,7 +311,7 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
             }
 
         }
-        return arrayStmt;
+        return arrayDef;
     }
 
     @Override

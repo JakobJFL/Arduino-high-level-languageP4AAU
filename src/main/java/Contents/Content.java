@@ -4,25 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Content implements Node {
-    public List<FuncDef> funcDefs;
+    public List<FuncDef> funcDef;
     public List<VarDecl> varDecl;
     public SetupDef setupDef;
     public LoopDef loopDef;
+    public List<Content> content;
 
     public Content() {
-        this.funcDefs = new ArrayList<>();
+        this.funcDef = new ArrayList<>();
         this.varDecl = new ArrayList<>();
         this.setupDef = new SetupDef();
         this.loopDef = new LoopDef();
+        this.content = new ArrayList<>();
     }
 
     public void addFuncDefs(FuncDef f) {
-        funcDefs.add(f);
+        this.funcDef.add(f);
     }
 
-    public void addVarDecl(VarDecl f) {
-        varDecl.add(f);
-    }
+    public void addVarDecl(VarDecl f) { this.varDecl.add(f); }
 
     public void setSetupDef(SetupDef f) {
         this.setupDef = f;
@@ -30,11 +30,16 @@ public class Content implements Node {
 
     public void setLoopDef(LoopDef f) { this.loopDef = f; }
 
+    public void addContent(Content c) { this.content.add(c); }
+
     @Override
     public List<Node> GetChildren() {
         List<Node> list = new ArrayList<Node>();
-        list.addAll(funcDefs);
+        list.addAll(funcDef);
         list.addAll(varDecl);
+        list.add(setupDef);
+        list.add(loopDef);
+        list.addAll(content);
         return list;
     }
 

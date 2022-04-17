@@ -1,5 +1,6 @@
 package Contents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VarDecl implements Node {
@@ -21,11 +22,15 @@ public class VarDecl implements Node {
 
     @Override
     public List<Node> GetChildren() {
-        return null;
+        List<Node> list = new ArrayList<Node>();
+        list.add(expr);
+        list.add(pinLiteral);
+        list.add(arrayDef);
+        return list;
     }
 
     @Override
     public void accept(Node v) {
-
+        v.accept(this);
     }
 }

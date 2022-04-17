@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArrayDef implements Node {
-    public int size;
+    public SInt size;
     public Type type;
     public Id id;
 
-    public void setSize(int i) {
+    public void setSize(SInt i) {
         this.size = i;
     }
     public void setType(Type t) {
@@ -32,4 +32,5 @@ public class ArrayDef implements Node {
     public void accept(Node v) {
         v.accept(this);
     }
+
 }

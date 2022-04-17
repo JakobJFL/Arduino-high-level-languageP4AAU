@@ -1,5 +1,6 @@
 package Contents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Value implements Node {
@@ -16,7 +17,10 @@ public class Value implements Node {
 
     @Override
     public List<Node> GetChildren() {
-        return null;
+        List<Node> child = new ArrayList<>();
+        child.add(sInt);
+        child.add(id);
+        return child;
     }
 
     @Override

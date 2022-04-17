@@ -1,5 +1,6 @@
 package Contents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FuncDef implements Node {
@@ -16,11 +17,14 @@ public class FuncDef implements Node {
 
     @Override
     public List<Node> GetChildren() {
-        return null;
+        List<Node> child = new ArrayList<>();
+        child.add(head);
+        child.add(body);
+        return child;
     }
 
     @Override
     public void accept(Node v) {
-
+        v.accept(this);
     }
 }

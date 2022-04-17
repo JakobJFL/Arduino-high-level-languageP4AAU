@@ -6,5 +6,4 @@ public interface Node {
     List<Node> GetChildren();
 
     void accept(Node v);
-
 }

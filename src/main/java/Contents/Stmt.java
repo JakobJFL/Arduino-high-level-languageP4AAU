@@ -1,5 +1,6 @@
 package Contents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Stmt implements Node {
@@ -49,7 +50,16 @@ public class Stmt implements Node {
 
     @Override
     public List<Node> GetChildren() {
-        return null;
+        List<Node> child = new ArrayList<>();
+        child.add(returnExpr);
+        child.add(assign);
+        child.add(varDecl);
+        child.add(funcCall);
+        child.add(writeFunc);
+        child.add(readFunc);
+        child.add(ifStmt);
+        child.add(whileExpr);
+        return child;
     }
 
     public void accept(Node v) {
