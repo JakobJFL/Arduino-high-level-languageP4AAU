@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parameter implements Node  {
-    public Parameter parameter;
+    public Type type;
+    public Id id;
 
-    public void setParameter(Parameter p) {
-        parameter = p;
+    public void setType(Type t) {
+        type = t;
+    }
+    public void setId(Id i) {
+        id = i;
     }
 
     @Override
     public List<Node> GetChildren() {
         List<Node> list = new ArrayList<Node>();
+        list.add(type);
+        list.add(id);
         return list;
     }
 

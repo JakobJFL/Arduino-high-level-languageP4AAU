@@ -11,15 +11,17 @@ content: funcDef?
 
 funcDef: head LBRACE body RBRACE;
 
-head: FUNC ID LPAREN RPAREN
-    | FUNC TYPE ID LPAREN RPAREN
-    | FUNC ID LPAREN parameters RPAREN
-    | FUNC TYPE ID LPAREN parameters RPAREN;
+head: FUNC id LPAREN RPAREN
+    | FUNC TYPE id LPAREN RPAREN
+    | FUNC id LPAREN parameters RPAREN
+    | FUNC TYPE id LPAREN parameters RPAREN;
+
+id : ID;
 
 parameters: parameter
           | parameter ',' parameters;
 
-parameter: TYPE ID;
+parameter: TYPE id;
 
 body: stmt?
     | stmt body
@@ -35,8 +37,8 @@ stmt: varDecl END
     | ifStmt
     | whileExpr;
 
-varDecl: TYPE ID
-       | TYPE ID EQUAL expr
+varDecl: TYPE id
+       | TYPE id ASSIGN expr
        | pinLiteral
        | arrayDef;
 
@@ -45,36 +47,37 @@ expr: NEG? operand (operator expr)?
     | NEG? LPAREN expr RPAREN (operator expr)?
     | arrayStmt (operator expr)?;
 
-operand: ID
+operand: id
        | sInt
        | BOOL
        | funcCall;
 
 sInt: NEGATIVE? INT;
 
-operator: RELATIONAL | ARITHMETIC | LOGICAL;
+operator: relational | ARITHMETIC | LOGICAL;
+relational: RELATIONAL;
 
-readFunc: ID READPWM LPAREN RPAREN
-        | ID READA LPAREN RPAREN
-        | ID READD LPAREN RPAREN;
+readFunc: id READPWM LPAREN RPAREN
+        | id READA LPAREN RPAREN
+        | id READD LPAREN RPAREN;
 
-arrayStmt: ID LBRACKET value RBRACKET;
-value: INT | ID;
+arrayStmt: id LBRACKET value RBRACKET;
+value: INT | id;
 
-pinLiteral: PIN ID LBRACE PINNUMBER ',' PINMODE RBRACE;
+pinLiteral: PIN id LBRACE PINNUMBER ',' PINMODE RBRACE;
 
-arrayDef: TYPE ID LBRACKET INT RBRACKET;
+arrayDef: TYPE id LBRACKET INT RBRACKET;
 
-assign: ID EQUAL expr;
+assign: id ASSIGN expr;
 
 returnExpr: RETURN expr;
 
 funcCall: call | call '.' funcCall;
-call: ID LPAREN args RPAREN;
+call: id LPAREN args RPAREN;
 args: (expr (',' expr)*)?;
 
-writeFunc: ID WRITE LPAREN val RPAREN;
-val: HIGH | LOW | sInt | ID | TOGGLE;
+writeFunc: id WRITE LPAREN val RPAREN;
+val: HIGH | LOW | sInt | id | TOGGLE;
 
 ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt;
 elseStmt: (ELSE LBRACE body RBRACE)?
@@ -93,15 +96,21 @@ comment: COMMENT
 TYPE: 'Num ' | 'Bool ' | 'Pwm ';
 PIN: 'Pin ';
 
-RELATIONAL: '<' | '>' | '==' | '!=';
+RELATIONAL: LESSTHAN | GREATERTHAN | EQUAL | NOTEQUAL;
 ARITHMETIC: PLUS | MINUS | DIVIDE | MULT | MODULU;
-LOGICAL: '&&' | '||';
+LOGICAL: LOGAND | LOGOR;
 NEG: '!';
 PLUS: '+';
 MINUS: '-';
 DIVIDE: '/';
 MULT: '*';
 MODULU: '%';
+LESSTHAN: '<';
+GREATERTHAN: '>';
+EQUAL: '==';
+NOTEQUAL: '!=';
+LOGAND: '&&';
+LOGOR: '||';
 
 SETUP: 'setup';
 LOOP: 'loop';
@@ -119,7 +128,7 @@ RBRACE: '}';
 LBRACKET: '[';
 RBRACKET: ']';
 END: ';';
-EQUAL: '=';
+ASSIGN: '=';
 NEGATIVE: '~';
 
 HIGH: 'HIGH';
@@ -134,8 +143,8 @@ RETURN: 'return';
 WHILE: 'while';
 
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
-ID: [a-zA-Z_] [a-zA-Z_0-9]*;
 INT: [0-9]+;
+ID: [a-zA-Z_] [a-zA-Z_0-9]*;
 
 COMMENT: '/*' .*?  '*/' -> skip;
 LINECOMMENT: '//' ~( '\r' | '\n' )* -> skip;

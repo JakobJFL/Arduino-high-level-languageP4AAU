@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Call implements Node {
     public Args args;
-    public void setCall(Args e) {
+    public void setArgs(Args e) {
         args = e;
     }
 

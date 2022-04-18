@@ -18,6 +18,7 @@ public class ArrayStmt implements Node {
     public List<Node> GetChildren() {
         List<Node> list = new ArrayList<>();
         list.add(value);
+        list.add(id);
         return list;
     }
 

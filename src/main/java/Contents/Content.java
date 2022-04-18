@@ -30,7 +30,7 @@ public class Content implements Node {
 
     public void setLoopDef(LoopDef f) { this.loopDef = f; }
 
-    public void addContent(Content c) { this.content.add(c); }
+    public void addContent(Content c) { this.content.add(c);}
 
     @Override
     public List<Node> GetChildren() {

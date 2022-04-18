@@ -30,7 +30,6 @@ public class VarDecl implements Node {
     }
 
     @Override
-    public void accept(Node v) {
-        v.accept(this);
-    }
+    public void accept(Node v) {v.accept(this);}
+
 }

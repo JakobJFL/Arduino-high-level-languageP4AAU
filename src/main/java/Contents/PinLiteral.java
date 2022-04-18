@@ -1,5 +1,6 @@
 package Contents;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PinLiteral implements Node {
@@ -24,7 +25,10 @@ public class PinLiteral implements Node {
     }
     @Override
     public List<Node> GetChildren() {
-        return null;
+        List<Node> list = new ArrayList<Node>();
+        list.add(pinNum);
+        list.add(id);
+        return list;
     }
 
     @Override

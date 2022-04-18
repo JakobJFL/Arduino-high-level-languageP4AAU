@@ -1,3 +1,4 @@
+import Contents.Id;
 import Contents.Node;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -31,17 +32,14 @@ public class Main {
         AhllParser.ContentContext CST = parser.program().content();
 
         ASTConverter converter = new ASTConverter();
-        Node AST = converter.visitContent(CST);
-
+        Node node = converter.visitContent(CST);
+        System.out.println("Progame");
+        traverseAST(node, 0);
 
         ///arseTree root = parser.yourOwnRule();
 
         //traverseCST(CST);
-        for (Node n : AST.GetChildren()) {
-            System.out.println(n.getClass().getSimpleName());
 
-        }
-        //traverseAST(AST);
 
         //ParseTree tree = CST.getChild(0);
         //System.out.println(CST.getChild(0).getClass().);
@@ -55,15 +53,17 @@ public class Main {
         */
     }
 
-    public static void traverseAST(Node tree) {
-        if(tree != null) {
-            for (Node n : tree.GetChildren()) {
-                if (n != null) {
-                    System.out.println(n.getClass().getSimpleName());
-                    traverseAST(n);
-                } else {
-                    System.out.println("null");
-                }
+    public static void traverseAST(Node node, int level) {
+        level++;
+        for (Node n : node.GetChildren()) {
+            for (int i = 0; i < level; i++) {
+                System.out.print("-");
+            }
+            if (n != null) {
+                System.out.println(n.getClass().getSimpleName() + " " + n.GetChildren().size());
+                traverseAST(n, level);
+            } else {
+                System.out.println("null");
             }
         }
     }

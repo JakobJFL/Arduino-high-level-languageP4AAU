@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -46,6 +46,16 @@ public interface AhllListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitHead(AhllParser.HeadContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void enterId(AhllParser.IdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void exitId(AhllParser.IdContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#parameters}.
 	 * @param ctx the parse tree
@@ -136,6 +146,16 @@ public interface AhllListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOperator(AhllParser.OperatorContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AhllParser#relational}.
+	 * @param ctx the parse tree
+	 */
+	void enterRelational(AhllParser.RelationalContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AhllParser#relational}.
+	 * @param ctx the parse tree
+	 */
+	void exitRelational(AhllParser.RelationalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AhllParser#readFunc}.
 	 * @param ctx the parse tree

@@ -11,7 +11,9 @@ public class SInt  implements Node {
 
     @Override
     public List<Node> GetChildren() {
-        return null;
+        List<Node> list = new ArrayList<Node>();
+        list.add(sInt);
+        return list;
     }
 
     @Override

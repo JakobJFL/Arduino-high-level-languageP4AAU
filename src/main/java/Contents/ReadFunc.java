@@ -25,7 +25,6 @@ public class ReadFunc implements Node {
     }
 
     @Override
-    public void accept(Node v) {
+    public void accept(Node v) {v.accept(this);}
 
-    }
 }

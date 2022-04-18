@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -58,6 +58,18 @@ public class AhllBaseListener implements AhllListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitHead(AhllParser.HeadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterId(AhllParser.IdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitId(AhllParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -166,6 +178,18 @@ public class AhllBaseListener implements AhllListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOperator(AhllParser.OperatorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRelational(AhllParser.RelationalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRelational(AhllParser.RelationalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

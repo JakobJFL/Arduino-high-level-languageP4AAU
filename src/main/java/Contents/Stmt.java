@@ -13,9 +13,6 @@ public class Stmt implements Node {
     public IfStmt ifStmt;
     public WhileExpr whileExpr;
 
-    public Stmt() {
-    }
-
     public void setReturnExpr(ReturnExpr r) {
         returnExpr = r;
     }

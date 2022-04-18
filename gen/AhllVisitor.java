@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
+// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Ahll.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -33,6 +33,12 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitHead(AhllParser.HeadContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#id}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitId(AhllParser.IdContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#parameters}.
 	 * @param ctx the parse tree
@@ -87,6 +93,12 @@ public interface AhllVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOperator(AhllParser.OperatorContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AhllParser#relational}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRelational(AhllParser.RelationalContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AhllParser#readFunc}.
 	 * @param ctx the parse tree

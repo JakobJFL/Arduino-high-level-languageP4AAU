@@ -7,12 +7,28 @@ import java.util.List;
 public class ASTConverter extends AhllBaseVisitor<Node> {
 
     @Override
+    public Node visitId(AhllParser.IdContext ctx) {
+        Id id = new Id();
+        for (ParseTree t: ctx.children) {
+            Node child = t.accept(this);
+            if (child instanceof Id) {
+                id.setId((Id) child);
+                System.out.println(child);
+            }
+        }
+        return id;
+    }
+
+    @Override
+    public Node visitParameters(AhllParser.ParametersContext ctx) {
+        return super.visitParameters(ctx);
+    }
+
+    @Override
     public Node visitContent(AhllParser.ContentContext ctx) {
-        System.out.println("d");
         Content con = new Content();
         for (ParseTree t: ctx.children) {
              Node child = t.accept(this);
-             // Det er klasserne der er lort - vi ved ikke noget om klasser
              if (child instanceof VarDecl) {
                  con.addVarDecl((VarDecl) child);
              }
@@ -26,7 +42,7 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
                 con.addFuncDefs((FuncDef) child);
              }
              else if (child instanceof Content) {
-                 con.addContent((Content) child);
+                 con.addContent((Content) (child));
              }
         }
         return con;
@@ -64,8 +80,11 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
         Parameter parameter = new Parameter();
         for (ParseTree t : ctx.children) {
             Node child = t.accept(this);
-            if(child instanceof Parameter) {
-                parameter.setParameter((Parameter) child);
+            if(child instanceof Type) {
+                parameter.setType((Type) child);
+            }
+            else if(child instanceof Id) {
+                parameter.setId((Id) child);
             }
         }
         return parameter;
@@ -223,6 +242,22 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
     }
 
     @Override
+    public Node visitRelational(AhllParser.RelationalContext ctx) {
+        Relational relational = new Relational();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+            switch (ctx.RELATIONAL()) {
+                case AhllLexer.GREATERTHAN: relational.setStrVal((Relational) child);
+                case AhllLexer.LESSTHAN:
+
+                break;
+
+            }
+        }
+        return relational;
+    }
+
+    @Override
     public Node visitReadFunc(AhllParser.ReadFuncContext ctx) {
         ReadFunc readFunc = new ReadFunc();
         for (ParseTree t : ctx.children) {
@@ -279,19 +314,15 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
 
     @Override
     public Node visitPinLiteral(AhllParser.PinLiteralContext ctx) {
-        ArrayStmt arrayStmt = new ArrayStmt();
+        PinLiteral pinLiteral = new PinLiteral();
         for (ParseTree t : ctx.children) {
             Node child = t.accept(this);
-
-            if (child instanceof Value) {
-                arrayStmt.setValue((Value) child);
-            }
-            else if (child instanceof Id) {
-                arrayStmt.setId((Id) child);
+            if (child instanceof Id) {
+                pinLiteral.setId((Id) child);
             }
 
         }
-        return arrayStmt;
+        return pinLiteral;
     }
 
     @Override
@@ -300,8 +331,8 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
         for (ParseTree t : ctx.children) {
             Node child = t.accept(this);
 
-            if (child instanceof SInt) {
-                arrayDef.setSize((SInt) child);
+            if (child instanceof int) {
+                arrayDef.setSize((int) child);
             }
             else if (child instanceof Type) {
                 arrayDef.setType((Type) child);
@@ -329,66 +360,160 @@ public class ASTConverter extends AhllBaseVisitor<Node> {
 
         }
         return assign;
-
     }
 
     @Override
     public Node visitReturnExpr(AhllParser.ReturnExprContext ctx) {
-        return super.visitReturnExpr(ctx);
+        ReturnExpr returnExpr = new ReturnExpr();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Expr) {
+                returnExpr.setExpr((Expr) child);
+            }
+        }
+        return returnExpr;
     }
 
     @Override
     public Node visitFuncCall(AhllParser.FuncCallContext ctx) {
-        return super.visitFuncCall(ctx);
+        FuncCall funcCall = new FuncCall();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof FuncCall) {
+                funcCall.setFuncCall((FuncCall) child);
+            }
+            if (child instanceof Call) {
+                funcCall.setCall((Call) child);
+            }
+        }
+        return funcCall;
     }
 
     @Override
     public Node visitCall(AhllParser.CallContext ctx) {
-        return super.visitCall(ctx);
+        Call call = new Call();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Args) {
+                call.setArgs((Args) child);
+            }
+        }
+        return call;
     }
 
     @Override
     public Node visitArgs(AhllParser.ArgsContext ctx) {
-        return super.visitArgs(ctx);
+        Args args = new Args();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Expr) {
+                args.addExpr((Expr) child);
+            }
+        }
+        return args;
     }
 
     @Override
     public Node visitWriteFunc(AhllParser.WriteFuncContext ctx) {
-        return super.visitWriteFunc(ctx);
+        WriteFunc writeFunc = new WriteFunc();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Val) {
+                writeFunc.setVal((Val) child);
+            }
+        }
+        return writeFunc;
     }
 
     @Override
-    public Node visitVal(AhllParser.ValContext ctx) {
-        return super.visitVal(ctx);
+    public Node visitVal(AhllParser.ValContext ctx) { // ik færdig
+        Val val = new Val();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Id) {
+                val.setId((Id) child);
+            }
+        }
+        return val;
     }
 
     @Override
     public Node visitIfStmt(AhllParser.IfStmtContext ctx) {
-        return super.visitIfStmt(ctx);
+        IfStmt ifStmt = new IfStmt();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Body) {
+                ifStmt.setBody((Body) child);
+            }
+            else if (child instanceof ElseStmt) {
+                ifStmt.setElseStmt((ElseStmt) child);
+            }
+        }
+        return ifStmt;
     }
 
     @Override
     public Node visitElseStmt(AhllParser.ElseStmtContext ctx) {
-        return super.visitElseStmt(ctx);
+        ElseStmt elseStmt = new ElseStmt();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Body) {
+                elseStmt.setBody((Body) child);
+            }
+            else if (child instanceof IfStmt) {
+                elseStmt.setIfStmt((IfStmt) child);
+            }
+        }
+        return elseStmt;
     }
 
     @Override
     public Node visitWhileExpr(AhllParser.WhileExprContext ctx) {
-        return super.visitWhileExpr(ctx);
+        WhileExpr whileExpr = new WhileExpr();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Expr) {
+                whileExpr.setExpr((Expr) child);
+            }
+            else if (child instanceof Body) {
+                whileExpr.setBody((Body) child);
+            }
+        }
+        return whileExpr;
     }
 
     @Override
     public Node visitSetupDef(AhllParser.SetupDefContext ctx) {
-        return super.visitSetupDef(ctx);
+        SetupDef setupDef = new SetupDef();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
+
+            if (child instanceof Body) {
+                setupDef.setBody((Body) child);
+            }
+        }
+        return setupDef;
     }
 
     @Override
     public Node visitLoopDef(AhllParser.LoopDefContext ctx) {
-        return super.visitLoopDef(ctx);
-    }
+        LoopDef loopDef = new LoopDef();
+        for (ParseTree t : ctx.children) {
+            Node child = t.accept(this);
 
-    @Override
-    public Node visitComment(AhllParser.CommentContext ctx) {
-        return super.visitComment(ctx);
+            if (child instanceof Body) {
+                loopDef.setBody((Body) child);
+            }
+        }
+        return loopDef;
     }
 }
