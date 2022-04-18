@@ -1,9 +1,8 @@
 package Contents;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Arithmetic implements Node {
+public class Logical implements Node{
 
     @Override
     public List<Node> GetChildren() {

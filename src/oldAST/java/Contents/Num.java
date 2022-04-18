@@ -12,7 +12,7 @@ public class Num implements Node {
     @Override
     public List<Node> GetChildren() {
         List<Node> list = new ArrayList<Node>();
-        list.add(floatVal);
+        //list.add(floatVal);
         return list;
     }
 
@@ -21,4 +21,4 @@ public class Num implements Node {
         v.accept(this);
     }
 }
-}
+
