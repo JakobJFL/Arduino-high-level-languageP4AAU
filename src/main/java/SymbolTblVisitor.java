@@ -1,10 +1,6 @@
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class SymbolTblVisitor extends HlmpBaseVisitor<Void> {
+public class  SymbolTblVisitor extends HlmpBaseVisitor<Void> {
     SymbolTbl symbolTbl = new SymbolTbl();
 
     @Override
@@ -24,13 +20,12 @@ public class SymbolTblVisitor extends HlmpBaseVisitor<Void> {
     public Void visitVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
         Symbol symbol = new VarIdSymbol();
         symbol.setId(ctx.id().getText());
-        symbolTbl.enterScope(ctx);
-        for (ParseTree c : ctx.children) {
-            c.accept(this);
-        }
-        symbolTbl.exitScope();
+        symbolTbl.addSymbol(symbol);
         return null;
     }
+
+
+
 
     @Override
     public Void visitParam(HlmpParser.ParamContext ctx) {

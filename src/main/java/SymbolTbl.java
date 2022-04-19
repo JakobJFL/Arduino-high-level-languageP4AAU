@@ -1,44 +1,45 @@
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class SymbolTbl {
-    public Scope globalScope; //skal vel defineres
+    public Scope globalScope; //--skal vel defineres
     public Scope currentScope = globalScope;
-//Add method to reset symbol table, when we shift between visitors
+//--Add method to reset symbol table, when we shift between visitors
 
     public void enterScope(ParseTree node) {
-        for (Scope s: currentScope.subScopes) {
+        for (Scope s: currentScope.getSubScopes()) {
             if (node == s.associatedNode) {
                 currentScope = s;
                 return;
             }
         }
+        //No match in loop, so we need to add a new scope
         Scope scope = new Scope(currentScope, node);
-        currentScope.subScopes.add(scope); //No match in loop, so we need to add a new scope
+        currentScope.addSubScope(scope);
         currentScope = scope;
     }
 
     public void addSymbol(Symbol symbol){
-        currentScope.addSymbol(symbol);
+        if (!currentScope.addSymbol(symbol))
+            System.out.println("The symbol is already in dictionary!!!!!");
     }
 
-    public Symbol getSymbol(String id) { //overvej dictionary
-        for (String : currentScope.symbolList) {
+    public Symbol getSymbol(String id) {
+        return getSymbolHelper(id, currentScope);
+    }
 
+    public Symbol getSymbolHelper(String id, Scope scope) {
+        if (scope.containsId(id)) {
+            return scope.getSymbol(id);
         }
-        currentScope.parent.symbolList;
-    }
-
-    public Symbol res(Scope scope) { //If no parents are left, throw error or return null
-        for (Symbol s: scope.parent.symbolList) {
-            if ()
-                return s;
+        else {
+            if (scope.parent != null) {
+                getSymbolHelper(id, scope.parent);
+            }
         }
-        if (scope.parent != null)
-            res(scope.parent);
-        else return null;
+        return null; //If no parents are left, return null
     }
 
-    public void exitScope() { //nice
+    public void exitScope() {
         currentScope = currentScope.parent;
     }
 }
