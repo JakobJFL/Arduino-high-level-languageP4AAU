@@ -1,7 +1,7 @@
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class SymbolTbl {
-    public Scope globalScope;
+    public Scope globalScope; //skal vel defineres
     public Scope currentScope = globalScope;
 //Add method to reset symbol table, when we shift between visitors
 
@@ -22,19 +22,20 @@ public class SymbolTbl {
     }
 
     public Symbol getSymbol(String id) { //overvej dictionary
-        for (String : currentScope.SymbolList) {
+        for (String : currentScope.symbolList) {
 
         }
-        currentScope.parent.SymbolList
+        currentScope.parent.symbolList;
     }
 
     public Symbol res(Scope scope) { //If no parents are left, throw error or return null
-        for (Symbol s: scope.parent.SymbolList) {
+        for (Symbol s: scope.parent.symbolList) {
             if ()
                 return s;
         }
         if (scope.parent != null)
             res(scope.parent);
+        else return null;
     }
 
     public void exitScope() { //nice

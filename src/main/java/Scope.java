@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scope {
-    List<Symbol> symbolList = new ArrayList<>();
+    public List<Symbol> symbolList = new ArrayList<>();
     public List<Scope> subScopes = new ArrayList<>();
     public Scope parent;
     public ParseTree associatedNode;

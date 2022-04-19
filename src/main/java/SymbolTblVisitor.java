@@ -9,7 +9,7 @@ public class SymbolTblVisitor extends HlmpBaseVisitor<Void> {
 
     @Override
     public Void visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        Symbol symbol = new VarIdSymbol();
+        Symbol symbol = new FuncIdSymbol();
         symbol.setId(ctx.head().id().getText());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(ctx);
@@ -20,65 +20,100 @@ public class SymbolTblVisitor extends HlmpBaseVisitor<Void> {
         return null;
     }
 
-
-    public void visitVarDecl(HlmpParser.FuncDefinitionContext ctx) {
-        symbolTbl.addSymbol(ctx.head().id());
-    }
-
-
     @Override
-    public void exitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        closeScope();
-    }
-
-    private void defineFunctionDefinitionSymbol(HlmpParser.HeadContext HeadCtx) {
-        // Gets lists of parameters and converts them into a list of types
-        ArrayList<Integer> argumentList = getFuncDefParamTypes(HeadCtx);
-        FuncdefSymbol symbol = new FuncdefSymbol(HeadCtx.id().getText(), HeadCtx.type().start.getType(), argumentList);
-        currentScope.defineSymbol(symbol);
-
+    public Void visitVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
+        Symbol symbol = new VarIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        symbolTbl.exitScope();
+        return null;
     }
 
     @Override
-    public void exitParams(HlmpParser.ParamsContext  ctx) {
-        List<HlmpParser.ParameterContext> params = ctx.parameter();
-        for (HlmpParser.ParameterContext param : params)
-            defineParamSymbol(param);
-    }
-
-    public void defineParamSymbol(TypeAndIdContext ctx) {
-        Integer paramType = ctx.type().start.getType();
-        Symbol paramSymbol = new Symbol(ctx.ID().getText(), paramType);
-        try {
-            currentScope.defineSymbol(paramSymbol);
-        } catch (Exception e) {
-            errorListener.ThrowError(e.getMessage(), ctx.ID().getSymbol());
+    public Void visitParam(HlmpParser.ParamContext ctx) {
+        Symbol symbol = new ParamIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
         }
-
-        attachScope(ctx, currentScope);
+        symbolTbl.exitScope();
+        return null;
     }
 
-    private void closeScope() {
-        currentScope = currentScope.getEnclosingScope();
-    }
-
-    private ArrayList<Integer> getFuncDefParamTypes(HlmpParser.HeadContext ctx) {
-        ArrayList<Integer> argumentList = new ArrayList<>();
-        if (ctx != null) {
-            for (HlmpParser.ParameterContext param: ctx.parameter()) {
-                argumentList.add(param.getStart().getType());
-            };
+    @Override
+    public Void visitOperandId(HlmpParser.OperandIdContext ctx) {
+        Symbol symbol = new OperandIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
         }
-        return argumentList;
+        symbolTbl.exitScope();
+        return null;
     }
 
-    private void makeAndAttachNewScope(ParserRuleContext ctx) {
-        Scope newScope = new BaseScope(currentScope);
-        attachScope(ctx, newScope);
-        currentScope = newScope;
+    @Override
+    public Void visitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) {
+        Symbol symbol = new PinLiteralIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        symbolTbl.exitScope();
+        return null;
     }
 
-    private void attachScope(ParserRuleContext ctx, Scope s) {
-        scopes.put(ctx, s);
+    @Override
+    public Void visitAssignExpr(HlmpParser.AssignExprContext ctx) {
+        Symbol symbol = new AssignIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        symbolTbl.exitScope();
+        return null;
     }
+
+    @Override
+    public Void visitFCall(HlmpParser.FCallContext ctx) {
+        Symbol symbol = new FCallIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        symbolTbl.exitScope();
+        return null;
+    }
+
+    @Override
+    public Void visitWriteFuncDef(HlmpParser.WriteFuncDefContext ctx) {
+        Symbol symbol = new WriteFuncDefIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        symbolTbl.exitScope();
+        return null;
+    }
+
+    @Override
+    public Void visitValue(HlmpParser.ValueContext ctx) {
+        Symbol symbol = new ValueIdSymbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.enterScope(ctx);
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        symbolTbl.exitScope();
+        return null;
+    }
+
 }
