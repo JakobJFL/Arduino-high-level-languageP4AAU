@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Hlmp.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Hlmp.g4 by ANTLR 4.9.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -17,25 +17,65 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitProgram(HlmpParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#content}.
+	 * Enter a parse tree produced by the {@code cntFuncDef}
+	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
 	 */
-	void enterContent(HlmpParser.ContentContext ctx);
+	void enterCntFuncDef(HlmpParser.CntFuncDefContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#content}.
+	 * Exit a parse tree produced by the {@code cntFuncDef}
+	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
 	 */
-	void exitContent(HlmpParser.ContentContext ctx);
+	void exitCntFuncDef(HlmpParser.CntFuncDefContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#funcDef}.
+	 * Enter a parse tree produced by the {@code standardFunc}
+	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
 	 */
-	void enterFuncDef(HlmpParser.FuncDefContext ctx);
+	void enterStandardFunc(HlmpParser.StandardFuncContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#funcDef}.
+	 * Exit a parse tree produced by the {@code standardFunc}
+	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
 	 */
-	void exitFuncDef(HlmpParser.FuncDefContext ctx);
+	void exitStandardFunc(HlmpParser.StandardFuncContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cntvarDecl}
+	 * labeled alternative in {@link HlmpParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void enterCntvarDecl(HlmpParser.CntvarDeclContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cntvarDecl}
+	 * labeled alternative in {@link HlmpParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void exitCntvarDecl(HlmpParser.CntvarDeclContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code cntComment}
+	 * labeled alternative in {@link HlmpParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void enterCntComment(HlmpParser.CntCommentContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code cntComment}
+	 * labeled alternative in {@link HlmpParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void exitCntComment(HlmpParser.CntCommentContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcDefinition}
+	 * labeled alternative in {@link HlmpParser#funcDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncDefinition(HlmpParser.FuncDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcDefinition}
+	 * labeled alternative in {@link HlmpParser#funcDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncDefinition(HlmpParser.FuncDefinitionContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HlmpParser#head}.
 	 * @param ctx the parse tree
@@ -47,263 +87,543 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitHead(HlmpParser.HeadContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#id}.
+	 * Enter a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
 	 * @param ctx the parse tree
 	 */
-	void enterId(HlmpParser.IdContext ctx);
+	void enterIdentifier(HlmpParser.IdentifierContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#id}.
+	 * Exit a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
 	 * @param ctx the parse tree
 	 */
-	void exitId(HlmpParser.IdContext ctx);
+	void exitIdentifier(HlmpParser.IdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#parameters}.
+	 * Enter a parse tree produced by the {@code params}
+	 * labeled alternative in {@link HlmpParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameters(HlmpParser.ParametersContext ctx);
+	void enterParams(HlmpParser.ParamsContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#parameters}.
+	 * Exit a parse tree produced by the {@code params}
+	 * labeled alternative in {@link HlmpParser#parameters}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameters(HlmpParser.ParametersContext ctx);
+	void exitParams(HlmpParser.ParamsContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#parameter}.
+	 * Enter a parse tree produced by the {@code param}
+	 * labeled alternative in {@link HlmpParser#parameter}.
 	 * @param ctx the parse tree
 	 */
-	void enterParameter(HlmpParser.ParameterContext ctx);
+	void enterParam(HlmpParser.ParamContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#parameter}.
+	 * Exit a parse tree produced by the {@code param}
+	 * labeled alternative in {@link HlmpParser#parameter}.
 	 * @param ctx the parse tree
 	 */
-	void exitParameter(HlmpParser.ParameterContext ctx);
+	void exitParam(HlmpParser.ParamContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#body}.
+	 * Enter a parse tree produced by the {@code aType}
+	 * labeled alternative in {@link HlmpParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void enterBody(HlmpParser.BodyContext ctx);
+	void enterAType(HlmpParser.ATypeContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#body}.
+	 * Exit a parse tree produced by the {@code aType}
+	 * labeled alternative in {@link HlmpParser#type}.
 	 * @param ctx the parse tree
 	 */
-	void exitBody(HlmpParser.BodyContext ctx);
+	void exitAType(HlmpParser.ATypeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#stmt}.
+	 * Enter a parse tree produced by the {@code bodyStmt}
+	 * labeled alternative in {@link HlmpParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void enterStmt(HlmpParser.StmtContext ctx);
+	void enterBodyStmt(HlmpParser.BodyStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#stmt}.
+	 * Exit a parse tree produced by the {@code bodyStmt}
+	 * labeled alternative in {@link HlmpParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void exitStmt(HlmpParser.StmtContext ctx);
+	void exitBodyStmt(HlmpParser.BodyStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#varDecl}.
+	 * Enter a parse tree produced by the {@code bodyFuncDef}
+	 * labeled alternative in {@link HlmpParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void enterVarDecl(HlmpParser.VarDeclContext ctx);
+	void enterBodyFuncDef(HlmpParser.BodyFuncDefContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#varDecl}.
+	 * Exit a parse tree produced by the {@code bodyFuncDef}
+	 * labeled alternative in {@link HlmpParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void exitVarDecl(HlmpParser.VarDeclContext ctx);
+	void exitBodyFuncDef(HlmpParser.BodyFuncDefContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#expr}.
+	 * Enter a parse tree produced by the {@code bodyComment}
+	 * labeled alternative in {@link HlmpParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpr(HlmpParser.ExprContext ctx);
+	void enterBodyComment(HlmpParser.BodyCommentContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#expr}.
+	 * Exit a parse tree produced by the {@code bodyComment}
+	 * labeled alternative in {@link HlmpParser#body}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpr(HlmpParser.ExprContext ctx);
+	void exitBodyComment(HlmpParser.BodyCommentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#operand}.
+	 * Enter a parse tree produced by the {@code stmtVarDecl}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperand(HlmpParser.OperandContext ctx);
+	void enterStmtVarDecl(HlmpParser.StmtVarDeclContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#operand}.
+	 * Exit a parse tree produced by the {@code stmtVarDecl}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperand(HlmpParser.OperandContext ctx);
+	void exitStmtVarDecl(HlmpParser.StmtVarDeclContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#sInt}.
+	 * Enter a parse tree produced by the {@code stmtAssign}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterSInt(HlmpParser.SIntContext ctx);
+	void enterStmtAssign(HlmpParser.StmtAssignContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#sInt}.
+	 * Exit a parse tree produced by the {@code stmtAssign}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitSInt(HlmpParser.SIntContext ctx);
+	void exitStmtAssign(HlmpParser.StmtAssignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#operator}.
+	 * Enter a parse tree produced by the {@code stmtReturnExpr}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperator(HlmpParser.OperatorContext ctx);
+	void enterStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#operator}.
+	 * Exit a parse tree produced by the {@code stmtReturnExpr}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperator(HlmpParser.OperatorContext ctx);
+	void exitStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#relational}.
+	 * Enter a parse tree produced by the {@code stmtFuncCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterRelational(HlmpParser.RelationalContext ctx);
+	void enterStmtFuncCall(HlmpParser.StmtFuncCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#relational}.
+	 * Exit a parse tree produced by the {@code stmtFuncCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitRelational(HlmpParser.RelationalContext ctx);
+	void exitStmtFuncCall(HlmpParser.StmtFuncCallContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#readFunc}.
+	 * Enter a parse tree produced by the {@code stmtWriteFunc}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterReadFunc(HlmpParser.ReadFuncContext ctx);
+	void enterStmtWriteFunc(HlmpParser.StmtWriteFuncContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#readFunc}.
+	 * Exit a parse tree produced by the {@code stmtWriteFunc}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitReadFunc(HlmpParser.ReadFuncContext ctx);
+	void exitStmtWriteFunc(HlmpParser.StmtWriteFuncContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#pinLiteral}.
+	 * Enter a parse tree produced by the {@code stmtReadFunc}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterPinLiteral(HlmpParser.PinLiteralContext ctx);
+	void enterStmtReadFunc(HlmpParser.StmtReadFuncContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#pinLiteral}.
+	 * Exit a parse tree produced by the {@code stmtReadFunc}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitPinLiteral(HlmpParser.PinLiteralContext ctx);
+	void exitStmtReadFunc(HlmpParser.StmtReadFuncContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#assign}.
+	 * Enter a parse tree produced by the {@code stmtIfStmt}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterAssign(HlmpParser.AssignContext ctx);
+	void enterStmtIfStmt(HlmpParser.StmtIfStmtContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#assign}.
+	 * Exit a parse tree produced by the {@code stmtIfStmt}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitAssign(HlmpParser.AssignContext ctx);
+	void exitStmtIfStmt(HlmpParser.StmtIfStmtContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#returnExpr}.
+	 * Enter a parse tree produced by the {@code stmtWhileExpr}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterReturnExpr(HlmpParser.ReturnExprContext ctx);
+	void enterStmtWhileExpr(HlmpParser.StmtWhileExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#returnExpr}.
+	 * Exit a parse tree produced by the {@code stmtWhileExpr}
+	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitReturnExpr(HlmpParser.ReturnExprContext ctx);
+	void exitStmtWhileExpr(HlmpParser.StmtWhileExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#funcCall}.
+	 * Enter a parse tree produced by the {@code varDeclaration}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterFuncCall(HlmpParser.FuncCallContext ctx);
+	void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#funcCall}.
+	 * Exit a parse tree produced by the {@code varDeclaration}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitFuncCall(HlmpParser.FuncCallContext ctx);
+	void exitVarDeclaration(HlmpParser.VarDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#call}.
+	 * Enter a parse tree produced by the {@code varDeclExpr}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterCall(HlmpParser.CallContext ctx);
+	void enterVarDeclExpr(HlmpParser.VarDeclExprContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#call}.
+	 * Exit a parse tree produced by the {@code varDeclExpr}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitCall(HlmpParser.CallContext ctx);
+	void exitVarDeclExpr(HlmpParser.VarDeclExprContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#args}.
+	 * Enter a parse tree produced by the {@code varDeclPinLiteral}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
 	 */
-	void enterArgs(HlmpParser.ArgsContext ctx);
+	void enterVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#args}.
+	 * Exit a parse tree produced by the {@code varDeclPinLiteral}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
 	 */
-	void exitArgs(HlmpParser.ArgsContext ctx);
+	void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#writeFunc}.
+	 * Enter a parse tree produced by the {@code exprOperand}
+	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterWriteFunc(HlmpParser.WriteFuncContext ctx);
+	void enterExprOperand(HlmpParser.ExprOperandContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#writeFunc}.
+	 * Exit a parse tree produced by the {@code exprOperand}
+	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitWriteFunc(HlmpParser.WriteFuncContext ctx);
+	void exitExprOperand(HlmpParser.ExprOperandContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#val}.
+	 * Enter a parse tree produced by the {@code exprReadFunc}
+	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterVal(HlmpParser.ValContext ctx);
+	void enterExprReadFunc(HlmpParser.ExprReadFuncContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#val}.
+	 * Exit a parse tree produced by the {@code exprReadFunc}
+	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitVal(HlmpParser.ValContext ctx);
+	void exitExprReadFunc(HlmpParser.ExprReadFuncContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#ifStmt}.
+	 * Enter a parse tree produced by the {@code operandId}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void enterIfStmt(HlmpParser.IfStmtContext ctx);
+	void enterOperandId(HlmpParser.OperandIdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#ifStmt}.
+	 * Exit a parse tree produced by the {@code operandId}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void exitIfStmt(HlmpParser.IfStmtContext ctx);
+	void exitOperandId(HlmpParser.OperandIdContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#elseStmt}.
+	 * Enter a parse tree produced by the {@code operandSInt}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void enterElseStmt(HlmpParser.ElseStmtContext ctx);
+	void enterOperandSInt(HlmpParser.OperandSIntContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#elseStmt}.
+	 * Exit a parse tree produced by the {@code operandSInt}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void exitElseStmt(HlmpParser.ElseStmtContext ctx);
+	void exitOperandSInt(HlmpParser.OperandSIntContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#whileExpr}.
+	 * Enter a parse tree produced by the {@code operandBool}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void enterWhileExpr(HlmpParser.WhileExprContext ctx);
+	void enterOperandBool(HlmpParser.OperandBoolContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#whileExpr}.
+	 * Exit a parse tree produced by the {@code operandBool}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void exitWhileExpr(HlmpParser.WhileExprContext ctx);
+	void exitOperandBool(HlmpParser.OperandBoolContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#setupDef}.
+	 * Enter a parse tree produced by the {@code operandFuncCall}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void enterSetupDef(HlmpParser.SetupDefContext ctx);
+	void enterOperandFuncCall(HlmpParser.OperandFuncCallContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#setupDef}.
+	 * Exit a parse tree produced by the {@code operandFuncCall}
+	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void exitSetupDef(HlmpParser.SetupDefContext ctx);
+	void exitOperandFuncCall(HlmpParser.OperandFuncCallContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#loopDef}.
+	 * Enter a parse tree produced by the {@code opRelational}
+	 * labeled alternative in {@link HlmpParser#operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterLoopDef(HlmpParser.LoopDefContext ctx);
+	void enterOpRelational(HlmpParser.OpRelationalContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#loopDef}.
+	 * Exit a parse tree produced by the {@code opRelational}
+	 * labeled alternative in {@link HlmpParser#operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitLoopDef(HlmpParser.LoopDefContext ctx);
+	void exitOpRelational(HlmpParser.OpRelationalContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#comment}.
+	 * Enter a parse tree produced by the {@code operatorArithmetic}
+	 * labeled alternative in {@link HlmpParser#operator}.
 	 * @param ctx the parse tree
 	 */
-	void enterComment(HlmpParser.CommentContext ctx);
+	void enterOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#comment}.
+	 * Exit a parse tree produced by the {@code operatorArithmetic}
+	 * labeled alternative in {@link HlmpParser#operator}.
 	 * @param ctx the parse tree
 	 */
-	void exitComment(HlmpParser.CommentContext ctx);
+	void exitOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code operatorLog}
+	 * labeled alternative in {@link HlmpParser#operator}.
+	 * @param ctx the parse tree
+	 */
+	void enterOperatorLog(HlmpParser.OperatorLogContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code operatorLog}
+	 * labeled alternative in {@link HlmpParser#operator}.
+	 * @param ctx the parse tree
+	 */
+	void exitOperatorLog(HlmpParser.OperatorLogContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code readFuncPWM}
+	 * labeled alternative in {@link HlmpParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code readFuncPWM}
+	 * labeled alternative in {@link HlmpParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code readFuncAnal}
+	 * labeled alternative in {@link HlmpParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code readFuncAnal}
+	 * labeled alternative in {@link HlmpParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code readFuncDig}
+	 * labeled alternative in {@link HlmpParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterReadFuncDig(HlmpParser.ReadFuncDigContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code readFuncDig}
+	 * labeled alternative in {@link HlmpParser#readFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitReadFuncDig(HlmpParser.ReadFuncDigContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code pinLiteralDef}
+	 * labeled alternative in {@link HlmpParser#pinLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code pinLiteralDef}
+	 * labeled alternative in {@link HlmpParser#pinLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code assignExpr}
+	 * labeled alternative in {@link HlmpParser#assign}.
+	 * @param ctx the parse tree
+	 */
+	void enterAssignExpr(HlmpParser.AssignExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code assignExpr}
+	 * labeled alternative in {@link HlmpParser#assign}.
+	 * @param ctx the parse tree
+	 */
+	void exitAssignExpr(HlmpParser.AssignExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code returnExpression}
+	 * labeled alternative in {@link HlmpParser#returnExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterReturnExpression(HlmpParser.ReturnExpressionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code returnExpression}
+	 * labeled alternative in {@link HlmpParser#returnExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitReturnExpression(HlmpParser.ReturnExpressionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code functionCall}
+	 * labeled alternative in {@link HlmpParser#funcCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCall(HlmpParser.FunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code functionCall}
+	 * labeled alternative in {@link HlmpParser#funcCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCall(HlmpParser.FunctionCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code fCall}
+	 * labeled alternative in {@link HlmpParser#call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFCall(HlmpParser.FCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fCall}
+	 * labeled alternative in {@link HlmpParser#call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFCall(HlmpParser.FCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code arguments}
+	 * labeled alternative in {@link HlmpParser#args}.
+	 * @param ctx the parse tree
+	 */
+	void enterArguments(HlmpParser.ArgumentsContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code arguments}
+	 * labeled alternative in {@link HlmpParser#args}.
+	 * @param ctx the parse tree
+	 */
+	void exitArguments(HlmpParser.ArgumentsContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code writeFuncDef}
+	 * labeled alternative in {@link HlmpParser#writeFunc}.
+	 * @param ctx the parse tree
+	 */
+	void enterWriteFuncDef(HlmpParser.WriteFuncDefContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code writeFuncDef}
+	 * labeled alternative in {@link HlmpParser#writeFunc}.
+	 * @param ctx the parse tree
+	 */
+	void exitWriteFuncDef(HlmpParser.WriteFuncDefContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code value}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void enterValue(HlmpParser.ValueContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code value}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void exitValue(HlmpParser.ValueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ifStmtDef}
+	 * labeled alternative in {@link HlmpParser#ifStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterIfStmtDef(HlmpParser.IfStmtDefContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ifStmtDef}
+	 * labeled alternative in {@link HlmpParser#ifStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitIfStmtDef(HlmpParser.IfStmtDefContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code elseSTtmt}
+	 * labeled alternative in {@link HlmpParser#elseStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseSTtmt(HlmpParser.ElseSTtmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code elseSTtmt}
+	 * labeled alternative in {@link HlmpParser#elseStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseSTtmt(HlmpParser.ElseSTtmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code elseIfStmt}
+	 * labeled alternative in {@link HlmpParser#elseStmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterElseIfStmt(HlmpParser.ElseIfStmtContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code elseIfStmt}
+	 * labeled alternative in {@link HlmpParser#elseStmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitElseIfStmt(HlmpParser.ElseIfStmtContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code whileExprDef}
+	 * labeled alternative in {@link HlmpParser#whileExpr}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileExprDef(HlmpParser.WhileExprDefContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code whileExprDef}
+	 * labeled alternative in {@link HlmpParser#whileExpr}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileExprDef(HlmpParser.WhileExprDefContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code setupDefinition}
+	 * labeled alternative in {@link HlmpParser#setupDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterSetupDefinition(HlmpParser.SetupDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code setupDefinition}
+	 * labeled alternative in {@link HlmpParser#setupDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitSetupDefinition(HlmpParser.SetupDefinitionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code loopDefinition}
+	 * labeled alternative in {@link HlmpParser#loopDef}.
+	 * @param ctx the parse tree
+	 */
+	void enterLoopDefinition(HlmpParser.LoopDefinitionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code loopDefinition}
+	 * labeled alternative in {@link HlmpParser#loopDef}.
+	 * @param ctx the parse tree
+	 */
+	void exitLoopDefinition(HlmpParser.LoopDefinitionContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code commentDel}
+	 * labeled alternative in {@link HlmpParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void enterCommentDel(HlmpParser.CommentDelContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code commentDel}
+	 * labeled alternative in {@link HlmpParser#comment}.
+	 * @param ctx the parse tree
+	 */
+	void exitCommentDel(HlmpParser.CommentDelContext ctx);
 }

@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Hlmp.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/main/java\Hlmp.g4 by ANTLR 4.9.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -27,25 +27,61 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterContent(HlmpParser.ContentContext ctx) { }
+	@Override public void enterCntFuncDef(HlmpParser.CntFuncDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitContent(HlmpParser.ContentContext ctx) { }
+	@Override public void exitCntFuncDef(HlmpParser.CntFuncDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncDef(HlmpParser.FuncDefContext ctx) { }
+	@Override public void enterStandardFunc(HlmpParser.StandardFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncDef(HlmpParser.FuncDefContext ctx) { }
+	@Override public void exitStandardFunc(HlmpParser.StandardFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCntvarDecl(HlmpParser.CntvarDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCntvarDecl(HlmpParser.CntvarDeclContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCntComment(HlmpParser.CntCommentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCntComment(HlmpParser.CntCommentContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncDefinition(HlmpParser.FuncDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -63,313 +99,541 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId(HlmpParser.IdContext ctx) { }
+	@Override public void enterIdentifier(HlmpParser.IdentifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitId(HlmpParser.IdContext ctx) { }
+	@Override public void exitIdentifier(HlmpParser.IdentifierContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameters(HlmpParser.ParametersContext ctx) { }
+	@Override public void enterParams(HlmpParser.ParamsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameters(HlmpParser.ParametersContext ctx) { }
+	@Override public void exitParams(HlmpParser.ParamsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameter(HlmpParser.ParameterContext ctx) { }
+	@Override public void enterParam(HlmpParser.ParamContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameter(HlmpParser.ParameterContext ctx) { }
+	@Override public void exitParam(HlmpParser.ParamContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBody(HlmpParser.BodyContext ctx) { }
+	@Override public void enterAType(HlmpParser.ATypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBody(HlmpParser.BodyContext ctx) { }
+	@Override public void exitAType(HlmpParser.ATypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStmt(HlmpParser.StmtContext ctx) { }
+	@Override public void enterBodyStmt(HlmpParser.BodyStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStmt(HlmpParser.StmtContext ctx) { }
+	@Override public void exitBodyStmt(HlmpParser.BodyStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVarDecl(HlmpParser.VarDeclContext ctx) { }
+	@Override public void enterBodyFuncDef(HlmpParser.BodyFuncDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVarDecl(HlmpParser.VarDeclContext ctx) { }
+	@Override public void exitBodyFuncDef(HlmpParser.BodyFuncDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpr(HlmpParser.ExprContext ctx) { }
+	@Override public void enterBodyComment(HlmpParser.BodyCommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpr(HlmpParser.ExprContext ctx) { }
+	@Override public void exitBodyComment(HlmpParser.BodyCommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperand(HlmpParser.OperandContext ctx) { }
+	@Override public void enterStmtVarDecl(HlmpParser.StmtVarDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperand(HlmpParser.OperandContext ctx) { }
+	@Override public void exitStmtVarDecl(HlmpParser.StmtVarDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSInt(HlmpParser.SIntContext ctx) { }
+	@Override public void enterStmtAssign(HlmpParser.StmtAssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSInt(HlmpParser.SIntContext ctx) { }
+	@Override public void exitStmtAssign(HlmpParser.StmtAssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperator(HlmpParser.OperatorContext ctx) { }
+	@Override public void enterStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperator(HlmpParser.OperatorContext ctx) { }
+	@Override public void exitStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRelational(HlmpParser.RelationalContext ctx) { }
+	@Override public void enterStmtFuncCall(HlmpParser.StmtFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRelational(HlmpParser.RelationalContext ctx) { }
+	@Override public void exitStmtFuncCall(HlmpParser.StmtFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReadFunc(HlmpParser.ReadFuncContext ctx) { }
+	@Override public void enterStmtWriteFunc(HlmpParser.StmtWriteFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReadFunc(HlmpParser.ReadFuncContext ctx) { }
+	@Override public void exitStmtWriteFunc(HlmpParser.StmtWriteFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPinLiteral(HlmpParser.PinLiteralContext ctx) { }
+	@Override public void enterStmtReadFunc(HlmpParser.StmtReadFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPinLiteral(HlmpParser.PinLiteralContext ctx) { }
+	@Override public void exitStmtReadFunc(HlmpParser.StmtReadFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssign(HlmpParser.AssignContext ctx) { }
+	@Override public void enterStmtIfStmt(HlmpParser.StmtIfStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssign(HlmpParser.AssignContext ctx) { }
+	@Override public void exitStmtIfStmt(HlmpParser.StmtIfStmtContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnExpr(HlmpParser.ReturnExprContext ctx) { }
+	@Override public void enterStmtWhileExpr(HlmpParser.StmtWhileExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturnExpr(HlmpParser.ReturnExprContext ctx) { }
+	@Override public void exitStmtWhileExpr(HlmpParser.StmtWhileExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncCall(HlmpParser.FuncCallContext ctx) { }
+	@Override public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncCall(HlmpParser.FuncCallContext ctx) { }
+	@Override public void exitVarDeclaration(HlmpParser.VarDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCall(HlmpParser.CallContext ctx) { }
+	@Override public void enterVarDeclExpr(HlmpParser.VarDeclExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCall(HlmpParser.CallContext ctx) { }
+	@Override public void exitVarDeclExpr(HlmpParser.VarDeclExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgs(HlmpParser.ArgsContext ctx) { }
+	@Override public void enterVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgs(HlmpParser.ArgsContext ctx) { }
+	@Override public void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWriteFunc(HlmpParser.WriteFuncContext ctx) { }
+	@Override public void enterExprOperand(HlmpParser.ExprOperandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWriteFunc(HlmpParser.WriteFuncContext ctx) { }
+	@Override public void exitExprOperand(HlmpParser.ExprOperandContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVal(HlmpParser.ValContext ctx) { }
+	@Override public void enterExprReadFunc(HlmpParser.ExprReadFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVal(HlmpParser.ValContext ctx) { }
+	@Override public void exitExprReadFunc(HlmpParser.ExprReadFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfStmt(HlmpParser.IfStmtContext ctx) { }
+	@Override public void enterOperandId(HlmpParser.OperandIdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfStmt(HlmpParser.IfStmtContext ctx) { }
+	@Override public void exitOperandId(HlmpParser.OperandIdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElseStmt(HlmpParser.ElseStmtContext ctx) { }
+	@Override public void enterOperandSInt(HlmpParser.OperandSIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElseStmt(HlmpParser.ElseStmtContext ctx) { }
+	@Override public void exitOperandSInt(HlmpParser.OperandSIntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhileExpr(HlmpParser.WhileExprContext ctx) { }
+	@Override public void enterOperandBool(HlmpParser.OperandBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhileExpr(HlmpParser.WhileExprContext ctx) { }
+	@Override public void exitOperandBool(HlmpParser.OperandBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSetupDef(HlmpParser.SetupDefContext ctx) { }
+	@Override public void enterOperandFuncCall(HlmpParser.OperandFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSetupDef(HlmpParser.SetupDefContext ctx) { }
+	@Override public void exitOperandFuncCall(HlmpParser.OperandFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLoopDef(HlmpParser.LoopDefContext ctx) { }
+	@Override public void enterOpRelational(HlmpParser.OpRelationalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLoopDef(HlmpParser.LoopDefContext ctx) { }
+	@Override public void exitOpRelational(HlmpParser.OpRelationalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterComment(HlmpParser.CommentContext ctx) { }
+	@Override public void enterOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitComment(HlmpParser.CommentContext ctx) { }
+	@Override public void exitOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperatorLog(HlmpParser.OperatorLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperatorLog(HlmpParser.OperatorLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReadFuncDig(HlmpParser.ReadFuncDigContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReadFuncDig(HlmpParser.ReadFuncDigContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAssignExpr(HlmpParser.AssignExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAssignExpr(HlmpParser.AssignExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterReturnExpression(HlmpParser.ReturnExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitReturnExpression(HlmpParser.ReturnExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionCall(HlmpParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCall(HlmpParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFCall(HlmpParser.FCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFCall(HlmpParser.FCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArguments(HlmpParser.ArgumentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArguments(HlmpParser.ArgumentsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWriteFuncDef(HlmpParser.WriteFuncDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWriteFuncDef(HlmpParser.WriteFuncDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValue(HlmpParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValue(HlmpParser.ValueContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfStmtDef(HlmpParser.IfStmtDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfStmtDef(HlmpParser.IfStmtDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElseSTtmt(HlmpParser.ElseSTtmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseSTtmt(HlmpParser.ElseSTtmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterElseIfStmt(HlmpParser.ElseIfStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitElseIfStmt(HlmpParser.ElseIfStmtContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhileExprDef(HlmpParser.WhileExprDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhileExprDef(HlmpParser.WhileExprDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSetupDefinition(HlmpParser.SetupDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSetupDefinition(HlmpParser.SetupDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterLoopDefinition(HlmpParser.LoopDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitLoopDefinition(HlmpParser.LoopDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCommentDel(HlmpParser.CommentDelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCommentDel(HlmpParser.CommentDelContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

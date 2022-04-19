@@ -2,88 +2,95 @@ grammar Hlmp;
 //Parse Rules
 program: content;
 
-content: funcDef?
-       | funcDef content
-       | setupDef loopDef content
-       | loopDef setupDef content
-       | varDecl END content
-       | comment content;
+content: funcDef?                                           #cntFuncDef
+       | funcDef content                                    #cntFuncDef
+       | setupDef loopDef content                           #standardFunc
+       | loopDef setupDef content                           #standardFunc
+       | varDecl END content                                #cntvarDecl
+       | comment content                                    #cntComment;
 
-funcDef: head LBRACE body RBRACE;
+funcDef: head LBRACE body RBRACE                            #funcDefinition;
 
 head: FUNC id LPAREN RPAREN
-    | FUNC TYPE id LPAREN RPAREN
-    | FUNC id LPAREN parameters RPAREN
-    | FUNC TYPE id LPAREN parameters RPAREN;
+    | FUNC type id LPAREN RPAREN
+    | FUNC id LPAREN (parameter (',' parameter)*)?  RPAREN
+    | FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
 
-id : ID;
+id : ID                                                     #identifier;
 
-parameters: parameter
-          | parameter ',' parameters;
+parameters: parameter                                       #params
+          | parameter ',' parameters                        #params;
 
-parameter: TYPE id;
+parameter: type id                                          #param;
 
-body: stmt?
-    | stmt body
-    | funcDef body
-    | comment body;
+type: TYPE                                                  #aType;
 
-stmt: varDecl END
-    | assign END
-    | returnExpr END
-    | funcCall END
-    | writeFunc END
-    | readFunc END
-    | ifStmt
-    | whileExpr;
+body: stmt?                                                 #bodyStmt
+    | stmt body                                             #bodyStmt
+    | funcDef body                                          #bodyFuncDef
+    | comment body                                          #bodyComment;
 
-varDecl: TYPE id
-       | TYPE id ASSIGN expr
-       | pinLiteral;
+stmt: varDecl END                                           #stmtVarDecl
+    | assign END                                            #stmtAssign
+    | returnExpr END                                        #stmtReturnExpr
+    | funcCall END                                          #stmtFuncCall
+    | writeFunc END                                         #stmtWriteFunc
+    | readFunc END                                          #stmtReadFunc
+    | ifStmt                                                #stmtIfStmt
+    | whileExpr                                             #stmtWhileExpr;
 
-expr: NEG? operand (operator expr)?
-    | NEG? readFunc (operator expr)?
-    | NEG? LPAREN expr RPAREN (operator expr)?;
+varDecl: type id                                            #varDeclaration
+       | type id ASSIGN expr                                #varDeclExpr
+       | pinLiteral                                         #varDeclPinLiteral;
 
-operand: id
-       | sInt
-       | BOOL
-       | funcCall;
+expr: NEG? operand (operator expr)?                         #exprOperand
+    | NEG? readFunc (operator expr)?                        #exprReadFunc
+    | NEG? LPAREN expr RPAREN (operator expr)?              #exprOperand;
 
-sInt: NEGATIVE? INT;
+operand: id                                                 #operandId
+       | NEGATIVE? INT                                      #operandSInt
+       | BOOL                                               #operandBool
+       | funcCall                                           #operandFuncCall;
 
-operator: relational | ARITHMETIC | LOGICAL;
-relational: RELATIONAL;
+operator: RELATIONAL                                        #opRelational
+        | ARITHMETIC                                        #operatorArithmetic
+        | LOGICAL                                           #operatorLog;
 
-readFunc: id READPWM LPAREN RPAREN
-        | id READA LPAREN RPAREN
-        | id READD LPAREN RPAREN;
+readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
+        | id READA LPAREN RPAREN                            #readFuncAnal
+        | id READD LPAREN RPAREN                            #readFuncDig;
 
+pinLiteral: PIN id LBRACE PINNUMBER ',' PINMODE RBRACE      #pinLiteralDef;
 
-pinLiteral: PIN id LBRACE PINNUMBER ',' PINMODE RBRACE;
+assign: id ASSIGN expr                                      #assignExpr;
 
-assign: id ASSIGN expr;
+returnExpr: RETURN expr                                     #returnExpression;
 
-returnExpr: RETURN expr;
+funcCall: call                                              #functionCall
+        | call '.' funcCall                                 #functionCall;
+call: id LPAREN args RPAREN                                 #fCall;
+args: (expr (',' expr)*)?                                   #arguments;
 
-funcCall: call | call '.' funcCall;
-call: id LPAREN args RPAREN;
-args: (expr (',' expr)*)?;
+writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
-writeFunc: id WRITE LPAREN val RPAREN;
-val: HIGH | LOW | sInt | id | TOGGLE;
+val: HIGH                                                   #value
+   | LOW                                                    #value
+   | NEGATIVE? INT                                          #value
+   | id                                                     #value
+   | TOGGLE                                                 #value;
 
-ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt;
-elseStmt: (ELSE LBRACE body RBRACE)?
-        | ELSE ifStmt;
+ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt   #ifStmtDef;
 
-whileExpr: WHILE LPAREN expr RPAREN LBRACE body RBRACE;
+elseStmt: (ELSE LBRACE body RBRACE)?                        #elseSTtmt
+        | ELSE ifStmt                                       #elseIfStmt;
 
-setupDef: FUNC SETUP LPAREN RPAREN LBRACE body RBRACE;
-loopDef: FUNC LOOP LPAREN RPAREN LBRACE body RBRACE;
+whileExpr: WHILE LPAREN expr RPAREN LBRACE body RBRACE      #whileExprDef;
 
-comment: COMMENT
-       | LINECOMMENT;
+setupDef: FUNC SETUP LPAREN RPAREN LBRACE body RBRACE       #setupDefinition;
+loopDef: FUNC LOOP LPAREN RPAREN LBRACE body RBRACE         #loopDefinition;
+
+comment: COMMENT                                            #commentDel
+       | LINECOMMENT                                        #commentDel;
 
 //Lexer Rules
 

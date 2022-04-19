@@ -18,7 +18,7 @@ public class Main {
 
         //Symbol table generation
         ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolTblListener symbolTable = new SymbolTblListener();
+        SymbolTblVisitor symbolTable = new SymbolTblVisitor();
         walker.walk(symbolTable, tree);
 
     }
