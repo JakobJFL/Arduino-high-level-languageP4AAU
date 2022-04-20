@@ -37,10 +37,6 @@ public class Scope {
     }
 
     public boolean containsId(String id) {
-        if (!symbolDictionary.containsKey(id)) {
-            return true;
-        }
-        return false;
+        return symbolDictionary.containsKey(id);
     }
-
 }

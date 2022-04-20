@@ -7,7 +7,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Started");
-        FileHandler fileHandler = new FileHandler("syntaxTestCode\\test1.txt");
+        FileHandler fileHandler = new FileHandler("testCode\\test1.txt");
         //Syntax analysis
 
         CharStream stream = CharStreams.fromString(fileHandler.getFileContent());
@@ -18,8 +18,9 @@ public class Main {
 
         //Symbol table generation
         ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolTblVisitor symbolTable = new SymbolTblVisitor();
+        SymbolTblListener symbolTable = new SymbolTblListener();
         walker.walk(symbolTable, tree);
+        symbolTable.symbolTbl.printAll();
 
     }
 

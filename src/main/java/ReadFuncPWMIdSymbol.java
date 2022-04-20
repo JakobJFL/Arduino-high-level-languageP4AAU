@@ -1,4 +1,4 @@
-public class PinLiteralIdSymbol implements Symbol {
+public class ReadFuncPWMIdSymbol implements Symbol {
     @Override
     public void setId(String id) {
 

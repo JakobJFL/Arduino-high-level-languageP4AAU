@@ -279,18 +279,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitVarDeclaration(HlmpParser.VarDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code varDeclExpr}
-	 * labeled alternative in {@link HlmpParser#varDecl}.
-	 * @param ctx the parse tree
-	 */
-	void enterVarDeclExpr(HlmpParser.VarDeclExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code varDeclExpr}
-	 * labeled alternative in {@link HlmpParser#varDecl}.
-	 * @param ctx the parse tree
-	 */
-	void exitVarDeclExpr(HlmpParser.VarDeclExprContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code varDeclPinLiteral}
 	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree

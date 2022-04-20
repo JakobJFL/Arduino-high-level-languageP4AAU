@@ -169,13 +169,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitVarDeclaration(HlmpParser.VarDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code varDeclExpr}
-	 * labeled alternative in {@link HlmpParser#varDecl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVarDeclExpr(HlmpParser.VarDeclExprContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code varDeclPinLiteral}
 	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree

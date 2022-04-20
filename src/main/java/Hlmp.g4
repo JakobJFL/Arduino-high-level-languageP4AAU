@@ -40,7 +40,7 @@ stmt: varDecl END                                           #stmtVarDecl
     | whileExpr                                             #stmtWhileExpr;
 
 varDecl: type id                                            #varDeclaration
-       | type id ASSIGN expr                                #varDeclExpr
+       | type id ASSIGN expr                                #varDeclaration
        | pinLiteral                                         #varDeclPinLiteral;
 
 expr: NEG? operand (operator expr)?                         #exprOperand

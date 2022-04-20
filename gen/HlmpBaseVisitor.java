@@ -177,13 +177,6 @@ public class HlmpBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements H
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitVarDeclExpr(HlmpParser.VarDeclExprContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
 	@Override public T visitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

@@ -291,18 +291,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVarDeclExpr(HlmpParser.VarDeclExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVarDeclExpr(HlmpParser.VarDeclExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}

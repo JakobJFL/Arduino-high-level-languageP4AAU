@@ -1257,7 +1257,7 @@ public class HlmpParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
-	public static class VarDeclExprContext extends VarDeclContext {
+	public static class VarDeclarationContext extends VarDeclContext {
 		public TypeContext type() {
 			return getRuleContext(TypeContext.class,0);
 		}
@@ -1267,28 +1267,6 @@ public class HlmpParser extends Parser {
 		public TerminalNode ASSIGN() { return getToken(HlmpParser.ASSIGN, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
-		}
-		public VarDeclExprContext(VarDeclContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof HlmpListener ) ((HlmpListener)listener).enterVarDeclExpr(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof HlmpListener ) ((HlmpListener)listener).exitVarDeclExpr(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof HlmpVisitor ) return ((HlmpVisitor<? extends T>)visitor).visitVarDeclExpr(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	public static class VarDeclarationContext extends VarDeclContext {
-		public TypeContext type() {
-			return getRuleContext(TypeContext.class,0);
-		}
-		public IdContext id() {
-			return getRuleContext(IdContext.class,0);
 		}
 		public VarDeclarationContext(VarDeclContext ctx) { copyFrom(ctx); }
 		@Override
@@ -1324,7 +1302,7 @@ public class HlmpParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new VarDeclExprContext(_localctx);
+				_localctx = new VarDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(185);

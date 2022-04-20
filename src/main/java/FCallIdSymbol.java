@@ -8,4 +8,14 @@ public class FCallIdSymbol implements Symbol {
     public String getId() {
         return null;
     }
+
+    @Override
+    public void setType(SymbolTbl.Types type) {
+
+    }
+
+    @Override
+    public SymbolTbl.Types getType() {
+        return null;
+    }
 }
