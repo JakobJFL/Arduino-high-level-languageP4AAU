@@ -26,7 +26,7 @@
         <PerGrammarGenerationSettings>
           <option name="fileName" value="$PROJECT_DIR$/src/main/java/Hlmp.g4" />
           <option name="autoGen" value="true" />
-          <option name="outputDir" value="C:\Users\kaspe\Documents\GitHub\Arduino-high-level-languageP4AAU\gen" />
+          <option name="outputDir" value="gen" />
           <option name="libDir" value="" />
           <option name="encoding" value="" />
           <option name="pkg" value="" />
