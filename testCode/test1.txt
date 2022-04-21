@@ -6,7 +6,7 @@ func loop() { }
 func Num fun1() {
     Num var1 = 4;
     func Num fun2() {
-        func Num fun3() {
+        func Bool fun3() {
             Num var3 = 4;
         }
         Num var2 = 4;
