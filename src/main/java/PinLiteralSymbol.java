@@ -1,12 +1,14 @@
-public class AssignIdSymbol implements Symbol {
+public class PinLiteralSymbol implements Symbol {
+    public String id;
+
     @Override
     public void setId(String id) {
-
+        this.id = id;
     }
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 
     @Override

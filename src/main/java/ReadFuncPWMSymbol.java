@@ -1,12 +1,14 @@
-public class PinLiteralIdSymbol implements Symbol {
+public class ReadFuncPWMSymbol implements Symbol {
+    public String id;
+
     @Override
     public void setId(String id) {
-
+        this.id = id;
     }
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 
     @Override

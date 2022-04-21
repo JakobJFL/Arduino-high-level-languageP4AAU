@@ -1,12 +1,14 @@
-public class FCallIdSymbol implements Symbol {
+public class WriteFuncSymbol implements Symbol {
+    public String id;
+
     @Override
     public void setId(String id) {
-
+        this.id = id;
     }
 
     @Override
     public String getId() {
-        return null;
+        return id;
     }
 
     @Override
