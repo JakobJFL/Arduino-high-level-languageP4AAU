@@ -23,7 +23,6 @@ public class Main {
         ParseTreeWalker walker = new ParseTreeWalker();
         SymbolTblListener symbolTable = new SymbolTblListener();
         walker.walk(symbolTable, tree);
-        symbolTable.symbolTbl.printAll();
 
     }
 

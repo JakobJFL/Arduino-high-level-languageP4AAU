@@ -1,8 +1,5 @@
 package com.compiler.SymbolTbl.Symbols;
 
-import com.compiler.HlmpParser;
-
-
 public class Symbol {
     public String id;
 
