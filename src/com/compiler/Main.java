@@ -15,14 +15,20 @@ public class Main {
 
         CharStream stream = CharStreams.fromString(fileHandler.getFileContent());
         HlmpLexer lexer = new HlmpLexer(stream);
+        lexer.removeErrorListeners();
+        lexer.addErrorListener(ThrowingErrorListener.INSTANCE);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         HlmpParser parser = new HlmpParser(tokens);
+        parser.removeErrorListeners();
+        parser.addErrorListener(ThrowingErrorListener.INSTANCE);
         ParseTree tree = parser.program();
 
         //SymbolTbl.SymbolTbl.Symbol table generation
         ParseTreeWalker walker = new ParseTreeWalker();
         SymbolTblListener symbolTable = new SymbolTblListener();
         walker.walk(symbolTable, tree);
+
+
 
     }
 
