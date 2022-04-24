@@ -1,30 +1,21 @@
 package com.compiler.SymbolTbl;
 
 import com.compiler.HlmpBaseListener;
+import com.compiler.HlmpBaseVisitor;
 import com.compiler.HlmpParser;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.Symbol;
+import com.compiler.SymbolTbl.Symbols.TypeSymbol;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolTblListener extends HlmpBaseListener {
     public SymbolTbl symbolTbl = new SymbolTbl();
 
-/*
-    public Boolean isFloat(String s) {
-        if (Float.parseFloat(s) == true)
-            return true;
-        else return false;
-    }
-
-    public Boolean isFloat(String s) {
-        if (Float.parseFloat(s) == true)
-            return true;
-        else return false;
-    }
-    */
-
     @Override
     public void enterFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        symbolTbl.enterScope(ctx);
+        System.out.println("---------enterFuncDefinition---------");
+        symbolTbl.enterScope(ctx.head().id().getText());
         FuncDefSymbol symbol = new FuncDefSymbol();
         symbol.setId(ctx.head().id().getText());
         symbol.setType(ctx.head().type());
@@ -35,6 +26,7 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbolTbl.exitScope();
     }
 
+    /*
     @Override
     public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
         FuncDefSymbol symbol = new FuncDefSymbol();
@@ -43,12 +35,42 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbolTbl.addSymbol(symbol);
     }
 
-/*
+    /*
+    @Override
+    public Void visitProgram(HlmpParser.ProgramContext ctx) {
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        return null;
+    }
+
+    @Override
+    public Void visitCntFuncDef(HlmpParser.CntFuncDefContext ctx) {
+        if (ctx.children == null) {
+            System.out.println(ctx);
+            return null;
+        }
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        return null;
+    }
+
+    @Override
+    public Void visitStandardFunc(HlmpParser.StandardFuncContext ctx) {
+        for (ParseTree c : ctx.children) {
+            c.accept(this);
+        }
+        System.out.println("dsds");
+
+        return null;
+    }
+
     @Override
     public Void visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        SymbolTbl.SymbolTbl.Symbol symbol = new SymbolTbl.SymbolTbl.Symbols.FuncSymbol();
+        TypeSymbol symbol = new TypeSymbol();
         symbol.setId(ctx.head().id().getText());
-        symbol.setType(SymbolTbl.SymbolTbl.Types.BOOL);
+        symbol.setType(ctx.head().type());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(ctx);
         for (ParseTree c : ctx.children) {
@@ -57,7 +79,9 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbolTbl.exitScope();
         return null;
     }
+    */
 
+/*
     @Override
     public Void visitParam(HlmpParser.ParamContext ctx) {
         SymbolTbl.SymbolTbl.Symbol symbol = new ParamIdSymbol();

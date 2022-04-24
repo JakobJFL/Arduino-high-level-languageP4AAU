@@ -12,11 +12,11 @@ public class Scope {
     Map<String, Symbol> symbolDictionary = new HashMap<String, Symbol>();
     public List<Scope> subScopes = new ArrayList<>();
     public Scope parent;
-    public ParseTree associatedNode;
+    public String id;
 
-    public Scope(Scope parent, ParseTree node) {
+    public Scope(Scope parent, String id) {
         this.parent = parent;
-        this.associatedNode = node;
+        this.id = id;
     }
 
     public void addSubScope(Scope scope) {

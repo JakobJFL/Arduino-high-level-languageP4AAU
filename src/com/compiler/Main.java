@@ -22,13 +22,11 @@ public class Main {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
         ParseTree tree = parser.program();
-
         //SymbolTbl.SymbolTbl.Symbol table generation
+
         ParseTreeWalker walker = new ParseTreeWalker();
         SymbolTblListener symbolTable = new SymbolTblListener();
         walker.walk(symbolTable, tree);
-
-
 
     }
 
