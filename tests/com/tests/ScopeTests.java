@@ -17,27 +17,20 @@ import java.util.List;
 
 public class ScopeTests {
     private static String setUpLoop = "func setup() {} func loop() {}";
+
     @Test
     public void getSymbolTest() {
-        String testInput = setUpLoop+" func fun11() {func fun21() {func fun3() {}}func fun22() {}func fun23() {func fun41() {}func fun42() {}}} func fun12() {}";
+        String testInput = setUpLoop + " func fun11() {func fun21() {func fun3() {}}func fun22() {}func fun23() {func fun41() {}func fun42() {func fun5() {}}}} func fun12() {}";
         CharStream stream = CharStreams.fromString(testInput);
         HlmpLexer lexer = new HlmpLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         HlmpParser parser = new HlmpParser(tokens);
         ParseTree tree = parser.program();
 
-        //SymbolTbl.SymbolTbl.Symbol table generation
         ParseTreeWalker walker = new ParseTreeWalker();
         SymbolTblListener symbolTable = new SymbolTblListener();
         walker.walk(symbolTable, tree);
-        System.out.println("===============TEST======================");
 
-        Scope scope = symbolTable.symbolTbl.globalScope;
-        getSymbolTestHelper(scope);
-        //Assertions.assertTrue(1==1);
-    }
-
-    private void getSymbolTestHelper(Scope scope) {
         List<String> test = new ArrayList<>();
         test.add("fun11");
         test.add("fun21");
@@ -47,17 +40,29 @@ public class ScopeTests {
         test.add("fun3");
         test.add("fun41");
         test.add("fun42");
+        test.add("fun5");
 
+        Scope scope = symbolTable.symbolTbl.globalScope;
+        String result = getSymbolTestHelper(scope, test);
+        Assertions.assertEquals(";fun11,fun12,;fun21,fun22,fun23,;fun3,;fun41,fun42,;fun5,", result);
+    }
 
+    private String getSymbolTestHelper(Scope scope, List<String> test) {
+        String output = "";
         for (String key : test) {
-            if (scope.getSymbol(key) != null)
-                System.out.println(scope.getSymbol(key).getId());
+            if (scope.getSymbol(key) != null) {
+                output += scope.getSymbol(key).getId() + ",";
+            }
         }
         if (scope.getSubScopes() != null) {
             for (Scope s : scope.getSubScopes()) {
-                System.out.println("---New Scope---");
-                getSymbolTestHelper(s);
+                output += ";" + getSymbolTestHelper(s, test);
             }
         }
+        return output;
+    }
+
+    public void varTest() {
+
     }
 }

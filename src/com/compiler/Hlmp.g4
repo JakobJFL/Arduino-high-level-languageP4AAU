@@ -60,7 +60,7 @@ readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
         | id READA LPAREN RPAREN                            #readFuncAnal
         | id READD LPAREN RPAREN                            #readFuncDig;
 
-pinLiteral: PINTYPE id LBRACE PINNUMBER ',' PINMODE RBRACE      #pinLiteralDef;
+pinLiteral: PINTYPE id LBRACE PINNUMBER ',' PINMODE RBRACE  #pinLiteralDef;
 
 assign: id ASSIGN expr                                      #assignExpr;
 

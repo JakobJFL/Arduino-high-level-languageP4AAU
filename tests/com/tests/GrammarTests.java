@@ -23,9 +23,6 @@ public class GrammarTests {
         String grammarTest = " func loop {} func setup() {}";
         String randomInputs = " func fun1() {func fun2() {}} func fun11() {}";
 
-
-
-
         Assertions.assertThrows(ParseCancellationException.class, () -> {
             CharStream stream = CharStreams.fromString(grammarTest+randomInputs);
             HlmpLexer lexer = new HlmpLexer(stream);

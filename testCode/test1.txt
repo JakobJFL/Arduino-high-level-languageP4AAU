@@ -9,7 +9,9 @@ func fun11() {
 	func fun22() {}
 	func fun23() {
 		func fun41() {}
-		func fun42() {}
+		func fun42() {
+			func fun51() {}
+		}
 	}
 } 
 func fun12() {}

@@ -26,7 +26,6 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbolTbl.exitScope();
     }
 
-    /*
     @Override
     public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
         FuncDefSymbol symbol = new FuncDefSymbol();
