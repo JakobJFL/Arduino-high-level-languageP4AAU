@@ -25,7 +25,7 @@ parameter: type id                                          #param;
 
 type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 
-body: stmt?                                                 #bodyStmt
+body: funcDef?                                              #bodyStmt
     | stmt body                                             #bodyStmt
     | funcDef body                                          #bodyFuncDef
     | comment body                                          #bodyComment;

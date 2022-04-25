@@ -28,6 +28,7 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
+        System.out.println(ctx.id().getText());
         FuncDefSymbol symbol = new FuncDefSymbol();
         symbol.setId(ctx.id().getText());
         symbol.setType(ctx.type());

@@ -2,16 +2,22 @@ func setup() { }
 
 func loop() { }
 
+Num var11 = 0;
 func fun11() {
+	Num var21;
 	func fun21() {
 		func fun3() {}
+		Num var3;
 	}
 	func fun22() {}
+	Num var22;
 	func fun23() {
 		func fun41() {}
-		func fun42() {
-			func fun51() {}
+		func fun42() {}
 		}
 	}
+	
 } 
 func fun12() {}
+Num var12;
+
