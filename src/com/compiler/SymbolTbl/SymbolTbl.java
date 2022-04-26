@@ -1,6 +1,7 @@
 package com.compiler.SymbolTbl;
 
 import com.compiler.Exceptions.AlreadyDeclared;
+import com.compiler.Exceptions.NotDeclared;
 import com.compiler.SymbolTbl.Symbols.Symbol;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 
@@ -37,7 +38,7 @@ public class SymbolTbl {
 
     public void checkId(String id)   {
         if (!isSymbol(id, currentScope)) {
-            throw new AlreadyDeclared();
+            throw new NotDeclared();
         }
     }
 

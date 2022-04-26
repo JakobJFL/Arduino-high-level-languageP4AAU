@@ -1,6 +1,6 @@
 grammar Hlmp;
 //Parse Rules
-program: content*;
+program: content+;
 
 content: funcProc                                           #cntFuncProc
        | setupDef                                           #standardFunc
