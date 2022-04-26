@@ -294,13 +294,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionCall(HlmpParser.FunctionCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code fCall}
-	 * labeled alternative in {@link HlmpParser#call}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFCall(HlmpParser.FCallContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code arguments}
 	 * labeled alternative in {@link HlmpParser#args}.
 	 * @param ctx the parse tree
@@ -321,6 +314,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitValue(HlmpParser.ValueContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code valueId}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValueId(HlmpParser.ValueIdContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code ifStmtDef}
 	 * labeled alternative in {@link HlmpParser#ifStmt}.

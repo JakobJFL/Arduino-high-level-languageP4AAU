@@ -1,20 +1,16 @@
 package com.compiler.SymbolTbl;
 
 import com.compiler.HlmpBaseListener;
-import com.compiler.HlmpBaseVisitor;
 import com.compiler.HlmpParser;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.Symbol;
 import com.compiler.SymbolTbl.Symbols.TypeSymbol;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolTblListener extends HlmpBaseListener {
     public SymbolTbl symbolTbl = new SymbolTbl();
 
     @Override
     public void enterFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        System.out.println("---------enterFuncDefinition---------");
         symbolTbl.enterScope(ctx.funcHead().id().getText());
         FuncDefSymbol symbol = new FuncDefSymbol();
         symbol.setId(ctx.funcHead().id().getText());
@@ -28,7 +24,6 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
-        System.out.println("---------enterProcDefinition---------");
         symbolTbl.enterScope(ctx.procHead().id().getText());
         Symbol symbol = new Symbol();
         symbol.setId(ctx.procHead().id().getText());
@@ -42,10 +37,79 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
-        System.out.println(ctx.id().getText());
         FuncDefSymbol symbol = new FuncDefSymbol();
         symbol.setId(ctx.id().getText());
         symbol.setType(ctx.type());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterParam(HlmpParser.ParamContext ctx) {
+        TypeSymbol symbol = new TypeSymbol();
+        symbol.setId(ctx.id().getText());
+        symbol.setType(ctx.type());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterOperandId(HlmpParser.OperandIdContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
+        //symbol.setType(HlmpLexer.PINTYPE);
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterAssignExpr(HlmpParser.AssignExprContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterFunctionCall(HlmpParser.FunctionCallContext ctx) {
+        symbolTbl.checkId(ctx.id().getText());
+    }
+
+    @Override
+    public void enterWriteFuncDef(HlmpParser.WriteFuncDefContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterReadFuncDig(HlmpParser.ReadFuncDigContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void enterValueId(HlmpParser.ValueIdContext ctx) {
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.id().getText());
         symbolTbl.addSymbol(symbol);
     }
 

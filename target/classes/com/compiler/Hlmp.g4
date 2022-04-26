@@ -66,9 +66,7 @@ assign: id ASSIGN expr                                      #assignExpr;
 
 returnExpr: RETURN expr                                     #returnExpression;
 
-funcCall: call                                              #functionCall
-        | call '.' funcCall                                 #functionCall;
-call: id LPAREN args RPAREN                                 #fCall;
+funcCall: id LPAREN args RPAREN                             #functionCall;
 args: (expr (',' expr)*)?                                   #arguments;
 
 writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
@@ -76,7 +74,7 @@ writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 val: HIGH                                                   #value
    | LOW                                                    #value
    | NEGATIVE? INT                                          #value
-   | id                                                     #value
+   | id                                                     #valueId
    | TOGGLE                                                 #value;
 
 ifStmt: IF LPAREN expr RPAREN LBRACE body* RBRACE elseStmt   #ifStmtDef;

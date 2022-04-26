@@ -4,6 +4,7 @@ proc loop() { }
 
 Num var11 = 0;
 func Num fun11() {
+
 	Num var21;
 	proc fun21() {
 		func Bool fun3() {}
@@ -20,4 +21,9 @@ func Num fun11() {
 } 
 func Num fun12() {}
 Num var12;
+
+
+
+
+
 

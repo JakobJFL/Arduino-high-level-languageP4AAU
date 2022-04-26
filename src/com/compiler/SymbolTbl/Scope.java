@@ -27,15 +27,11 @@ public class Scope {
         return subScopes;
     }
 
-    public boolean addSymbol(Symbol symbol) {
-        if (!containsId(symbol.getId())) {
-            symbolDictionary.put(symbol.getId(), symbol);
-            return true;
-        }
-        return false;
+    public void addThisSymbol(Symbol symbol) {
+        symbolDictionary.put(symbol.getId(), symbol);
     }
 
-    public Symbol getSymbol(String id) {
+    public Symbol getThisSymbol(String id) {
         return symbolDictionary.get(id);
     }
 

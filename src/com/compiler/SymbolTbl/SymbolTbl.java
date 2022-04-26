@@ -1,15 +1,8 @@
 package com.compiler.SymbolTbl;
 
+import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.SymbolTbl.Symbols.Symbol;
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.RuleContext;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.antlr.v4.runtime.misc.ParseCancellationException;
 
 public class SymbolTbl {
     public Scope globalScope = new Scope(null, null);
@@ -34,8 +27,32 @@ public class SymbolTbl {
     }
 
     public void addSymbol(Symbol symbol) {
-        if (!currentScope.addSymbol(symbol))
-            System.out.println("The symbol is already in dictionary!!!!!");
+        if (!isSymbol(symbol.getId(), currentScope)) {
+            currentScope.addThisSymbol(symbol);
+        }
+        else {
+            throw new AlreadyDeclared();
+        }
+    }
+
+    public void checkId(String id)   {
+        if (!isSymbol(id, currentScope)) {
+            throw new AlreadyDeclared();
+        }
+    }
+
+    private boolean isSymbol(String id, Scope scope) {
+        if (scope.containsId(id)) {
+            return true;
+        }
+        else {
+            if (scope.parent != null) {
+                return isSymbol(id, scope.parent);
+            }
+            else {
+                return false;
+            }
+        }
     }
 
     public Symbol getSymbol(String id) {
@@ -44,7 +61,7 @@ public class SymbolTbl {
 
     private Symbol getSymbolHelper(String id, Scope scope) {
         if (scope.containsId(id)) {
-            return scope.getSymbol(id);
+            return scope.getThisSymbol(id);
         }
         else {
             if (scope.parent != null) {

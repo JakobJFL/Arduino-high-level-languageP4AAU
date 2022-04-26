@@ -1,6 +1,8 @@
 package com.compiler.Exceptions;
 
-public class SyntaxException extends Exception {
+import java.util.concurrent.CancellationException;
+
+public class SyntaxException extends CancellationException {
     public SyntaxException() {
         super("Not supported in AHLL");
     } {

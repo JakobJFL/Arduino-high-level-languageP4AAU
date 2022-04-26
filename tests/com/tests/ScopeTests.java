@@ -16,21 +16,15 @@ import org.junit.jupiter.api.Assertions;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.compiler.Main.compile;
+
 public class ScopeTests {
     private static String setUpLoop = "proc setup() {} proc loop() {}";
 
     @Test
     public void getSymbolTest() {
         String testInput = setUpLoop + " proc fun11() {func Num fun21() {proc fun3() {}}func Num fun22() {}proc fun23() {proc fun41() {}proc fun42() {proc fun5() {}}}} func Pwm fun12() {}";
-        CharStream stream = CharStreams.fromString(testInput);
-        HlmpLexer lexer = new HlmpLexer(stream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        HlmpParser parser = new HlmpParser(tokens);
-        ParseTree tree = parser.program();
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolTblListener symbolTable = new SymbolTblListener();
-        walker.walk(symbolTable, tree);
+        SymbolTblListener symbolTable = compile(testInput);
 
         List<String> test = new ArrayList<>();
         test.add("fun11");
@@ -51,9 +45,9 @@ public class ScopeTests {
     private String getSymbolHelper(Scope scope, List<String> test) {
         String output = "";
         for (String key : test) {
-            if (scope.getSymbol(key) != null) {
-                output += scope.getSymbol(key).getId() + ",";
-                System.out.println(scope.getSymbol(key).getId());
+            if (scope.getThisSymbol(key) != null) {
+                output += scope.getThisSymbol(key).getId() + ",";
+                System.out.println(scope.getThisSymbol(key).getId());
             }
             else
                 System.out.println("n");
@@ -71,15 +65,7 @@ public class ScopeTests {
     @Test
     public void varTest() {
         String testInput = setUpLoop + " Num var11 = 0;func Num fun11() {Num var21;proc fun21() {func Bool fun3() {}Num var3;}proc fun22() {}Num var22;proc fun23() {func Pwm fun41() {}proc fun42() {}}}func Num fun12() {}Num var12;";
-        CharStream stream = CharStreams.fromString(testInput);
-        HlmpLexer lexer = new HlmpLexer(stream);
-        CommonTokenStream tokens = new CommonTokenStream(lexer);
-        HlmpParser parser = new HlmpParser(tokens);
-        ParseTree tree = parser.program();
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolTblListener symbolTable = new SymbolTblListener();
-        walker.walk(symbolTable, tree);
+        SymbolTblListener symbolTable = compile(testInput);
 
         List<String> test = new ArrayList<>();
         test.add("var11");

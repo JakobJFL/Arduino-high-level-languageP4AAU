@@ -492,18 +492,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitFunctionCall(HlmpParser.FunctionCallContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code fCall}
-	 * labeled alternative in {@link HlmpParser#call}.
-	 * @param ctx the parse tree
-	 */
-	void enterFCall(HlmpParser.FCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code fCall}
-	 * labeled alternative in {@link HlmpParser#call}.
-	 * @param ctx the parse tree
-	 */
-	void exitFCall(HlmpParser.FCallContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code arguments}
 	 * labeled alternative in {@link HlmpParser#args}.
 	 * @param ctx the parse tree
@@ -539,6 +527,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitValue(HlmpParser.ValueContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code valueId}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void enterValueId(HlmpParser.ValueIdContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code valueId}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void exitValueId(HlmpParser.ValueIdContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code ifStmtDef}
 	 * labeled alternative in {@link HlmpParser#ifStmt}.
