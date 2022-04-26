@@ -1,6 +1,7 @@
 package com.compiler;
 
 import com.compiler.Exceptions.AlreadyDeclared;
+import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.SyntaxException;
 import com.compiler.SymbolTbl.SymbolTblListener;
 import org.antlr.v4.runtime.CharStream;
@@ -18,6 +19,9 @@ public class Main {
             SymbolTblListener symbolTable = compile(fileHandler.getFileContent());
         } catch (AlreadyDeclared ex) {
             System.out.println("AlreadyDeclared: " + ex.getMessage());
+        }
+        catch (NotDeclared ex) {
+            System.out.println("NotDeclared: " + ex);
         }
         catch (SyntaxException ex) {
             System.out.println("SyntaxException: " + ex.getMessage());
