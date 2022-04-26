@@ -79,7 +79,7 @@ val: HIGH                                                   #value
 
 ifStmt: IF LPAREN expr RPAREN LBRACE body* RBRACE elseStmt   #ifStmtDef;
 
-elseStmt: (ELSE LBRACE body RBRACE)?                        #elseSTtmt
+elseStmt: (ELSE LBRACE body* RBRACE)?                        #elseSTtmt
         | ELSE ifStmt                                       #elseIfStmt;
 
 whileExpr: WHILE LPAREN expr RPAREN LBRACE body* RBRACE      #whileExprDef;

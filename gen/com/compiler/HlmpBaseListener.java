@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
+// Generated from /Users/PBR/Documents/Arduino-high-level-languageP4AAU/src/com/compiler/Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -10,13 +10,13 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class HlmpBaseListener implements HlmpListener  {
+public class HlmpBaseListener implements HlmpListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(HlmpParser.ProgramContext ctx)  { }
+	@Override public void enterProgram(HlmpParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
