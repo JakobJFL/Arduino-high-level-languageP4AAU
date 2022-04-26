@@ -17,11 +17,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScopeTests {
-    private static String setUpLoop = "func setup() {} func loop() {}";
+    private static String setUpLoop = "prog setup() {} prog loop() {}";
 
     @Test
     public void getSymbolTest() {
-        String testInput = setUpLoop + " func fun11() {func fun21() {func fun3() {}}func fun22() {}func fun23() {func fun41() {}func fun42() {func fun5() {}}}} func fun12() {}";
+        String testInput = setUpLoop + " proc fun11() {func Num fun21() {proc fun3() {}}func Num fun22() {}proc fun23() {proc fun41() {}proc fun42() {proc fun5() {}}}} func Pwm fun12() {}";
         CharStream stream = CharStreams.fromString(testInput);
         HlmpLexer lexer = new HlmpLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);

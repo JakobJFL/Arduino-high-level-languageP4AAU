@@ -1,20 +1,21 @@
 grammar Hlmp;
 //Parse Rules
-program: content;
+program: content*;
 
-content: funcDef?                                           #cntFuncDef
-       | funcDef content                                    #cntFuncDef
-       | setupDef loopDef content                           #standardFunc
-       | loopDef setupDef content                           #standardFunc
-       | varDecl END content                                #cntvarDecl
-       | comment content                                    #cntComment;
+content: funcProc                                           #cntFuncProc
+       | setupDef                                           #standardFunc
+       | loopDef                                            #standardFunc
+       | varDecl END                                        #cntvarDecl
+       | comment                                            #cntComment;
 
-funcDef: head LBRACE body RBRACE                            #funcDefinition;
+funcProc: funcHead LBRACE body* RBRACE                        #funcDefinition
+        | procHead LBRACE body* RBRACE                        #procDefinition;
 
-head: FUNC id LPAREN RPAREN
-    | FUNC type id LPAREN RPAREN
-    | FUNC id LPAREN (parameter (',' parameter)*)?  RPAREN
-    | FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
+funcHead: FUNC type id LPAREN RPAREN
+        | FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
+
+procHead: PROC id LPAREN RPAREN
+        | PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
 
 id : ID                                                     #identifier;
 
@@ -25,10 +26,9 @@ parameter: type id                                          #param;
 
 type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 
-body: funcDef?                                              #bodyStmt
-    | stmt body                                             #bodyStmt
-    | funcDef body                                          #bodyFuncDef
-    | comment body                                          #bodyComment;
+body: funcProc                                              #bodyStmt
+    | stmt                                                  #bodyStmt
+    | comment                                               #bodyComment;
 
 stmt: varDecl END                                           #stmtVarDecl
     | assign END                                            #stmtAssign
@@ -79,15 +79,15 @@ val: HIGH                                                   #value
    | id                                                     #value
    | TOGGLE                                                 #value;
 
-ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt   #ifStmtDef;
+ifStmt: IF LPAREN expr RPAREN LBRACE body* RBRACE elseStmt   #ifStmtDef;
 
 elseStmt: (ELSE LBRACE body RBRACE)?                        #elseSTtmt
         | ELSE ifStmt                                       #elseIfStmt;
 
-whileExpr: WHILE LPAREN expr RPAREN LBRACE body RBRACE      #whileExprDef;
+whileExpr: WHILE LPAREN expr RPAREN LBRACE body* RBRACE      #whileExprDef;
 
-setupDef: FUNC SETUP LPAREN RPAREN LBRACE body RBRACE       #setupDefinition;
-loopDef: FUNC LOOP LPAREN RPAREN LBRACE body RBRACE         #loopDefinition;
+setupDef: PROC SETUP LPAREN RPAREN LBRACE body* RBRACE       #setupDefinition;
+loopDef: PROC LOOP LPAREN RPAREN LBRACE body* RBRACE         #loopDefinition;
 
 comment: COMMENT                                            #commentDel
        | LINECOMMENT                                        #commentDel;
@@ -118,6 +118,8 @@ LOGOR: '||';
 SETUP: 'setup';
 LOOP: 'loop';
 FUNC: 'func ';
+PROC: 'proc ';
+
 
 WRITE: '.Write';
 READPWM: '.ReadPwm';

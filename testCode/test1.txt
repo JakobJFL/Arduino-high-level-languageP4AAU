@@ -1,23 +1,23 @@
-func setup() { }
+prog setup() { }
 
-func loop() { }
+prog loop() { }
 
 Num var11 = 0;
-func fun11() {
+func Pwm fun11() {
 	Num var21;
-	func fun21() {
+	prog fun21() {
 		func fun3() {}
 		Num var3;
 	}
-	func fun22() {}
+	prog fun22() {}
 	Num var22;
-	func fun23() {
+	prog fun23() {
 		func fun41() {}
 		func fun42() {}
 		}
 	}
 	
 } 
-func fun12() {}
+func Num fun12() {}
 Num var12;
 
