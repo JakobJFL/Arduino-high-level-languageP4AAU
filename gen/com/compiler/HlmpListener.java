@@ -18,17 +18,17 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitProgram(HlmpParser.ProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code cntFuncDef}
+	 * Enter a parse tree produced by the {@code cntFuncProc}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
 	 */
-	void enterCntFuncDef(HlmpParser.CntFuncDefContext ctx);
+	void enterCntFuncProc(HlmpParser.CntFuncProcContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code cntFuncDef}
+	 * Exit a parse tree produced by the {@code cntFuncProc}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
 	 */
-	void exitCntFuncDef(HlmpParser.CntFuncDefContext ctx);
+	void exitCntFuncProc(HlmpParser.CntFuncProcContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code standardFunc}
 	 * labeled alternative in {@link HlmpParser#content}.
@@ -67,26 +67,48 @@ public interface HlmpListener extends ParseTreeListener {
 	void exitCntComment(HlmpParser.CntCommentContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code funcDefinition}
-	 * labeled alternative in {@link HlmpParser#funcDef}.
+	 * labeled alternative in {@link HlmpParser#funcProc}.
 	 * @param ctx the parse tree
 	 */
 	void enterFuncDefinition(HlmpParser.FuncDefinitionContext ctx);
 	/**
 	 * Exit a parse tree produced by the {@code funcDefinition}
-	 * labeled alternative in {@link HlmpParser#funcDef}.
+	 * labeled alternative in {@link HlmpParser#funcProc}.
 	 * @param ctx the parse tree
 	 */
 	void exitFuncDefinition(HlmpParser.FuncDefinitionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link HlmpParser#head}.
+	 * Enter a parse tree produced by the {@code procDefinition}
+	 * labeled alternative in {@link HlmpParser#funcProc}.
 	 * @param ctx the parse tree
 	 */
-	void enterHead(HlmpParser.HeadContext ctx);
+	void enterProcDefinition(HlmpParser.ProcDefinitionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link HlmpParser#head}.
+	 * Exit a parse tree produced by the {@code procDefinition}
+	 * labeled alternative in {@link HlmpParser#funcProc}.
 	 * @param ctx the parse tree
 	 */
-	void exitHead(HlmpParser.HeadContext ctx);
+	void exitProcDefinition(HlmpParser.ProcDefinitionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HlmpParser#funcHead}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncHead(HlmpParser.FuncHeadContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HlmpParser#funcHead}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncHead(HlmpParser.FuncHeadContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HlmpParser#procHead}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcHead(HlmpParser.ProcHeadContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HlmpParser#procHead}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcHead(HlmpParser.ProcHeadContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code identifier}
 	 * labeled alternative in {@link HlmpParser#id}.
@@ -145,18 +167,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBodyStmt(HlmpParser.BodyStmtContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code bodyFuncDef}
-	 * labeled alternative in {@link HlmpParser#body}.
-	 * @param ctx the parse tree
-	 */
-	void enterBodyFuncDef(HlmpParser.BodyFuncDefContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code bodyFuncDef}
-	 * labeled alternative in {@link HlmpParser#body}.
-	 * @param ctx the parse tree
-	 */
-	void exitBodyFuncDef(HlmpParser.BodyFuncDefContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code bodyComment}
 	 * labeled alternative in {@link HlmpParser#body}.

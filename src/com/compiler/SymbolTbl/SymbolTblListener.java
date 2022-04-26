@@ -15,14 +15,28 @@ public class SymbolTblListener extends HlmpBaseListener {
     @Override
     public void enterFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
         System.out.println("---------enterFuncDefinition---------");
-        symbolTbl.enterScope(ctx.head().id().getText());
+        symbolTbl.enterScope(ctx.funcHead().id().getText());
         FuncDefSymbol symbol = new FuncDefSymbol();
-        symbol.setId(ctx.head().id().getText());
-        symbol.setType(ctx.head().type());
+        symbol.setId(ctx.funcHead().id().getText());
+        symbol.setType(ctx.funcHead().type());
         symbolTbl.addSymbol(symbol);
     }
     @Override
     public void exitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
+        symbolTbl.exitScope();
+    }
+
+    @Override
+    public void enterProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
+        System.out.println("---------enterProcDefinition---------");
+        symbolTbl.enterScope(ctx.procHead().id().getText());
+        Symbol symbol = new Symbol();
+        symbol.setId(ctx.procHead().id().getText());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
+    public void exitProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
         symbolTbl.exitScope();
     }
 

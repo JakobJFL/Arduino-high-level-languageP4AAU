@@ -8,8 +8,8 @@ content: funcProc                                           #cntFuncProc
        | varDecl END                                        #cntvarDecl
        | comment                                            #cntComment;
 
-funcProc: funcHead LBRACE body* RBRACE                        #funcDefinition
-        | procHead LBRACE body* RBRACE                        #procDefinition;
+funcProc: funcHead LBRACE body* RBRACE                      #funcDefinition
+        | procHead LBRACE body* RBRACE                      #procDefinition;
 
 funcHead: FUNC type id LPAREN RPAREN
         | FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;

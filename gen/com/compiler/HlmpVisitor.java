@@ -17,12 +17,12 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(HlmpParser.ProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code cntFuncDef}
+	 * Visit a parse tree produced by the {@code cntFuncProc}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitCntFuncDef(HlmpParser.CntFuncDefContext ctx);
+	T visitCntFuncProc(HlmpParser.CntFuncProcContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code standardFunc}
 	 * labeled alternative in {@link HlmpParser#content}.
@@ -46,17 +46,30 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	T visitCntComment(HlmpParser.CntCommentContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code funcDefinition}
-	 * labeled alternative in {@link HlmpParser#funcDef}.
+	 * labeled alternative in {@link HlmpParser#funcProc}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link HlmpParser#head}.
+	 * Visit a parse tree produced by the {@code procDefinition}
+	 * labeled alternative in {@link HlmpParser#funcProc}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitHead(HlmpParser.HeadContext ctx);
+	T visitProcDefinition(HlmpParser.ProcDefinitionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HlmpParser#funcHead}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncHead(HlmpParser.FuncHeadContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HlmpParser#procHead}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcHead(HlmpParser.ProcHeadContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code identifier}
 	 * labeled alternative in {@link HlmpParser#id}.
@@ -91,13 +104,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBodyStmt(HlmpParser.BodyStmtContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code bodyFuncDef}
-	 * labeled alternative in {@link HlmpParser#body}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBodyFuncDef(HlmpParser.BodyFuncDefContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code bodyComment}
 	 * labeled alternative in {@link HlmpParser#body}.

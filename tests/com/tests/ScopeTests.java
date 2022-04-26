@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScopeTests {
-    private static String setUpLoop = "prog setup() {} prog loop() {}";
+    private static String setUpLoop = "proc setup() {} proc loop() {}";
 
     @Test
     public void getSymbolTest() {
@@ -70,7 +70,7 @@ public class ScopeTests {
 
     @Test
     public void varTest() {
-        String testInput = setUpLoop + " Num var11 = 0;Num var13 = 0;func fun11() {Num var21;func fun21() {func fun3() {}Num var3;}func fun22() {}Num var22;func fun23() {func fun41() {}func fun42() {}}}} func fun12() {}Num var12;";
+        String testInput = setUpLoop + " Num var11 = 0;func Num fun11() {Num var21;proc fun21() {func Bool fun3() {}Num var3;}proc fun22() {}Num var22;proc fun23() {func Pwm fun41() {}proc fun42() {}}}func Num fun12() {}Num var12;";
         CharStream stream = CharStreams.fromString(testInput);
         HlmpLexer lexer = new HlmpLexer(stream);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
@@ -84,7 +84,6 @@ public class ScopeTests {
         List<String> test = new ArrayList<>();
         test.add("var11");
         test.add("var12");
-        test.add("var13");
         test.add("var21");
         test.add("var22");
         test.add("var3");

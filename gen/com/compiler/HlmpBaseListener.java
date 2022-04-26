@@ -28,13 +28,13 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCntFuncDef(HlmpParser.CntFuncDefContext ctx) { }
+	@Override public void enterCntFuncProc(HlmpParser.CntFuncProcContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCntFuncDef(HlmpParser.CntFuncDefContext ctx) { }
+	@Override public void exitCntFuncProc(HlmpParser.CntFuncProcContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -88,13 +88,37 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterHead(HlmpParser.HeadContext ctx) { }
+	@Override public void enterProcDefinition(HlmpParser.ProcDefinitionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitHead(HlmpParser.HeadContext ctx) { }
+	@Override public void exitProcDefinition(HlmpParser.ProcDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncHead(HlmpParser.FuncHeadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncHead(HlmpParser.FuncHeadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProcHead(HlmpParser.ProcHeadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProcHead(HlmpParser.ProcHeadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -155,18 +179,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBodyStmt(HlmpParser.BodyStmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBodyFuncDef(HlmpParser.BodyFuncDefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBodyFuncDef(HlmpParser.BodyFuncDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

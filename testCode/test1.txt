@@ -1,20 +1,20 @@
-prog setup() { }
+proc setup() { }
 
-prog loop() { }
+proc loop() { }
 
 Num var11 = 0;
-func Pwm fun11() {
+func Num fun11() {
 	Num var21;
-	prog fun21() {
-		func fun3() {}
+	proc fun21() {
+		func Bool fun3() {}
 		Num var3;
 	}
-	prog fun22() {}
+	proc fun22() {}
 	Num var22;
-	prog fun23() {
-		func fun41() {}
-		func fun42() {}
-		}
+	proc fun23() {
+		func Pwm fun41() {}
+		proc fun42() {}
+		
 	}
 	
 } 
