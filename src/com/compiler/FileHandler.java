@@ -2,28 +2,19 @@ package com.compiler;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class FileHandler {
-    private String FilePath;
+    private String filePath;
     public FileHandler(String path) {
-        FilePath = path;
+        filePath = path;
     }
 
-    public String getFileContent() {
-        try {
-            File myObj = new File(FilePath);
-            Scanner myReader = new Scanner(myObj);
-            String data = "";
-            while (myReader.hasNextLine()) {
-                data += myReader.nextLine() + '\n';
-            }
-            myReader.close();
-            return data;
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
-        return null;
+    public String getFileContent() throws IOException {
+        return new String(Files.readAllBytes(Paths.get(filePath)), StandardCharsets.UTF_8);
     }
 }
