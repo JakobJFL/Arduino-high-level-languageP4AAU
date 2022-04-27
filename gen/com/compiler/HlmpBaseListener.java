@@ -1,4 +1,4 @@
-// Generated from C:/Users/kaspe/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -359,18 +359,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExprMinusPrefix(HlmpParser.ExprMinusPrefixContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExprMinusPrefix(HlmpParser.ExprMinusPrefixContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

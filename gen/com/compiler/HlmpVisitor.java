@@ -1,4 +1,4 @@
-// Generated from C:/Users/kaspe/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -209,13 +209,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code exprMinusPrefix}
-	 * labeled alternative in {@link HlmpParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExprMinusPrefix(HlmpParser.ExprMinusPrefixContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code exprReadFunc}
 	 * labeled alternative in {@link HlmpParser#expr}.

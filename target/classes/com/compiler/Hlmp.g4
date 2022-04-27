@@ -11,11 +11,9 @@ content: funcProc                                           #cntFuncProc
 funcProc: funcHead LBRACE body* RBRACE                      #funcDefinition
         | procHead LBRACE body* RBRACE                      #procDefinition;
 
-funcHead: FUNC type id LPAREN RPAREN
-        | FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
+funcHead: FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
 
-procHead: PROC id LPAREN RPAREN
-        | PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
+procHead: PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
 
 id : ID                                                     #identifier;
 
@@ -47,7 +45,6 @@ expr: operand                                               #exprOperand
     | readFunc                                              #exprReadFunc
     | LPAREN expr RPAREN                                    #exprParenthesised
     | op=NEG expr                                           #exprUnaryOp
-    | op=NEGATIVE expr                                      #exprMinusPrefix
     | left=expr op=(DIVIDE|MULT) right=expr                 #exprBinaryOp
     | left=expr op=(PLUS|MINUS|MODULU) right=expr           #exprBinaryOp
     | left=expr op=(LESSTHAN|GREATERTHAN) right=expr        #exprBinaryOp
@@ -102,9 +99,6 @@ BOOLTYPE: 'Bool ';
 PWMTYPE: 'Pwm ';
 PINTYPE: 'Pin ';
 
-RELATIONAL: LESSTHAN | GREATERTHAN | EQUAL | NOTEQUAL;
-ARITHMETIC: PLUS | MINUS | DIVIDE | MULT | MODULU;
-LOGICAL: LOGAND | LOGOR;
 NEG: '!';
 PLUS: '+';
 MINUS: '-';
@@ -117,6 +111,14 @@ EQUAL: '==';
 NOTEQUAL: '!=';
 LOGAND: '&&';
 LOGOR: '||';
+
+RELATIONAL: LESSTHAN | GREATERTHAN | EQUAL | NOTEQUAL;
+ARITHMETIC: PLUS | MINUS | DIVIDE | MULT | MODULU;
+LOGICAL: LOGAND | LOGOR;
+
+SINT: (NEGATIVE)? FLOAT;
+FLOAT : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
+
 
 SETUP: 'setup';
 LOOP: 'loop';
@@ -151,12 +153,12 @@ RETURN: 'return';
 WHILE: 'while';
 
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
-INT: [0-9]+;
-SINT: NEGATIVE? INT;
-ID: [a-zA-Z_] [a-zA-Z_0-9]*;
+
 
 COMMENT: '/*' .*?  '*/' -> skip;
 LINECOMMENT: '//' ~( '\r' | '\n' )* -> skip;
 
 WS: (' '|'\t'|NEWLINE)+ -> skip;
 NEWLINE: ('\r\n'|'\n'|'\r');
+
+ID: [a-zA-Z_] [a-zA-Z_0-9]*;

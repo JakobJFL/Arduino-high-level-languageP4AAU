@@ -58,6 +58,13 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         return returnType;
     }
 
+
+    @Override
+    public Integer visitOperandSInt(HlmpParser.OperandSIntContext ctx) {
+        return HlmpLexer.SINT;
+    }
+
+
     @Override
     public Integer visitExprOperand(HlmpParser.ExprOperandContext ctx) {
 
