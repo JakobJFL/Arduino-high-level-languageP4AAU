@@ -61,12 +61,12 @@ public class GrammarTests {
         });
     }
 
-    /*@Test
-    public void  () {
-        String  = setUpLoop + " ";
+    @Test
+    public void DeclarationInScopesTest () {
+        String DecTest = setUpLoop + " proc fun11() { proc fun12(){ proc fun13(){ Num var1;} proc fun14(){ Num var1;}}}";
 
-        Assertions.assertThrows(.class, () -> {
-            compile();
+        Assertions.assertDoesNotThrow(() -> {
+            compile(DecTest);
         });
-    }*/
+    }
 }
