@@ -1,4 +1,4 @@
-// Generated from /Users/PBR/Documents/Arduino-high-level-languageP4AAU/src/com/compiler/Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
 package com.compiler;
 import org.antlr.v4.runtime.tree.AbstractParseTreeVisitor;
 
@@ -186,6 +186,20 @@ public class HlmpBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements H
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExprParenthesised(HlmpParser.ExprParenthesisedContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

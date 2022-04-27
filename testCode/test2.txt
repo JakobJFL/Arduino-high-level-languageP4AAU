@@ -1,0 +1,9 @@
+proc setup() { }
+
+proc loop() { }
+
+proc fun() {
+	Num g;
+	Num var11 = 5+1+2;
+} 
+

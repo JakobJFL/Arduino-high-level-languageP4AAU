@@ -1,4 +1,4 @@
-// Generated from /Users/PBR/Documents/Arduino-high-level-languageP4AAU/src/com/compiler/Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
 package com.compiler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -311,6 +311,30 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprParenthesised(HlmpParser.ExprParenthesisedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprParenthesised(HlmpParser.ExprParenthesisedContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

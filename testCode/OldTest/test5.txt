@@ -13,9 +13,10 @@ func loop() {
 }
 
 func Num exprTest() {
-	test1 = !t+!(t-4*9)+5+g_ddfg-kat[4]/kat[y]%!d;
-	test2 = (-0/0 && (!t || t(-8,8,-8)) && !true);
-	test3 = true == true || (5*(8>5)<8/8 && test(mo(), mo()) / 8)*(-5+(8*(7/(r[1]+(-4*t()&&(true||false))))));
+      test0 = !5;
+	test1 = !t+!(t4-9)+5+g_ddfg-dat(1)/kat(5,5)%!d;
+	test2 = (~0/0 && (!t || t(~8,8,~8)) && !true);
+	test3 = true == true || (5*(8>5)<8/8 && test(mo(), mo()) / 8)*(~5+(8*(7/(r+(~4*t()&&(true||false))))));
 	return (5555*8)/(8+7*5 && 80 || test(test(test()),5));
 }
 

@@ -43,9 +43,10 @@ varDecl: type id                                            #varDeclaration
        | type id ASSIGN expr                                #varDeclaration
        | pinLiteral                                         #varDeclPinLiteral;
 
-expr: NEG? operand (operator expr)?                         #exprOperand
-    | NEG? readFunc (operator expr)?                        #exprReadFunc
-    | NEG? LPAREN expr RPAREN (operator expr)?              #exprOperand;
+expr: NEG? operand                                          #exprOperand
+    | NEG? readFunc                                         #exprReadFunc
+    | NEG? LPAREN expr RPAREN                               #exprParenthesised
+    | left=expr operator right=expr                         #exprBinaryOp;
 
 operand: id                                                 #operandId
        | NEGATIVE? INT                                      #operandSInt
@@ -73,19 +74,19 @@ writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
 val: HIGH                                                   #value
    | LOW                                                    #value
-   | NEGATIVE? INT                                          #value
+   | NEGATIVE? INT                                                   #value
    | id                                                     #valueId
    | TOGGLE                                                 #value;
 
-ifStmt: IF LPAREN expr RPAREN LBRACE body* RBRACE elseStmt   #ifStmtDef;
+ifStmt: IF LPAREN expr RPAREN LBRACE body* RBRACE elseStmt  #ifStmtDef;
 
-elseStmt: (ELSE LBRACE body* RBRACE)?                        #elseSTtmt
+elseStmt: (ELSE LBRACE body* RBRACE)?                       #elseSTtmt
         | ELSE ifStmt                                       #elseIfStmt;
 
-whileExpr: WHILE LPAREN expr RPAREN LBRACE body* RBRACE      #whileExprDef;
+whileExpr: WHILE LPAREN expr RPAREN LBRACE body* RBRACE     #whileExprDef;
 
-setupDef: PROC SETUP LPAREN RPAREN LBRACE body* RBRACE       #setupDefinition;
-loopDef: PROC LOOP LPAREN RPAREN LBRACE body* RBRACE         #loopDefinition;
+setupDef: PROC SETUP LPAREN RPAREN LBRACE body* RBRACE      #setupDefinition;
+loopDef: PROC LOOP LPAREN RPAREN LBRACE body* RBRACE        #loopDefinition;
 
 comment: COMMENT                                            #commentDel
        | LINECOMMENT                                        #commentDel;
@@ -136,7 +137,9 @@ HIGH: 'HIGH';
 LOW: 'LOW';
 PINMODE: 'out' | 'in';
 TOGGLE: 'TOGGLE';
-BOOL: 'true' | 'false';
+BOOL: TRUE | FALSE;
+TRUE: 'true';
+FALSE: 'false';
 
 IF: 'if';
 ELSE: 'else';
@@ -145,6 +148,7 @@ WHILE: 'while';
 
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
 INT: [0-9]+;
+SINT: NEGATIVE? INT;
 ID: [a-zA-Z_] [a-zA-Z_0-9]*;
 
 COMMENT: '/*' .*?  '*/' -> skip;

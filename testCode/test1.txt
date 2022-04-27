@@ -3,7 +3,7 @@ proc setup() { }
 proc loop() { }
 
 Num var11 = 0;
-prog Num fun11() {
+proc fun11() {
 	Num var21;
 	proc fun21() {
 		func Bool fun3() {}

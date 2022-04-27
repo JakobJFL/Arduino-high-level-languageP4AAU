@@ -1,4 +1,4 @@
-// Generated from /Users/PBR/Documents/Arduino-high-level-languageP4AAU/src/com/compiler/Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -299,6 +299,30 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprParenthesised}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprParenthesised(HlmpParser.ExprParenthesisedContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprParenthesised}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprParenthesised(HlmpParser.ExprParenthesisedContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprBinaryOp}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprBinaryOp}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code exprOperand}
 	 * labeled alternative in {@link HlmpParser#expr}.

@@ -1,4 +1,4 @@
-// Generated from /Users/PBR/Documents/Arduino-high-level-languageP4AAU/src/com/compiler/Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -181,6 +181,20 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprParenthesised}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprParenthesised(HlmpParser.ExprParenthesisedContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprBinaryOp}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code exprOperand}
 	 * labeled alternative in {@link HlmpParser#expr}.

@@ -14,7 +14,7 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Started");
-        FileHandler fileHandler = new FileHandler("testCode/test1.txt");
+        FileHandler fileHandler = new FileHandler("testCode/test2.txt");
         try {
             SymbolTblListener symbolTable = compile(fileHandler.getFileContent());
         } catch (AlreadyDeclared ex) {
@@ -44,6 +44,8 @@ public class Main {
         ParseTreeWalker walker = new ParseTreeWalker();
         SymbolTblListener symbolTable = new SymbolTblListener();
         walker.walk(symbolTable, tree);
+        TypeCheckerVisitor visitor = new TypeCheckerVisitor(symbolTable);
+        visitor.visitProgram((HlmpParser.ProgramContext) tree);
         return symbolTable;
     }
 }
