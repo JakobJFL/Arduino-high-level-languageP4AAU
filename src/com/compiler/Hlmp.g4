@@ -148,7 +148,6 @@ WHILE: 'while';
 
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
 INT: [0-9]+;
-SINT: NEGATIVE? INT;
 ID: [a-zA-Z_] [a-zA-Z_0-9]*;
 
 COMMENT: '/*' .*?  '*/' -> skip;

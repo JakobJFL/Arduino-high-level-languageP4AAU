@@ -23,8 +23,8 @@ public class HlmpParser extends Parser {
 		LOOP=22, FUNC=23, PROC=24, WRITE=25, READPWM=26, READA=27, READD=28, LPAREN=29, 
 		RPAREN=30, LBRACE=31, RBRACE=32, END=33, ASSIGN=34, NEGATIVE=35, HIGH=36, 
 		LOW=37, PINMODE=38, TOGGLE=39, BOOL=40, TRUE=41, FALSE=42, IF=43, ELSE=44, 
-		RETURN=45, WHILE=46, PINNUMBER=47, INT=48, SINT=49, ID=50, COMMENT=51, 
-		LINECOMMENT=52, WS=53, NEWLINE=54;
+		RETURN=45, WHILE=46, PINNUMBER=47, INT=48, ID=49, COMMENT=50, LINECOMMENT=51, 
+		WS=52, NEWLINE=53;
 	public static final int
 		RULE_program = 0, RULE_content = 1, RULE_funcProc = 2, RULE_funcHead = 3, 
 		RULE_procHead = 4, RULE_id = 5, RULE_parameters = 6, RULE_parameter = 7, 
@@ -63,8 +63,7 @@ public class HlmpParser extends Parser {
 			"LOOP", "FUNC", "PROC", "WRITE", "READPWM", "READA", "READD", "LPAREN", 
 			"RPAREN", "LBRACE", "RBRACE", "END", "ASSIGN", "NEGATIVE", "HIGH", "LOW", 
 			"PINMODE", "TOGGLE", "BOOL", "TRUE", "FALSE", "IF", "ELSE", "RETURN", 
-			"WHILE", "PINNUMBER", "INT", "SINT", "ID", "COMMENT", "LINECOMMENT", 
-			"WS", "NEWLINE"
+			"WHILE", "PINNUMBER", "INT", "ID", "COMMENT", "LINECOMMENT", "WS", "NEWLINE"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -3117,9 +3116,9 @@ public class HlmpParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\38\u0173\4\2\t\2\4"+
-		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
-		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\67\u0173\4\2\t\2"+
+		"\4\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13"+
+		"\t\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\4\30\t\30\4\31\t\31"+
 		"\4\32\t\32\4\33\t\33\4\34\t\34\4\35\t\35\4\36\t\36\3\2\6\2>\n\2\r\2\16"+
 		"\2?\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3I\n\3\3\4\3\4\3\4\7\4N\n\4\f\4\16\4"+
@@ -3170,7 +3169,7 @@ public class HlmpParser extends Parser {
 		"\u0085\u0086\3\2\2\2\u0086\u0089\3\2\2\2\u0087\u0085\3\2\2\2\u0088\u0080"+
 		"\3\2\2\2\u0088\u0089\3\2\2\2\u0089\u008a\3\2\2\2\u008a\u008b\7 \2\2\u008b"+
 		"\u008d\3\2\2\2\u008cx\3\2\2\2\u008c}\3\2\2\2\u008d\13\3\2\2\2\u008e\u008f"+
-		"\7\64\2\2\u008f\r\3\2\2\2\u0090\u0096\5\20\t\2\u0091\u0092\5\20\t\2\u0092"+
+		"\7\63\2\2\u008f\r\3\2\2\2\u0090\u0096\5\20\t\2\u0091\u0092\5\20\t\2\u0092"+
 		"\u0093\7\3\2\2\u0093\u0094\5\16\b\2\u0094\u0096\3\2\2\2\u0095\u0090\3"+
 		"\2\2\2\u0095\u0091\3\2\2\2\u0096\17\3\2\2\2\u0097\u0098\5\22\n\2\u0098"+
 		"\u0099\5\f\7\2\u0099\21\3\2\2\2\u009a\u009b\t\2\2\2\u009b\23\3\2\2\2\u009c"+
@@ -3244,7 +3243,7 @@ public class HlmpParser extends Parser {
 		"\u0165\7 \2\2\u0165\u0169\7!\2\2\u0166\u0168\5\24\13\2\u0167\u0166\3\2"+
 		"\2\2\u0168\u016b\3\2\2\2\u0169\u0167\3\2\2\2\u0169\u016a\3\2\2\2\u016a"+
 		"\u016c\3\2\2\2\u016b\u0169\3\2\2\2\u016c\u016d\7\"\2\2\u016d9\3\2\2\2"+
-		"\u016e\u0171\7\65\2\2\u016f\u0171\7\66\2\2\u0170\u016e\3\2\2\2\u0170\u016f"+
+		"\u016e\u0171\7\64\2\2\u016f\u0171\7\65\2\2\u0170\u016e\3\2\2\2\u0170\u016f"+
 		"\3\2\2\2\u0171;\3\2\2\2&?HOY^orv\u0085\u0088\u008c\u0095\u009f\u00b5\u00c0"+
 		"\u00c4\u00c8\u00cc\u00d2\u00da\u00df\u00e4\u00e9\u00fa\u0115\u0118\u0123"+
 		"\u0128\u0132\u013d\u0141\u0145\u014f\u015c\u0169\u0170";

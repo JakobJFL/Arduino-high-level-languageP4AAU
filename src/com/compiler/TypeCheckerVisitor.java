@@ -29,7 +29,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
                 if (!left.chars().allMatch( Character::isDigit ) || !right.chars().allMatch( Character::isDigit ))
                     throw new TypeException();
                 else
-                    returnType = HlmpLexer.SINT;
+                    returnType = HlmpLexer.INT;
                 break;
             case HlmpLexer.LOGAND, HlmpLexer.LOGOR:
                 if (left != "true" || left != "false" || right != "true" || right != "false")
