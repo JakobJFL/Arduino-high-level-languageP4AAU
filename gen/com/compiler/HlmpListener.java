@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
+// Generated from C:/Users/kaspe/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -336,6 +336,30 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitExprOperand(HlmpParser.ExprOperandContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code exprUnaryOp}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprUnaryOp}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprMinusPrefix}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprMinusPrefix(HlmpParser.ExprMinusPrefixContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprMinusPrefix}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprMinusPrefix(HlmpParser.ExprMinusPrefixContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code exprReadFunc}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
@@ -395,42 +419,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOperandFuncCall(HlmpParser.OperandFuncCallContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code opRelational}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpRelational(HlmpParser.OpRelationalContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code opRelational}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpRelational(HlmpParser.OpRelationalContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code operatorArithmetic}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code operatorArithmetic}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code operatorLog}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperatorLog(HlmpParser.OperatorLogContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code operatorLog}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperatorLog(HlmpParser.OperatorLogContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code readFuncPWM}
 	 * labeled alternative in {@link HlmpParser#readFunc}.

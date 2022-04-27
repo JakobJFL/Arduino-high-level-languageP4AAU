@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
+// Generated from C:/Users/kaspe/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -352,6 +352,30 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprMinusPrefix(HlmpParser.ExprMinusPrefixContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprMinusPrefix(HlmpParser.ExprMinusPrefixContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterExprReadFunc(HlmpParser.ExprReadFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -407,42 +431,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOperandFuncCall(HlmpParser.OperandFuncCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpRelational(HlmpParser.OpRelationalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpRelational(HlmpParser.OpRelationalContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOperatorLog(HlmpParser.OperatorLogContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperatorLog(HlmpParser.OperatorLogContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

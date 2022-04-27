@@ -43,19 +43,23 @@ varDecl: type id                                            #varDeclaration
        | type id ASSIGN expr                                #varDeclaration
        | pinLiteral                                         #varDeclPinLiteral;
 
-expr: NEG? operand                                          #exprOperand
-    | NEG? readFunc                                         #exprReadFunc
-    | NEG? LPAREN expr RPAREN                               #exprParenthesised
-    | left=expr operator right=expr                         #exprBinaryOp;
+expr: operand                                               #exprOperand
+    | readFunc                                              #exprReadFunc
+    | LPAREN expr RPAREN                                    #exprParenthesised
+    | op=NEG expr                                           #exprUnaryOp
+    | op=NEGATIVE expr                                      #exprMinusPrefix
+    | left=expr op=(DIVIDE|MULT) right=expr                 #exprBinaryOp
+    | left=expr op=(PLUS|MINUS|MODULU) right=expr           #exprBinaryOp
+    | left=expr op=(LESSTHAN|GREATERTHAN) right=expr        #exprBinaryOp
+    | left=expr op=(EQUAL|NOTEQUAL) right=expr              #exprBinaryOp
+    | left=expr op=LOGAND right=expr                        #exprBinaryOp
+    | left=expr op=LOGOR right=expr                         #exprBinaryOp;
+
 
 operand: id                                                 #operandId
-       | NEGATIVE? INT                                      #operandSInt
+       | SINT                                               #operandSInt
        | BOOL                                               #operandBool
        | funcCall                                           #operandFuncCall;
-
-operator: RELATIONAL                                        #opRelational
-        | ARITHMETIC                                        #operatorArithmetic
-        | LOGICAL                                           #operatorLog;
 
 readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
         | id READA LPAREN RPAREN                            #readFuncAnal
@@ -74,7 +78,7 @@ writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
 val: HIGH                                                   #value
    | LOW                                                    #value
-   | NEGATIVE? INT                                                   #value
+   | SINT                                                   #value
    | id                                                     #valueId
    | TOGGLE                                                 #value;
 
@@ -93,7 +97,7 @@ comment: COMMENT                                            #commentDel
 
 //Lexer Rules
 
-NUMTYPE: 'Num ';
+NUMTYPE: 'Num ' ;
 BOOLTYPE: 'Bool ';
 PWMTYPE: 'Pwm ';
 PINTYPE: 'Pin ';
