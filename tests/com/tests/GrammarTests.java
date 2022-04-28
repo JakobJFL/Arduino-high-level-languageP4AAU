@@ -44,28 +44,29 @@ public class GrammarTests {
 
     @Test
     public void OperandTest () {
-        String randomInputs = setUpLoop + " Num var1 = 1; proc num fun1() {if (1 > 1){} else{}}";
+        String randomInputs = setUpLoop + " proc fun1() {if (var > 1){} else{}}";
 
         Assertions.assertThrows(NotDeclared.class, () -> {
             compile(randomInputs);
         });
     }
+    
 
     @Test
     public void NegationTest () {
-        String programWithNegation = setUpLoop + " proc fun1() {proc fun2() {if (1 > ~1){} else{}}";
+        String programWithNegation = setUpLoop + " proc fun1() {proc fun2() {if (1 > ~1){} else{}}}";
 
         Assertions.assertDoesNotThrow(() -> {
             compile(programWithNegation);
         });
     }
 
-    /*@Test
-    public void  () {
-        String  = setUpLoop + " ";
+    @Test
+    public void DeclarationInScopesTest () {
+        String DecTest = setUpLoop + " proc fun11() { proc fun12(){ proc fun13(){ Num var1;} proc fun14(){ Num var1;}}}";
 
-        Assertions.assertThrows(.class, () -> {
-            compile();
+        Assertions.assertDoesNotThrow(() -> {
+            compile(DecTest);
         });
-    }*/
+    }
 }

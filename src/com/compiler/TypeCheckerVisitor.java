@@ -32,7 +32,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
                 if (left != HlmpLexer.SINT || right != HlmpLexer.SINT)
                     throw new TypeException();
                 else
-                    returnType = HlmpLexer.SINT;
+                    returnType = HlmpLexer.INT;
                 break;
             case HlmpLexer.LOGAND, HlmpLexer.LOGOR:
                 if (left != HlmpLexer.BOOL || right != HlmpLexer.BOOL)
