@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.9.2
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -203,6 +203,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprOperand(HlmpParser.ExprOperandContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code exprUnaryOp}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code exprReadFunc}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
@@ -237,27 +244,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOperandFuncCall(HlmpParser.OperandFuncCallContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code opRelational}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpRelational(HlmpParser.OpRelationalContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code operatorArithmetic}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperatorArithmetic(HlmpParser.OperatorArithmeticContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code operatorLog}
-	 * labeled alternative in {@link HlmpParser#operator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperatorLog(HlmpParser.OperatorLogContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code readFuncPWM}
 	 * labeled alternative in {@link HlmpParser#readFunc}.

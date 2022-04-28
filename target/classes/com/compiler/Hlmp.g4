@@ -11,11 +11,9 @@ content: funcProc                                           #cntFuncProc
 funcProc: funcHead LBRACE body* RBRACE                      #funcDefinition
         | procHead LBRACE body* RBRACE                      #procDefinition;
 
-funcHead: FUNC type id LPAREN RPAREN
-        | FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
+funcHead: FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
 
-procHead: PROC id LPAREN RPAREN
-        | PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
+procHead: PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
 
 id : ID                                                     #identifier;
 
@@ -43,19 +41,22 @@ varDecl: type id                                            #varDeclaration
        | type id ASSIGN expr                                #varDeclaration
        | pinLiteral                                         #varDeclPinLiteral;
 
-expr: NEG? operand                                          #exprOperand
-    | NEG? readFunc                                         #exprReadFunc
-    | NEG? LPAREN expr RPAREN                               #exprParenthesised
-    | left=expr operator right=expr                         #exprBinaryOp;
+expr: operand                                               #exprOperand
+    | readFunc                                              #exprReadFunc
+    | LPAREN expr RPAREN                                    #exprParenthesised
+    | op=NEG expr                                           #exprUnaryOp
+    | left=expr op=(DIVIDE|MULT) right=expr                 #exprBinaryOp
+    | left=expr op=(PLUS|MINUS|MODULU) right=expr           #exprBinaryOp
+    | left=expr op=(LESSTHAN|GREATERTHAN) right=expr        #exprBinaryOp
+    | left=expr op=(EQUAL|NOTEQUAL) right=expr              #exprBinaryOp
+    | left=expr op=LOGAND right=expr                        #exprBinaryOp
+    | left=expr op=LOGOR right=expr                         #exprBinaryOp;
+
 
 operand: id                                                 #operandId
-       | NEGATIVE? INT                                      #operandSInt
+       | SINT                                               #operandSInt
        | BOOL                                               #operandBool
        | funcCall                                           #operandFuncCall;
-
-operator: RELATIONAL                                        #opRelational
-        | ARITHMETIC                                        #operatorArithmetic
-        | LOGICAL                                           #operatorLog;
 
 readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
         | id READA LPAREN RPAREN                            #readFuncAnal
@@ -74,7 +75,7 @@ writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
 val: HIGH                                                   #value
    | LOW                                                    #value
-   | NEGATIVE? INT                                                   #value
+   | SINT                                                   #value
    | id                                                     #valueId
    | TOGGLE                                                 #value;
 
@@ -93,14 +94,11 @@ comment: COMMENT                                            #commentDel
 
 //Lexer Rules
 
-NUMTYPE: 'Num ';
+NUMTYPE: 'Num ' ;
 BOOLTYPE: 'Bool ';
 PWMTYPE: 'Pwm ';
 PINTYPE: 'Pin ';
 
-RELATIONAL: LESSTHAN | GREATERTHAN | EQUAL | NOTEQUAL;
-ARITHMETIC: PLUS | MINUS | DIVIDE | MULT | MODULU;
-LOGICAL: LOGAND | LOGOR;
 NEG: '!';
 PLUS: '+';
 MINUS: '-';
@@ -113,6 +111,14 @@ EQUAL: '==';
 NOTEQUAL: '!=';
 LOGAND: '&&';
 LOGOR: '||';
+
+RELATIONAL: LESSTHAN | GREATERTHAN | EQUAL | NOTEQUAL;
+ARITHMETIC: PLUS | MINUS | DIVIDE | MULT | MODULU;
+LOGICAL: LOGAND | LOGOR;
+
+SINT: (NEGATIVE)? FLOAT;
+FLOAT : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
+
 
 SETUP: 'setup';
 LOOP: 'loop';
@@ -147,11 +153,12 @@ RETURN: 'return';
 WHILE: 'while';
 
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
-INT: [0-9]+;
-ID: [a-zA-Z_] [a-zA-Z_0-9]*;
+
 
 COMMENT: '/*' .*?  '*/' -> skip;
 LINECOMMENT: '//' ~( '\r' | '\n' )* -> skip;
 
 WS: (' '|'\t'|NEWLINE)+ -> skip;
 NEWLINE: ('\r\n'|'\n'|'\r');
+
+ID: [a-zA-Z_] [a-zA-Z_0-9]*;

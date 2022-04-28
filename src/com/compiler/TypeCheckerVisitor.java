@@ -21,24 +21,27 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     @Override
     public Integer visitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx) {
         int returnType;
-        String left = ctx.left.getText();
-        String right = ctx.right.getText();
+        System.out.println("HEj");
+        Integer left = visit(ctx.left);
+        Integer right = visit(ctx.right);
+        System.out.println("HEj");
         System.out.println(left + "|" + right);
-        switch (ctx.operator().getRuleIndex()) {
+
+        switch (ctx.op.getType()) {
             case HlmpLexer.PLUS, HlmpLexer.MINUS, HlmpLexer.DIVIDE, HlmpLexer.MULT, HlmpLexer.MODULU:
-                if (!left.chars().allMatch( Character::isDigit ) || !right.chars().allMatch( Character::isDigit ))
+                if (left != HlmpLexer.SINT || right != HlmpLexer.SINT)
                     throw new TypeException();
                 else
                     returnType = HlmpLexer.INT;
                 break;
             case HlmpLexer.LOGAND, HlmpLexer.LOGOR:
-                if (left != "true" || left != "false" || right != "true" || right != "false")
+                if (left != HlmpLexer.BOOL || right != HlmpLexer.BOOL)
                     throw new TypeException();
                 else
                     returnType = HlmpLexer.BOOL;
                 break;
             case HlmpLexer.LESSTHAN, HlmpLexer.GREATERTHAN:
-                if (!left.chars().allMatch( Character::isDigit ) || !right.chars().allMatch( Character::isDigit ))
+                if (left != HlmpLexer.SINT || right != HlmpLexer.SINT)
                     throw new TypeException();
                 else
                     returnType = HlmpLexer.BOOL;
@@ -52,8 +55,15 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             default:
                 throw new SyntaxException("FUCK Den er hel gal");
         }
-        return super.visitExprBinaryOp(ctx);
+        return returnType;
     }
+
+
+    @Override
+    public Integer visitOperandSInt(HlmpParser.OperandSIntContext ctx) {
+        return HlmpLexer.SINT;
+    }
+
 
     @Override
     public Integer visitExprOperand(HlmpParser.ExprOperandContext ctx) {
