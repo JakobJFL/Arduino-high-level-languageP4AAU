@@ -54,7 +54,7 @@ public class ScopeTests {
         }
         if (scope.getSubScopes() != null) {
             for (Scope s : scope.getSubScopes()) {
-                System.out.println("new");
+                System.out.println("new----");
 
                 output += ";" + getSymbolHelper(s, test);
             }
@@ -66,13 +66,28 @@ public class ScopeTests {
     public void varTest() {
         String testInput = setUpLoop + " Num var11 = 0;func Num fun11() {Num var21;proc fun21() {func Bool fun3() {}Num var3;}proc fun22() {}Num var22;proc fun23() {func Pwm fun41() {}proc fun42() {}}}func Num fun12() {}Num var12;";
         SymbolTblListener symbolTable = compile(testInput);
-
+        System.out.println("-------------------------");
         List<String> test = new ArrayList<>();
         test.add("var11");
         test.add("var12");
         test.add("var21");
         test.add("var22");
         test.add("var3");
+
+        Scope scope = symbolTable.symbolTbl.globalScope;
+        String result = getSymbolHelper(scope, test);
+        System.out.println(result);
+    }
+
+    @Test
+    public void var2Test() {
+        String testInput = setUpLoop + " proc fun11() { proc fun12(){ proc fun13(){ Num var1;} proc fun14(){ Num var2;}}}";
+        SymbolTblListener symbolTable = compile(testInput);
+        System.out.println("-------------------------");
+        List<String> test = new ArrayList<>();
+        test.add("var1");
+        test.add("var2");
+
 
         Scope scope = symbolTable.symbolTbl.globalScope;
         String result = getSymbolHelper(scope, test);

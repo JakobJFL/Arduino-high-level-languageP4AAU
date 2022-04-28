@@ -40,18 +40,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStandardFunc(HlmpParser.StandardFuncContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStandardFunc(HlmpParser.StandardFuncContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterCntvarDecl(HlmpParser.CntvarDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -328,13 +316,25 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx) { }
+	@Override public void enterExprBinaryFloat(HlmpParser.ExprBinaryFloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx) { }
+	@Override public void exitExprBinaryFloat(HlmpParser.ExprBinaryFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprBinaryLog(HlmpParser.ExprBinaryLogContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprBinaryLog(HlmpParser.ExprBinaryLogContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -352,13 +352,13 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx) { }
+	@Override public void enterExprBinaryBool(HlmpParser.ExprBinaryBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx) { }
+	@Override public void exitExprBinaryBool(HlmpParser.ExprBinaryBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -376,6 +376,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterOperandId(HlmpParser.OperandIdContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -388,13 +400,13 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOperandSInt(HlmpParser.OperandSIntContext ctx) { }
+	@Override public void enterOperandSFloat(HlmpParser.OperandSFloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOperandSInt(HlmpParser.OperandSIntContext ctx) { }
+	@Override public void exitOperandSFloat(HlmpParser.OperandSFloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

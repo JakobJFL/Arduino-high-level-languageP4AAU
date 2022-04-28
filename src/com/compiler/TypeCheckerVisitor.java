@@ -1,9 +1,12 @@
 package com.compiler;
 
+import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.SyntaxException;
 import com.compiler.Exceptions.TypeException;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.SymbolTblListener;
+import com.compiler.SymbolTbl.Symbols.Symbol;
+import com.compiler.SymbolTbl.Symbols.TypeSymbol;
 
 import javax.print.DocFlavor;
 
@@ -19,49 +22,45 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     }
 
     @Override
-    public Integer visitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx) {
-        int returnType;
-        System.out.println("HEj");
+    public Integer visitExprBinaryFloat(HlmpParser.ExprBinaryFloatContext ctx) {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
-        System.out.println("HEj");
-        System.out.println(left + "|" + right);
-
-        switch (ctx.op.getType()) {
-            case HlmpLexer.PLUS, HlmpLexer.MINUS, HlmpLexer.DIVIDE, HlmpLexer.MULT, HlmpLexer.MODULU:
-                if (left != HlmpLexer.SINT || right != HlmpLexer.SINT)
-                    throw new TypeException();
-                else
-                    returnType = HlmpLexer.FLOAT;
-                break;
-            case HlmpLexer.LOGAND, HlmpLexer.LOGOR:
-                if (left != HlmpLexer.BOOL || right != HlmpLexer.BOOL)
-                    throw new TypeException();
-                else
-                    returnType = HlmpLexer.BOOL;
-                break;
-            case HlmpLexer.LESSTHAN, HlmpLexer.GREATERTHAN:
-                if (left != HlmpLexer.SINT || right != HlmpLexer.SINT)
-                    throw new TypeException();
-                else
-                    returnType = HlmpLexer.BOOL;
-                break;
-            case HlmpLexer.EQUAL, HlmpLexer.NOTEQUAL:
-                if (left != right)
-                    throw new TypeException();
-                else
-                    returnType = HlmpLexer.BOOL;
-                break;
-            default:
-                throw new SyntaxException("FUCK Den er hel gal");
+        if (left == HlmpLexer.NUMTYPE && right == HlmpLexer.NUMTYPE) {
+            return HlmpLexer.NUMTYPE;
         }
-        return returnType;
+        else
+            throw new TypeException();
     }
 
+    @Override
+    public Integer visitExprBinaryBool(HlmpParser.ExprBinaryBoolContext ctx) {
+        Integer left = visit(ctx.left);
+        Integer right = visit(ctx.right);
+
+        if (left != HlmpLexer.NUMTYPE || right != HlmpLexer.NUMTYPE)
+            throw new TypeException();
+        else if (left != right)
+            throw new TypeException();
+        else
+            return HlmpLexer.BOOL;
+    }
 
     @Override
-    public Integer visitOperandSInt(HlmpParser.OperandSIntContext ctx) {
-        return HlmpLexer.SINT;
+    public Integer visitExprBinaryLog(HlmpParser.ExprBinaryLogContext ctx) {
+        Integer left = visit(ctx.left);
+        Integer right = visit(ctx.right);
+        if (left != HlmpLexer.NUMTYPE || right != HlmpLexer.NUMTYPE)
+            throw new TypeException();
+        else
+            return HlmpLexer.BOOL;
+    }
+
+    @Override
+    public Integer visitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx) { return HlmpLexer.BOOL;}
+
+    @Override
+    public Integer visitOperandSFloat(HlmpParser.OperandSFloatContext ctx) {
+        return HlmpLexer.NUMTYPE;
     }
 
 
@@ -71,8 +70,19 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         return super.visitExprOperand(ctx);
     }
 
+
+
     @Override
     public Integer visitExprReadFunc(HlmpParser.ExprReadFuncContext ctx) {
         return super.visitExprReadFunc(ctx);
+    }
+
+    @Override
+    public Integer visitOperandId(HlmpParser.OperandIdContext ctx) {
+        TypeSymbol symbol = (TypeSymbol) symbolTbl.symbolTbl.getSymbol(ctx.id().getText());
+        if (symbol == null) {
+            throw new NotDeclared();
+        }
+        return symbol.type.start.getType();
     }
 }

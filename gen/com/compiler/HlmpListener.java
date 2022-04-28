@@ -30,18 +30,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitCntFuncProc(HlmpParser.CntFuncProcContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code standardFunc}
-	 * labeled alternative in {@link HlmpParser#content}.
-	 * @param ctx the parse tree
-	 */
-	void enterStandardFunc(HlmpParser.StandardFuncContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code standardFunc}
-	 * labeled alternative in {@link HlmpParser#content}.
-	 * @param ctx the parse tree
-	 */
-	void exitStandardFunc(HlmpParser.StandardFuncContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code cntvarDecl}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
@@ -312,17 +300,29 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitExprParenthesised(HlmpParser.ExprParenthesisedContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exprBinaryOp}
+	 * Enter a parse tree produced by the {@code exprBinaryFloat}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx);
+	void enterExprBinaryFloat(HlmpParser.ExprBinaryFloatContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exprBinaryOp}
+	 * Exit a parse tree produced by the {@code exprBinaryFloat}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx);
+	void exitExprBinaryFloat(HlmpParser.ExprBinaryFloatContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprBinaryLog}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprBinaryLog(HlmpParser.ExprBinaryLogContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprBinaryLog}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprBinaryLog(HlmpParser.ExprBinaryLogContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code exprOperand}
 	 * labeled alternative in {@link HlmpParser#expr}.
@@ -336,17 +336,17 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitExprOperand(HlmpParser.ExprOperandContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code exprUnaryOp}
+	 * Enter a parse tree produced by the {@code exprBinaryBool}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx);
+	void enterExprBinaryBool(HlmpParser.ExprBinaryBoolContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code exprUnaryOp}
+	 * Exit a parse tree produced by the {@code exprBinaryBool}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx);
+	void exitExprBinaryBool(HlmpParser.ExprBinaryBoolContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code exprReadFunc}
 	 * labeled alternative in {@link HlmpParser#expr}.
@@ -360,6 +360,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitExprReadFunc(HlmpParser.ExprReadFuncContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code exprUnaryNeg}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprUnaryNeg}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code operandId}
 	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
@@ -372,17 +384,17 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitOperandId(HlmpParser.OperandIdContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code operandSInt}
+	 * Enter a parse tree produced by the {@code operandSFloat}
 	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperandSInt(HlmpParser.OperandSIntContext ctx);
+	void enterOperandSFloat(HlmpParser.OperandSFloatContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code operandSInt}
+	 * Exit a parse tree produced by the {@code operandSFloat}
 	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperandSInt(HlmpParser.OperandSIntContext ctx);
+	void exitOperandSFloat(HlmpParser.OperandSFloatContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code operandBool}
 	 * labeled alternative in {@link HlmpParser#operand}.

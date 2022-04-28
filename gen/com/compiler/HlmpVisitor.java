@@ -24,13 +24,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCntFuncProc(HlmpParser.CntFuncProcContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code standardFunc}
-	 * labeled alternative in {@link HlmpParser#content}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStandardFunc(HlmpParser.StandardFuncContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code cntvarDecl}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
@@ -189,12 +182,19 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprParenthesised(HlmpParser.ExprParenthesisedContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exprBinaryOp}
+	 * Visit a parse tree produced by the {@code exprBinaryFloat}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprBinaryOp(HlmpParser.ExprBinaryOpContext ctx);
+	T visitExprBinaryFloat(HlmpParser.ExprBinaryFloatContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprBinaryLog}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprBinaryLog(HlmpParser.ExprBinaryLogContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code exprOperand}
 	 * labeled alternative in {@link HlmpParser#expr}.
@@ -203,12 +203,12 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprOperand(HlmpParser.ExprOperandContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code exprUnaryOp}
+	 * Visit a parse tree produced by the {@code exprBinaryBool}
 	 * labeled alternative in {@link HlmpParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExprUnaryOp(HlmpParser.ExprUnaryOpContext ctx);
+	T visitExprBinaryBool(HlmpParser.ExprBinaryBoolContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code exprReadFunc}
 	 * labeled alternative in {@link HlmpParser#expr}.
@@ -217,6 +217,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprReadFunc(HlmpParser.ExprReadFuncContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code exprUnaryNeg}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code operandId}
 	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
@@ -224,12 +231,12 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOperandId(HlmpParser.OperandIdContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code operandSInt}
+	 * Visit a parse tree produced by the {@code operandSFloat}
 	 * labeled alternative in {@link HlmpParser#operand}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOperandSInt(HlmpParser.OperandSIntContext ctx);
+	T visitOperandSFloat(HlmpParser.OperandSFloatContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code operandBool}
 	 * labeled alternative in {@link HlmpParser#operand}.

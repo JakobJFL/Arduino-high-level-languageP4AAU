@@ -19,6 +19,7 @@ public class SymbolTblListener extends HlmpBaseListener {
     }
     @Override
     public void exitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
+        System.out.println("ud");
         symbolTbl.exitScope();
     }
 
@@ -32,12 +33,16 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void exitProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
+        System.out.println("ud");
         symbolTbl.exitScope();
     }
 
+
     @Override
     public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
-        FuncDefSymbol symbol = new FuncDefSymbol();
+        symbolTbl.enterScope("fuck");
+        System.out.println(ctx.id().getText());
+        TypeSymbol symbol = new TypeSymbol();
         symbol.setId(ctx.id().getText());
         symbol.setType(ctx.type());
         symbolTbl.addSymbol(symbol);

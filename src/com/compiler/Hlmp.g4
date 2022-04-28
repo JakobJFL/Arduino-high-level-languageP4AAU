@@ -1,36 +1,31 @@
 grammar Hlmp;
 //Parse Rules
-program: content+;
+
+program: setupDef loopDef content+
+       | loopDef setupDef content+;
 
 content: funcProc                                           #cntFuncProc
-       | setupDef                                           #standardFunc
-       | loopDef                                            #standardFunc
        | varDecl END                                        #cntvarDecl
        | comment                                            #cntComment;
 
-funcProc: funcHead LBRACE body* RBRACE                      #funcDefinition
-        | procHead LBRACE body* RBRACE                      #procDefinition;
+funcProc: funcHead LBRACE body returnExpr RBRACE            #funcDefinition
+        | procHead LBRACE body RBRACE                       #procDefinition;
 
 funcHead: FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
-
 procHead: PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
 
 id : ID                                                     #identifier;
-
-parameters: parameter                                       #params
-          | parameter ',' parameters                        #params;
 
 parameter: type id                                          #param;
 
 type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 
-body: funcProc                                              #bodyStmt
-    | stmt                                                  #bodyStmt
-    | comment                                               #bodyComment;
+body: (funcProc body)?                                      #bodyStmt
+    | stmt body                                             #bodyStmt
+    | comment body                                          #bodyComment;
 
 stmt: varDecl END                                           #stmtVarDecl
     | assign END                                            #stmtAssign
-    | returnExpr END                                        #stmtReturnExpr
     | funcCall END                                          #stmtFuncCall
     | writeFunc END                                         #stmtWriteFunc
     | readFunc END                                          #stmtReadFunc
@@ -38,23 +33,23 @@ stmt: varDecl END                                           #stmtVarDecl
     | whileExpr                                             #stmtWhileExpr;
 
 varDecl: type id                                            #varDeclaration
-       | type id ASSIGN expr                                #varDeclaration
+       | type assign                                        #varDeclaration
        | pinLiteral                                         #varDeclPinLiteral;
 
 expr: operand                                               #exprOperand
     | readFunc                                              #exprReadFunc
     | LPAREN expr RPAREN                                    #exprParenthesised
-    | op=NEG expr                                           #exprUnaryOp
-    | left=expr op=(DIVIDE|MULT) right=expr                 #exprBinaryOp
-    | left=expr op=(PLUS|MINUS|MODULU) right=expr           #exprBinaryOp
-    | left=expr op=(LESSTHAN|GREATERTHAN) right=expr        #exprBinaryOp
-    | left=expr op=(EQUAL|NOTEQUAL) right=expr              #exprBinaryOp
-    | left=expr op=LOGAND right=expr                        #exprBinaryOp
-    | left=expr op=LOGOR right=expr                         #exprBinaryOp;
+    | op=NEG expr                                           #exprUnaryNeg
+    | left=expr op=(DIVIDE|MULT) right=expr                 #exprBinaryFloat
+    | left=expr op=(PLUS|MINUS|MODULU) right=expr           #exprBinaryFloat
+    | left=expr op=(LESSTHAN|GREATERTHAN) right=expr        #exprBinaryBool
+    | left=expr op=(EQUAL|NOTEQUAL) right=expr              #exprBinaryBool
+    | left=expr op=LOGAND right=expr                        #exprBinaryLog
+    | left=expr op=LOGOR right=expr                         #exprBinaryLog;
 
 
 operand: id                                                 #operandId
-       | SINT                                               #operandSInt
+       | SFLOAT                                             #operandSFloat
        | BOOL                                               #operandBool
        | funcCall                                           #operandFuncCall;
 
@@ -75,26 +70,26 @@ writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
 val: HIGH                                                   #value
    | LOW                                                    #value
-   | SINT                                                   #value
+   | SFLOAT                                                 #value
    | id                                                     #valueId
    | TOGGLE                                                 #value;
 
-ifStmt: IF LPAREN expr RPAREN LBRACE body* RBRACE elseStmt  #ifStmtDef;
+ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt   #ifStmtDef;
 
-elseStmt: (ELSE LBRACE body* RBRACE)?                       #elseSTtmt
+elseStmt: (ELSE LBRACE body RBRACE)?                        #elseSTtmt
         | ELSE ifStmt                                       #elseIfStmt;
 
-whileExpr: WHILE LPAREN expr RPAREN LBRACE body* RBRACE     #whileExprDef;
+whileExpr: WHILE LPAREN expr RPAREN LBRACE body RBRACE      #whileExprDef;
 
-setupDef: PROC SETUP LPAREN RPAREN LBRACE body* RBRACE      #setupDefinition;
-loopDef: PROC LOOP LPAREN RPAREN LBRACE body* RBRACE        #loopDefinition;
+setupDef: PROC SETUP LPAREN RPAREN LBRACE body RBRACE       #setupDefinition;
+loopDef: PROC LOOP LPAREN RPAREN LBRACE body RBRACE         #loopDefinition;
 
 comment: COMMENT                                            #commentDel
        | LINECOMMENT                                        #commentDel;
 
 //Lexer Rules
 
-NUMTYPE: 'Num ' ;
+NUMTYPE: 'Num ';
 BOOLTYPE: 'Bool ';
 PWMTYPE: 'Pwm ';
 PINTYPE: 'Pin ';
@@ -112,19 +107,13 @@ NOTEQUAL: '!=';
 LOGAND: '&&';
 LOGOR: '||';
 
-RELATIONAL: LESSTHAN | GREATERTHAN | EQUAL | NOTEQUAL;
-ARITHMETIC: PLUS | MINUS | DIVIDE | MULT | MODULU;
-LOGICAL: LOGAND | LOGOR;
-
-SINT: (NEGATIVE)? FLOAT;
-FLOAT : ('0'..'9')+|('0'..'9')+'.'('0'..'9')+;
-
-
 SETUP: 'setup';
 LOOP: 'loop';
 FUNC: 'func ';
 PROC: 'proc ';
 
+SFLOAT: (NEGATIVE)? FLOAT;
+FLOAT : [0-9]+|[0-9]+'.'[0-9]+;
 
 WRITE: '.Write';
 READPWM: '.ReadPwm';
@@ -141,11 +130,13 @@ NEGATIVE: '~';
 
 HIGH: 'HIGH';
 LOW: 'LOW';
-PINMODE: 'out' | 'in';
 TOGGLE: 'TOGGLE';
 BOOL: TRUE | FALSE;
 TRUE: 'true';
 FALSE: 'false';
+PINMODE: OUT | IN;
+IN: 'in';
+OUT: 'out';
 
 IF: 'if';
 ELSE: 'else';
@@ -153,7 +144,6 @@ RETURN: 'return';
 WHILE: 'while';
 
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
-
 
 COMMENT: '/*' .*?  '*/' -> skip;
 LINECOMMENT: '//' ~( '\r' | '\n' )* -> skip;
