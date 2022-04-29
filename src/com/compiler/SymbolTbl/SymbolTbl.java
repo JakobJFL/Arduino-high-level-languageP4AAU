@@ -21,8 +21,6 @@ public class SymbolTbl {
                 return;
             }
         }
-
-
         System.out.println("new Scope");
         //No match in loop, so we need to add a new scope
         Scope scope = new Scope(currentScope, id);
@@ -79,5 +77,4 @@ public class SymbolTbl {
         exitId = currentScope.id;
         currentScope = currentScope.parent;
     }
-
 }

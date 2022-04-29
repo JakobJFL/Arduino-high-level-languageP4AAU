@@ -1,26 +1,7 @@
 proc setup() { }
 
-proc loop() { }
+proc loop() {
+	proc kat(Num kat1, Num kat2) { }
+	kat(5, 1<0);
 
-Num var0;
-proc fun11() {
-	Num var11;
-	func Num fun21() {
-		proc fun3() {
-			Num var3;
-		}
-		Num var21;
-	}
-	func Num fun22() {}
-	func Num fun23() {
-		Num var23;
-		proc fun41() {}
-		Num var231;
-		proc fun42() {
-			proc fun5() {}
-			Num var42;
-		}
-		Num var232;
-	}
-} 
-func Pwm fun12() {}
+}

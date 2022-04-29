@@ -15,4 +15,11 @@ public class FuncDefSymbol extends TypeSymbol {
     public HlmpParser.TypeContext getType() {
         return type;
     }
+
+    public void addParameter(TypeSymbol symbol) {
+        parameters.add(symbol);
+    }
+    public List<TypeSymbol> getParameters() {
+        return parameters;
+    }
 }

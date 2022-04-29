@@ -71,13 +71,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIdentifier(HlmpParser.IdentifierContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code params}
-	 * labeled alternative in {@link HlmpParser#parameters}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitParams(HlmpParser.ParamsContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code param}
 	 * labeled alternative in {@link HlmpParser#parameter}.
 	 * @param ctx the parse tree
@@ -118,13 +111,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitStmtAssign(HlmpParser.StmtAssignContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code stmtReturnExpr}
-	 * labeled alternative in {@link HlmpParser#stmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code stmtFuncCall}
 	 * labeled alternative in {@link HlmpParser#stmt}.
@@ -223,6 +209,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code exprBinaryBoolEqual}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprBinaryBoolEqual(HlmpParser.ExprBinaryBoolEqualContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code operandId}
 	 * labeled alternative in {@link HlmpParser#operand}.

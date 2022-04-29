@@ -124,18 +124,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParams(HlmpParser.ParamsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitParams(HlmpParser.ParamsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterParam(HlmpParser.ParamContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -203,18 +191,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitStmtAssign(HlmpParser.StmtAssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -383,6 +359,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterExprBinaryBoolEqual(HlmpParser.ExprBinaryBoolEqualContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprBinaryBoolEqual(HlmpParser.ExprBinaryBoolEqualContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

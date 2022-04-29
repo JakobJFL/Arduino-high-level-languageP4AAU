@@ -110,18 +110,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitIdentifier(HlmpParser.IdentifierContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code params}
-	 * labeled alternative in {@link HlmpParser#parameters}.
-	 * @param ctx the parse tree
-	 */
-	void enterParams(HlmpParser.ParamsContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code params}
-	 * labeled alternative in {@link HlmpParser#parameters}.
-	 * @param ctx the parse tree
-	 */
-	void exitParams(HlmpParser.ParamsContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code param}
 	 * labeled alternative in {@link HlmpParser#parameter}.
 	 * @param ctx the parse tree
@@ -191,18 +179,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitStmtAssign(HlmpParser.StmtAssignContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code stmtReturnExpr}
-	 * labeled alternative in {@link HlmpParser#stmt}.
-	 * @param ctx the parse tree
-	 */
-	void enterStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code stmtReturnExpr}
-	 * labeled alternative in {@link HlmpParser#stmt}.
-	 * @param ctx the parse tree
-	 */
-	void exitStmtReturnExpr(HlmpParser.StmtReturnExprContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code stmtFuncCall}
 	 * labeled alternative in {@link HlmpParser#stmt}.
@@ -371,6 +347,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code exprBinaryBoolEqual}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprBinaryBoolEqual(HlmpParser.ExprBinaryBoolEqualContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code exprBinaryBoolEqual}
+	 * labeled alternative in {@link HlmpParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprBinaryBoolEqual(HlmpParser.ExprBinaryBoolEqualContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code operandId}
 	 * labeled alternative in {@link HlmpParser#operand}.

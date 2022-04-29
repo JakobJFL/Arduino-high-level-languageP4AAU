@@ -14,3 +14,17 @@ proc fun11() {
 		}
 	}
 }
+
+proc fun11() {
+	func Num fun21() {
+		proc fun3() {}
+	}
+	func Num fun22() {}
+	fun23() {
+		proc fun41() {}
+		proc fun42() {
+			proc fun5() {}
+		}
+	}
+} 
+func Pwm fun12() {}

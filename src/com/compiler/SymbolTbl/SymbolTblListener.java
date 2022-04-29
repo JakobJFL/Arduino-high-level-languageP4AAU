@@ -1,6 +1,7 @@
 package com.compiler.SymbolTbl;
 
 import com.compiler.HlmpBaseListener;
+import com.compiler.HlmpLexer;
 import com.compiler.HlmpParser;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.Symbol;
@@ -17,6 +18,7 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbol.setType(ctx.funcHead().type());
         symbolTbl.addSymbol(symbol);
     }
+
     @Override
     public void exitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
         System.out.println("ud");
@@ -26,7 +28,7 @@ public class SymbolTblListener extends HlmpBaseListener {
     @Override
     public void enterProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
         symbolTbl.enterScope(ctx.procHead().id().getText());
-        Symbol symbol = new Symbol();
+        FuncDefSymbol symbol = new FuncDefSymbol();
         symbol.setId(ctx.procHead().id().getText());
         symbolTbl.addSymbol(symbol);
     }
@@ -37,10 +39,8 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbolTbl.exitScope();
     }
 
-
     @Override
     public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
-        symbolTbl.enterScope("fuck");
         System.out.println(ctx.id().getText());
         TypeSymbol symbol = new TypeSymbol();
         symbol.setId(ctx.id().getText());
@@ -53,7 +53,10 @@ public class SymbolTblListener extends HlmpBaseListener {
         TypeSymbol symbol = new TypeSymbol();
         symbol.setId(ctx.id().getText());
         symbol.setType(ctx.type());
-        symbolTbl.addSymbol(symbol);
+        String id = ctx.getParent().children.get(1).getText();
+        FuncDefSymbol funcDefSymbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
+
+        funcDefSymbol.addParameter(symbol);
     }
 
     @Override
@@ -75,7 +78,7 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterFunctionCall(HlmpParser.FunctionCallContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        //symbolTbl.checkId(ctx.id().getText());
     }
 
     @Override

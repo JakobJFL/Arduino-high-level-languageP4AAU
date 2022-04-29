@@ -1,8 +1,8 @@
 grammar Hlmp;
 //Parse Rules
 
-program: setupDef loopDef content+
-       | loopDef setupDef content+;
+program: setupDef loopDef content*
+       | loopDef setupDef content*;
 
 content: funcProc                                           #cntFuncProc
        | varDecl END                                        #cntvarDecl
@@ -43,7 +43,7 @@ expr: operand                                               #exprOperand
     | left=expr op=(DIVIDE|MULT) right=expr                 #exprBinaryFloat
     | left=expr op=(PLUS|MINUS|MODULU) right=expr           #exprBinaryFloat
     | left=expr op=(LESSTHAN|GREATERTHAN) right=expr        #exprBinaryBool
-    | left=expr op=(EQUAL|NOTEQUAL) right=expr              #exprBinaryBool
+    | left=expr op=(EQUAL|NOTEQUAL) right=expr              #exprBinaryBoolEqual
     | left=expr op=LOGAND right=expr                        #exprBinaryLog
     | left=expr op=LOGOR right=expr                         #exprBinaryLog;
 
@@ -65,6 +65,7 @@ returnExpr: RETURN expr                                     #returnExpression;
 
 funcCall: id LPAREN args RPAREN                             #functionCall;
 args: (expr (',' expr)*)?                                   #arguments;
+
 
 writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
