@@ -53,20 +53,56 @@ public class GrammarTests {
     
 
     @Test
-    public void NegationTest () {
-        String programWithNegation = setUpLoop + " proc fun1() {proc fun2() {if (1 > ~1){} else{}}}";
+    public void NegativeTest () {
+        String programWithNegative = setUpLoop + " proc fun1() {proc fun2() {if (1 > ~1){} else{}}}";
 
         Assertions.assertDoesNotThrow(() -> {
-            compile(programWithNegation);
+            compile(programWithNegative);
         });
     }
 
     @Test
     public void DeclarationInScopesTest () {
-        String DecTest = setUpLoop + " proc fun11() { proc fun12(){ proc fun13(){ Num var1;} proc fun14(){ Num var1;}}}";
+        String decTest = setUpLoop + " proc fun11() { proc fun12(){ proc fun13(){ Num var1;} proc fun14(){ Num var1;}}}";
 
         Assertions.assertDoesNotThrow(() -> {
-            compile(DecTest);
+            compile(decTest);
+        });
+    }
+
+    @Test
+    public void WhileLoopTest () {
+        String whileTest = setUpLoop + "proc fun() { Num i = 0; while (i < 3){ i = i + 1;}}";
+
+        Assertions.assertDoesNotThrow(() -> {
+            compile(whileTest);
+        });
+    }
+
+   /* @Test
+    public void ParameterTest () {
+        String Param = setUpLoop + "Num p = 1; func fun() { x + 1}}";
+
+        Assertions.assertDoesNotThrow(() -> {
+            compile(param);
+        });
+    }*/
+
+    @Test
+    public void NoLoopTest () {
+        String noLoopTest = "proc fun1() {proc  fun12() {}} proc  fun11() {}";
+
+        Assertions.assertDoesNotThrow(() -> {
+            compile(noLoopTest);
+        });
+    }
+
+    @Test
+    public void BoolTest () {
+        String boolInput = setUpLoop + "func Bool fun1() {Num x = 4; if (x > 5){return false} else {return true}};";
+
+        Assertions.assertDoesNotThrow(() -> {
+            compile(boolInput);
         });
     }
 }
