@@ -23,14 +23,14 @@ type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 body: (funcProc body)?                                      #bodyStmt
     | stmt body                                             #bodyStmt
     | comment body                                          #bodyComment
-    | returnExpr END                                        #bodyReturn;
+    | returnExpr END body                                   #bodyReturn;
 
 procBody: (funcProc procBody)?                              #procBodyStmt
         | stmt procBody                                     #procBodyStmt
         | comment procBody                                  #procBodyComment;
 
 stmt: varDecl END                                           #stmtVarDecl
-    | assign END                                            #stmtAssign
+    | id ASSIGN expr  END                                   #stmtAssign
     | funcCall END                                          #stmtFuncCall
     | writeFunc END                                         #stmtWriteFunc
     | readFunc END                                          #stmtReadFunc
@@ -38,7 +38,7 @@ stmt: varDecl END                                           #stmtVarDecl
     | whileExpr                                             #stmtWhileExpr;
 
 varDecl: type id                                            #varDeclaration
-       | type assign                                        #varDeclaration
+       | type id ASSIGN expr                                #varDeclaration
        | pinLiteral                                         #varDeclPinLiteral;
 
 expr: operand                                               #exprOperand
@@ -63,8 +63,6 @@ readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
         | id READD LPAREN RPAREN                            #readFuncDig;
 
 pinLiteral: PINTYPE id LBRACE PINNUMBER ',' PINMODE RBRACE  #pinLiteralDef;
-
-assign: id ASSIGN expr                                      #assignExpr;
 
 returnExpr: RETURN expr                                     #returnExpression;
 

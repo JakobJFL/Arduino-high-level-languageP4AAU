@@ -72,7 +72,7 @@ public class SymbolTblListener extends HlmpBaseListener {
     }
 
     @Override
-    public void enterAssignExpr(HlmpParser.AssignExprContext ctx) {
+    public void enterStmtAssign(HlmpParser.StmtAssignContext ctx) {
         symbolTbl.checkId(ctx.id().getText());
     }
 

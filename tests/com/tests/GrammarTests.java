@@ -99,7 +99,7 @@ public class GrammarTests {
 
     @Test
     public void BoolTest () {
-        String boolInput = setUpLoop + "func Bool fun1() {Num x = 4; if (x > 5){return false} else {return true}};";
+        String boolInput = setUpLoop + "func Bool fun1() {Num x = 4; if (x > 5){return false;} else {return true;}}";
 
         Assertions.assertDoesNotThrow(() -> {
             compile(boolInput);

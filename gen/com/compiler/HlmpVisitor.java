@@ -1,4 +1,4 @@
-// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -97,6 +97,27 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBodyComment(HlmpParser.BodyCommentContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bodyReturn}
+	 * labeled alternative in {@link HlmpParser#body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBodyReturn(HlmpParser.BodyReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code procBodyStmt}
+	 * labeled alternative in {@link HlmpParser#procBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcBodyStmt(HlmpParser.ProcBodyStmtContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code procBodyComment}
+	 * labeled alternative in {@link HlmpParser#procBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcBodyComment(HlmpParser.ProcBodyCommentContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code stmtVarDecl}
 	 * labeled alternative in {@link HlmpParser#stmt}.
@@ -272,13 +293,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code assignExpr}
-	 * labeled alternative in {@link HlmpParser#assign}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAssignExpr(HlmpParser.AssignExprContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code returnExpression}
 	 * labeled alternative in {@link HlmpParser#returnExpr}.
