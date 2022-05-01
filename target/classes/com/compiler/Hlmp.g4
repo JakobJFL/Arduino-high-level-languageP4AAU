@@ -8,8 +8,8 @@ content: funcProc                                           #cntFuncProc
        | varDecl END                                        #cntvarDecl
        | comment                                            #cntComment;
 
-funcProc: funcHead LBRACE body returnExpr RBRACE            #funcDefinition
-        | procHead LBRACE body RBRACE                       #procDefinition;
+funcProc: funcHead LBRACE body RBRACE                       #funcDefinition
+        | procHead LBRACE procBody RBRACE                   #procDefinition;
 
 funcHead: FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
 procHead: PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
@@ -22,7 +22,12 @@ type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 
 body: (funcProc body)?                                      #bodyStmt
     | stmt body                                             #bodyStmt
-    | comment body                                          #bodyComment;
+    | comment body                                          #bodyComment
+    | returnExpr END                                        #bodyReturn;
+
+procBody: (funcProc procBody)?                              #procBodyStmt
+        | stmt procBody                                     #procBodyStmt
+        | comment procBody                                  #procBodyComment;
 
 stmt: varDecl END                                           #stmtVarDecl
     | assign END                                            #stmtAssign
@@ -82,8 +87,8 @@ elseStmt: (ELSE LBRACE body RBRACE)?                        #elseSTtmt
 
 whileExpr: WHILE LPAREN expr RPAREN LBRACE body RBRACE      #whileExprDef;
 
-setupDef: PROC SETUP LPAREN RPAREN LBRACE body RBRACE       #setupDefinition;
-loopDef: PROC LOOP LPAREN RPAREN LBRACE body RBRACE         #loopDefinition;
+setupDef: PROC SETUP LPAREN RPAREN LBRACE procBody RBRACE   #setupDefinition;
+loopDef: PROC LOOP LPAREN RPAREN LBRACE procBody RBRACE     #loopDefinition;
 
 comment: COMMENT                                            #commentDel
        | LINECOMMENT                                        #commentDel;

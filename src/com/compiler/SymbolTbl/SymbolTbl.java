@@ -28,6 +28,11 @@ public class SymbolTbl {
         currentScope = scope;
     }
 
+    public void exitScope() { 
+        currentScope = currentScope.parent;
+        exitId = currentScope.id;
+    }
+
     public void addSymbol(Symbol symbol) {
         if (!isSymbol(symbol.getId(), currentScope)) {
             currentScope.addThisSymbol(symbol);
@@ -71,10 +76,5 @@ public class SymbolTbl {
             }
         }
         return null; //If no parents are left, return null
-    }
-
-    public void exitScope() {
-        exitId = currentScope.id;
-        currentScope = currentScope.parent;
     }
 }

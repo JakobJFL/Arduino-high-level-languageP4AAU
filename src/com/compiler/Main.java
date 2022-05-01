@@ -15,7 +15,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Started");
-        FileHandler fileHandler = new FileHandler("testCode/test2.txt");
+        FileHandler fileHandler = new FileHandler("testCode/test3.txt");
         try {
             SymbolTblListener symbolTable = compile(fileHandler.getFileContent());
         } catch (AlreadyDeclared ex) {
