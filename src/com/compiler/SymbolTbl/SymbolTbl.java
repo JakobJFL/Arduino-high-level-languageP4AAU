@@ -11,17 +11,12 @@ public class SymbolTbl {
     private String exitId;
 
     public void enterScope(String id) {
-        System.out.println("------"+id+"------");
-
         for (Scope s: currentScope.getSubScopes()) {
-            System.out.println("if:"+s.id + "==" + exitId);
             if (s.id == exitId) {
                 currentScope = s;
-                System.out.println("reuse Scope");
                 return;
             }
         }
-        System.out.println("new Scope");
         //No match in loop, so we need to add a new scope
         Scope scope = new Scope(currentScope, id);
         currentScope.addSubScope(scope);

@@ -1,18 +1,27 @@
 proc setup() {}
 proc loop() {}
-proc fun11() {
-    proc fun12(){
-        proc fun13(){
-            Num var1;
+
+Num var01;
+Num var02;
+proc fun10() {
+	Num var10 = 5;
+    proc fun20(){
+		Num var20;
+		Num var21;
+        proc fun30(){
+            Num var30;
         }
-        proc fun14(){
-            Num var1;
-			proc fun127(){
-				Num var1;
+		Num var22;
+        proc fun31(){
+            Num var31;
+			proc fun41(){
+				Num var41;
 			}
+			Num var31;
         }
     }
-    proc fun160() {
-
+    proc 22() {
+		Num var22;
 	}
 }
+Num var03;

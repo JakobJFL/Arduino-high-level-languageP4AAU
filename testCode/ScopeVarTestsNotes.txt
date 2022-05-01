@@ -1,0 +1,55 @@
+proc setup() {}
+proc loop() {}
+
+Num var00;
+proc fun1() {
+	Num var10 = 5;
+    proc fun2(){
+		Num var20;
+        proc fun3(){
+            Num var30;
+        }
+		Num var21;
+        proc fun4(){
+            Num var40;
+			proc fun5(){
+				Num var50;
+			}
+			Num var41;
+        }
+    }
+	Num var11;
+    proc fun6() {
+		Num var60;
+	}
+}
+Num var01;
+
+
+
+Num var00;proc fun1() {Num var10 = 5;proc fun2(){Num var20;proc fun3(){Num var30;}Num var21;proc fun4(){Num var40;proc fun5(){Num var50;}Num var41;}}Num var11;proc fun6() {Num var60;}}Num var01;
+
+var00,var01|var10,var11|var20,var21|var30|var40,var41|var50|var60
+
+
+
+
+Num var00;
+Num var01;
+proc fun1() {
+    proc fun2(){
+		Pwm var20;
+    }
+	func Pwm fun3() {}
+	func Pwm fun4() {}
+	Bool var10;
+    proc fun5() {
+		Num var50;
+	}
+	Num var11;
+}
+proc fun6() {
+	Num var60;
+}
+
+Num var00;Num var01;proc fun1() {proc fun2(){Pwm var20;}func Pwm fun3() {}func Pwm fun4() {}Bool var10;proc fun5() {Num var50;}Num var11;}proc fun6() {Num var60;}
