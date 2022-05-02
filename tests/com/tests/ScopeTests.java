@@ -34,7 +34,10 @@ public class ScopeTests {
                         "none|var10|var20|var30"),
 
                 arguments("proc fun10() { if (true) {Num var20;} else {Num var30;} }",
-                        "none|none|var20|var30")
+                        "none|none|var20|var30"),
+
+                arguments("proc fun10() { Num var10; while (true) {Num var20;} }",
+                        "none|var10|var20")
         );
     }
 
@@ -100,7 +103,10 @@ public class ScopeTests {
                         "none|var10|var10,var20|var10,var30"),
 
                 arguments("proc fun10() { if (true) {Num var20;} else {Num var30;} }",
-                        "none|none|var20|var30")
+                        "none|none|var20|var30"),
+
+                arguments("proc fun10() { Num var10; while (true) {Num var20;} }",
+                        "none|var10|var10,var20")
         );
     }
 
