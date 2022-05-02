@@ -16,13 +16,20 @@ import static com.compiler.Main.compile;
 import static org.junit.Assert.assertTrue;
 
 public class TypeTests {
-    private static String setUpLoop = " proc setup() {} proc loop() {}";
-
     @ParameterizedTest
-    @ValueSource( strings = {"proc test() { Num var1 = 2; Num var2 = 3; Num var3; var3 = var1 + var2; }",
-                                "proc test() { Num var1 = 2; Num var2 = 3; Num var3; var3 = var1 - var2; }"})
+    @ValueSource( strings = {"proc setup() {} proc loop() {} proc test() { Num var1 = 2; Num var2 = 3; Num var3; var3 = var1 + var2; }",
+                            "proc setup() {} proc loop() {} proc test() { Num var1 = 2; Num var2 = 3; Num var3; var3 = var1 - var2; }"})
     public void BinaryFloatComparison_ShouldPass(String testCode) {
         Assertions.assertDoesNotThrow(() -> {
+            compile(testCode);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"proc setup() {} proc loop() {} proc test() { Num var1 = 2; Bool var2 = false; Num var3; var3 = var1 + var2; }",
+                            "proc setup() {} proc loop() {} proc test() { Num var1 = 2; Bool var2 = 3; Num var3; var3 = var1 - var2; }"})
+    public void BinaryFloatComparison_ShouldFail(String testCode) {
+        Assertions.assertThrows(TypeException.class, () -> {
             compile(testCode);
         });
     }
