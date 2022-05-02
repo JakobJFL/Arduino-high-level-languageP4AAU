@@ -34,7 +34,7 @@ public class GrammarTests {
     }
 
     @Test
-    public void SyntaxGrammarTest () {
+    public void TypoProcTest () {
         String badKeywordName = setUpLoop + " prog fun1() {proc  fun12() {}} proc  fun11() {}";
 
         Assertions.assertThrows(SyntaxException.class, () -> {
@@ -44,10 +44,10 @@ public class GrammarTests {
 
     @Test
     public void OperandTest () {
-        String randomInputs = setUpLoop + " proc fun1() {if (var > 1){} else{}}";
+        String OperandTest = setUpLoop + " proc fun1() {if (var > 1){} else{}}";
 
         Assertions.assertThrows(NotDeclared.class, () -> {
-            compile(randomInputs);
+            compile(OperandTest);
         });
     }
     
@@ -80,11 +80,11 @@ public class GrammarTests {
     }
 
     @Test
-    public void NoLoopTest () {
-        String noSetupTest = "proc fun1() {proc  fun12() {}} proc  fun11() {}";
+    public void NoSetupAndLoopTest () {
+        String noSetupAndLoopTest = "proc fun1() {proc  fun12() {}} proc  fun11() {}";
 
         Assertions.assertThrows(SyntaxException.class, () -> {
-            compile(noSetupTest);
+            compile(noSetupAndLoopTest);
         });
     }
 
@@ -99,7 +99,7 @@ public class GrammarTests {
 
     @Test
     public void PinSyntaxTest () {
-        String pinSyntaxTest = setUpLoop + "Pin MEGA {4,Out} proc fun1() {proc  fun2() {}} proc fun11() {}";
+        String pinSyntaxTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {}";
         Assertions.assertDoesNotThrow(() -> {
             compile(pinSyntaxTest);
         });
@@ -107,11 +107,41 @@ public class GrammarTests {
 
     @Test
     public void PinSyntaxFailTest () {
-        String pinSyntaxFailTest = setUpLoop + "Pin MEGA {Out,4} proc fun1() {proc  fun2() {}} proc fun11() {}";
+        String pinSyntaxFailTest = setUpLoop + "Pin DigitalTestPin {OUT,A4}; proc fun1() {proc  fun2() {}} proc fun11() {}";
         Assertions.assertThrows(SyntaxException.class,() -> {
             compile(pinSyntaxFailTest);
         });
     }
 
+    @Test
+    public void ReadFuncTest () {
+        String ReadFuncTest = setUpLoop + "Pin DigitalTestPin {D4,in}; proc fun1() {DigitalTestPin.ReadDigital();}";
+        Assertions.assertDoesNotThrow(() -> {
+            compile(ReadFuncTest);
+        });
+    }
 
+    @Test
+    public void ReadFuncNotDeclaredTest () {
+        String ReadNotDeclaredTest = setUpLoop + "Pin DigitalTestPin {D4,in}; proc fun1() {DoesNotExist.ReadDigital();}";
+        Assertions.assertThrows(NotDeclared.class,() -> {
+            compile(ReadNotDeclaredTest);
+        });
+    }
+
+    @Test
+    public void WriteFuncTest () {
+        String writeTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {DigitalTestPin.Write(HIGH);}";
+        Assertions.assertDoesNotThrow(() -> {
+            compile(writeTest);
+        });
+    }
+
+    @Test
+    public void WriteNotDeclaredTest () {
+        String pinSyntaxFailTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {DoesNotExist.Write(HIGH);}";
+        Assertions.assertThrows(NotDeclared.class,() -> {
+            compile(pinSyntaxFailTest);
+        });
+    }
 }
