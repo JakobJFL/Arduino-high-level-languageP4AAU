@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -343,19 +343,12 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitIfStmtDef(HlmpParser.IfStmtDefContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code elseSTtmt}
+	 * Visit a parse tree produced by the {@code elseStmtDef}
 	 * labeled alternative in {@link HlmpParser#elseStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElseSTtmt(HlmpParser.ElseSTtmtContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code elseIfStmt}
-	 * labeled alternative in {@link HlmpParser#elseStmt}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitElseIfStmt(HlmpParser.ElseIfStmtContext ctx);
+	T visitElseStmtDef(HlmpParser.ElseStmtDefContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code whileExprDef}
 	 * labeled alternative in {@link HlmpParser#whileExpr}.

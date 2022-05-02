@@ -1,8 +1,8 @@
 grammar Hlmp;
 //Parse Rules
 
-program: setupDef loopDef content*
-       | loopDef setupDef content*;
+program: setupDef loopDef content* EOF
+       | loopDef setupDef content* EOF;
 
 content: funcProc                                           #cntFuncProc
        | varDecl END                                        #cntvarDecl
@@ -34,7 +34,7 @@ stmt: varDecl END                                           #stmtVarDecl
     | funcCall END                                          #stmtFuncCall
     | writeFunc END                                         #stmtWriteFunc
     | readFunc END                                          #stmtReadFunc
-    | ifStmt                                                #stmtIfStmt
+    | ifStmt elseStmt?                                      #stmtIfStmt
     | whileExpr                                             #stmtWhileExpr;
 
 varDecl: type id                                            #varDeclaration
@@ -78,10 +78,9 @@ val: HIGH                                                   #value
    | id                                                     #valueId
    | TOGGLE                                                 #value;
 
-ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE elseStmt   #ifStmtDef;
+ifStmt: IF LPAREN expr RPAREN LBRACE body RBRACE            #ifStmtDef;
 
-elseStmt: (ELSE LBRACE body RBRACE)?                        #elseSTtmt
-        | ELSE ifStmt                                       #elseIfStmt;
+elseStmt: (ELSE LBRACE body RBRACE)?                        #elseStmtDef;
 
 whileExpr: WHILE LPAREN expr RPAREN LBRACE body RBRACE      #whileExprDef;
 

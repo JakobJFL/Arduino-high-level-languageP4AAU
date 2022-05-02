@@ -1,17 +1,11 @@
 package com.compiler;
 
 import com.compiler.Exceptions.NotDeclared;
-import com.compiler.Exceptions.SyntaxException;
 import com.compiler.Exceptions.TypeException;
-import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.SymbolTblListener;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
-import com.compiler.SymbolTbl.Symbols.Symbol;
 import com.compiler.SymbolTbl.Symbols.TypeSymbol;
 import org.antlr.v4.runtime.tree.ParseTree;
-
-import javax.print.DocFlavor;
-import javax.swing.plaf.synth.SynthButtonUI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +99,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         if (symbol == null) {
             throw new NotDeclared();
         }
-        return symbol.type.start.getType();
+        return symbol.getType().start.getType();
     }
 
     @Override

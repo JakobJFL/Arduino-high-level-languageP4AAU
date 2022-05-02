@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -592,25 +592,13 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElseSTtmt(HlmpParser.ElseSTtmtContext ctx) { }
+	@Override public void enterElseStmtDef(HlmpParser.ElseStmtDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElseSTtmt(HlmpParser.ElseSTtmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterElseIfStmt(HlmpParser.ElseIfStmtContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitElseIfStmt(HlmpParser.ElseIfStmtContext ctx) { }
+	@Override public void exitElseStmtDef(HlmpParser.ElseStmtDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

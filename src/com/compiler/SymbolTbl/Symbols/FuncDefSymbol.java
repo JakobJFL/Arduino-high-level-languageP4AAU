@@ -6,8 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FuncDefSymbol extends TypeSymbol {
-    public HlmpParser.TypeContext type;
-    public List<TypeSymbol> parameters = new ArrayList<>();
+    private HlmpParser.TypeContext type;
+    private List<TypeSymbol> parameters = new ArrayList<>();
+
+    public FuncDefSymbol(String text) {
+        super(text);
+    }
 
     public void setType(HlmpParser.TypeContext type) {
         this.type = type;

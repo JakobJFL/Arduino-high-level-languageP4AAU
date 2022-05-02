@@ -3,6 +3,7 @@ package com.compiler;
 import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.SyntaxException;
+import com.compiler.Exceptions.TypeException;
 import com.compiler.SymbolTbl.SymbolTblListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -29,6 +30,9 @@ public class Main {
         }
         catch (IOException ex) {
             System.out.println("Read file Exception: " + ex.getMessage());
+        }
+        catch (TypeException ex) {
+            System.out.println("TypeException: " + ex.getMessage());
         }
     }
 

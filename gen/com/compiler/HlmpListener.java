@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -576,29 +576,17 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitIfStmtDef(HlmpParser.IfStmtDefContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code elseSTtmt}
+	 * Enter a parse tree produced by the {@code elseStmtDef}
 	 * labeled alternative in {@link HlmpParser#elseStmt}.
 	 * @param ctx the parse tree
 	 */
-	void enterElseSTtmt(HlmpParser.ElseSTtmtContext ctx);
+	void enterElseStmtDef(HlmpParser.ElseStmtDefContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code elseSTtmt}
+	 * Exit a parse tree produced by the {@code elseStmtDef}
 	 * labeled alternative in {@link HlmpParser#elseStmt}.
 	 * @param ctx the parse tree
 	 */
-	void exitElseSTtmt(HlmpParser.ElseSTtmtContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code elseIfStmt}
-	 * labeled alternative in {@link HlmpParser#elseStmt}.
-	 * @param ctx the parse tree
-	 */
-	void enterElseIfStmt(HlmpParser.ElseIfStmtContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code elseIfStmt}
-	 * labeled alternative in {@link HlmpParser#elseStmt}.
-	 * @param ctx the parse tree
-	 */
-	void exitElseIfStmt(HlmpParser.ElseIfStmtContext ctx);
+	void exitElseStmtDef(HlmpParser.ElseStmtDefContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code whileExprDef}
 	 * labeled alternative in {@link HlmpParser#whileExpr}.

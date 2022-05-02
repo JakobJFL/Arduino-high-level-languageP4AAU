@@ -79,21 +79,12 @@ public class GrammarTests {
         });
     }
 
-   /* @Test
-    public void ParameterTest () {
-        String Param = setUpLoop + "Num p = 1; func fun() { x + 1}}";
-
-        Assertions.assertDoesNotThrow(() -> {
-            compile(param);
-        });
-    }*/
-
     @Test
     public void NoLoopTest () {
-        String noLoopTest = "proc fun1() {proc  fun12() {}} proc  fun11() {}";
+        String noSetupTest = "proc fun1() {proc  fun12() {}} proc  fun11() {}";
 
         Assertions.assertThrows(SyntaxException.class, () -> {
-            compile(noLoopTest);
+            compile(noSetupTest);
         });
     }
 
@@ -105,4 +96,22 @@ public class GrammarTests {
             compile(boolInput);
         });
     }
+
+    @Test
+    public void PinSyntaxTest () {
+        String pinSyntaxTest = setUpLoop + "Pin MEGA {4,Out} proc fun1() {proc  fun2() {}} proc fun11() {}";
+        Assertions.assertDoesNotThrow(() -> {
+            compile(pinSyntaxTest);
+        });
+    }
+
+    @Test
+    public void PinSyntaxFailTest () {
+        String pinSyntaxFailTest = setUpLoop + "Pin MEGA {Out,4} proc fun1() {proc  fun2() {}} proc fun11() {}";
+        Assertions.assertThrows(SyntaxException.class,() -> {
+            compile(pinSyntaxFailTest);
+        });
+    }
+
+
 }
