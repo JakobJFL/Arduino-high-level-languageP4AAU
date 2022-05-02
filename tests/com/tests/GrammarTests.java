@@ -92,7 +92,7 @@ public class GrammarTests {
     public void NoLoopTest () {
         String noLoopTest = "proc fun1() {proc  fun12() {}} proc  fun11() {}";
 
-        Assertions.assertDoesNotThrow(() -> {
+        Assertions.assertThrows(SyntaxException.class, () -> {
             compile(noLoopTest);
         });
     }
