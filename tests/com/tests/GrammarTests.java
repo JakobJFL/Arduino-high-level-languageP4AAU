@@ -100,6 +100,7 @@ public class GrammarTests {
     @Test
     public void PinSyntaxTest () {
         String pinSyntaxTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {}";
+
         Assertions.assertDoesNotThrow(() -> {
             compile(pinSyntaxTest);
         });

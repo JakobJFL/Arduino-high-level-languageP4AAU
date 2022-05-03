@@ -4,6 +4,7 @@ import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.SyntaxException;
 import com.compiler.Exceptions.TypeException;
+import com.compiler.SymbolTbl.DeclarationCheckListener;
 import com.compiler.SymbolTbl.SymbolTblListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
@@ -16,14 +17,11 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Started");
-        FileHandler fileHandler = new FileHandler("testCode/test3.txt");
+        FileHandler fileHandler = new FileHandler("testCode/test4.txt");
         try {
             SymbolTblListener symbolTable = compile(fileHandler.getFileContent());
         } catch (AlreadyDeclared ex) {
             System.out.println("AlreadyDeclared: " + ex.getMessage());
-        }
-        catch (NotDeclared ex) {
-            System.out.println("NotDeclared: " + ex);
         }
         catch (SyntaxException ex) {
             System.out.println("SyntaxException: " + ex.getMessage());
@@ -52,7 +50,9 @@ public class Main {
         ParseTreeWalker walker = new ParseTreeWalker();
         SymbolTblListener symbolTable = new SymbolTblListener();
         walker.walk(symbolTable, tree);
-        TypeCheckerVisitor visitor = new TypeCheckerVisitor(symbolTable);
+        DeclarationCheckListener DeclarationChecker = new DeclarationCheckListener(symbolTable.symbolTbl);
+        walker.walk(DeclarationChecker, tree);
+        TypeCheckerVisitor visitor = new TypeCheckerVisitor(symbolTable.symbolTbl);
         visitor.visitProgram((HlmpParser.ProgramContext) tree);
         return symbolTable;
     }

@@ -2,18 +2,90 @@ package com.compiler;
 
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.TypeException;
-import com.compiler.SymbolTbl.SymbolTblListener;
+import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.TypeSymbol;
 import org.antlr.v4.runtime.tree.ParseTree;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
-    SymbolTblListener symbolTbl;
+    SymbolTbl symbolTbl;
 
-    public TypeCheckerVisitor(SymbolTblListener symbolTbl) {
+    public TypeCheckerVisitor(SymbolTbl symbolTbl) {
         this.symbolTbl = symbolTbl;
+        this.symbolTbl.currentScope = this.symbolTbl.globalScope;
+    }
+
+    @Override
+    public Integer visitIfStmtDef(HlmpParser.IfStmtDefContext ctx) {
+        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        super.visitIfStmtDef(ctx);
+        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        return null;
+    }
+
+    @Override
+    public Integer visitElseStmtDef(HlmpParser.ElseStmtDefContext ctx) {
+        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        super.visitElseStmtDef(ctx);
+        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        return null;
+    }
+
+    @Override
+    public Integer visitWhileExprDef(HlmpParser.WhileExprDefContext ctx) {
+        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        super.visitWhileExprDef(ctx);
+        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        return null;
+    }
+
+    @Override
+    public Integer visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
+        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        super.visitFuncDefinition(ctx);
+        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        return null;
+    }
+
+    @Override
+    public Integer visitProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
+        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        super.visitProcDefinition(ctx);
+        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        return null;
+    }
+
+    @Override
+    public Integer visitStmtAssign(HlmpParser.StmtAssignContext ctx) {
+        TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
+        Integer type = symbol.getType().start.getType();
+        Integer expr = visit(ctx.expr());
+        if (expr == type) {
+            return type;
+        }
+        else {
+            throw new TypeException("StmtAssign");
+        }
+    }
+
+    @Override
+    public Integer visitVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
+        Integer type = ctx.type().start.getType();
+        if (ctx.expr() != null) {
+            Integer expr = visit(ctx.expr());
+            if (expr == type) {
+                return type;
+            }
+            else {
+                throw new TypeException("VarDeclaration");
+            }
+        }
+        else {
+            return type;
+        }
     }
 
     @Override
@@ -37,8 +109,8 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
 
-        if (left == HlmpLexer.NUMTYPE || right == HlmpLexer.NUMTYPE)
-            return HlmpLexer.BOOL;
+        if (left == HlmpLexer.NUMTYPE && right == HlmpLexer.NUMTYPE)
+            return HlmpLexer.BOOLTYPE;
         throw new TypeException();
     }
 
@@ -46,11 +118,12 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitExprBinaryBoolEqual(HlmpParser.ExprBinaryBoolEqualContext ctx) {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
-
-        if (left == HlmpLexer.NUMTYPE || left == HlmpLexer.BOOL)
-            if (right == HlmpLexer.NUMTYPE || right == HlmpLexer.BOOL)
-                return HlmpLexer.BOOL;
-        throw new TypeException();
+        if (left == HlmpLexer.NUMTYPE || right == HlmpLexer.NUMTYPE)
+            return HlmpLexer.BOOLTYPE;
+        else if (left == HlmpLexer.BOOLTYPE || right == HlmpLexer.BOOLTYPE)
+            return HlmpLexer.BOOLTYPE;
+        else
+            throw new TypeException();
     }
 
     @Override
@@ -60,11 +133,11 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         if (left != HlmpLexer.NUMTYPE || right != HlmpLexer.NUMTYPE)
             throw new TypeException();
         else
-            return HlmpLexer.BOOL;
+            return HlmpLexer.BOOLTYPE;
     }
 
     @Override
-    public Integer visitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx) { return HlmpLexer.BOOL;}
+    public Integer visitExprUnaryNeg(HlmpParser.ExprUnaryNegContext ctx) { return HlmpLexer.BOOLTYPE;}
 
     @Override
     public Integer visitOperandSFloat(HlmpParser.OperandSFloatContext ctx) {
@@ -73,7 +146,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitOperandBool(HlmpParser.OperandBoolContext ctx) {
-        return HlmpLexer.BOOL;
+        return HlmpLexer.BOOLTYPE;
     }
 
     @Override
@@ -83,19 +156,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitOperandId(HlmpParser.OperandIdContext ctx) {
-        TypeSymbol symbol = (TypeSymbol) symbolTbl.symbolTbl.getSymbol(ctx.id().getText());
-        if (symbol == null) {
-            throw new NotDeclared();
-        }
-        return symbol.type.start.getType();
-    }
-
-    @Override
-    public Integer visitFunctionCall(HlmpParser.FunctionCallContext ctx) {
-        visit(ctx.args());
-
-        System.out.println();
-        FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.symbolTbl.getSymbol(ctx.id().getText());
+        TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         if (symbol == null) {
             throw new NotDeclared();
         }
@@ -103,24 +164,42 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     }
 
     @Override
+    public Integer visitFunctionCall(HlmpParser.FunctionCallContext ctx) {
+        if (ctx.args().children != null)
+            visit(ctx.args());
+        FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.getSymbol(ctx.id().getText());
+        if (symbol == null) {
+            throw new NotDeclared();
+        }
+        else if (symbol.getType() == null) {
+            return null;
+        }
+        else {
+            return symbol.getType().start.getType();
+        }
+    }
+
+    @Override
     public Integer visitArguments(HlmpParser.ArgumentsContext ctx) {
         List<Integer> parametersType = new ArrayList<>();
-        for (ParseTree i :ctx.expr()) {
+        for (ParseTree i : ctx.expr()) {
             if (i instanceof HlmpParser.ExprContext)
                 parametersType.add(visit(i));
         }
         String id = ctx.getParent().children.get(0).getText();
-        FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.symbolTbl.getSymbol(id);
+        FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
         if (symbol == null) {
-            System.out.println("Vi har et probmal");
             return null;
         }
         List<TypeSymbol> parameters = symbol.getParameters();
-
-        for (int i = 0; i < parameters.size(); i++) {
-            System.out.println(parameters.get(i).type + "==" + parametersType.get(i));
+        if (parametersType.size() != parameters.size()) {
+            throw new TypeException();
         }
-
-        return null;
+        for (int i = 0; i < parameters.size(); i++) {
+            if (parameters.get(i).getType().start.getType() != parametersType.get(i)) {
+                throw new TypeException();
+            }
+        }
+        return parametersType.get(0);
     }
 }

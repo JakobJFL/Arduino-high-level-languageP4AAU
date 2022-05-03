@@ -5,7 +5,7 @@ import com.compiler.HlmpParser;
 import java.util.ArrayList;
 
 public class TypeSymbol extends Symbol {
-    public HlmpParser.TypeContext type;
+    private HlmpParser.TypeContext type;
 
     public TypeSymbol(String text) {
         super(text);

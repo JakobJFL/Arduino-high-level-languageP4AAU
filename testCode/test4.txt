@@ -1,0 +1,37 @@
+proc setup() {
+	g();
+}
+proc loop() {}
+
+
+func Num fun10() {
+	func Num fun12() {
+		
+	}
+	
+}
+
+func Num fun11() {
+	Num kat = fun10();
+}
+
+int x = 10;
+ 
+// Called by g()
+func Num f()
+{
+   return x;
+}
+ 
+// g() has its own variable
+// named as x and calls f()
+func Num g()
+{
+   int x = 20;
+   return f();
+}
+ 
+func main()
+{
+  
+}

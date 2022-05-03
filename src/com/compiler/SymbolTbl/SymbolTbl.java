@@ -4,13 +4,17 @@ import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.SymbolTbl.Symbols.Symbol;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolTbl {
     public Scope globalScope = new Scope(null, null);
     public Scope currentScope = globalScope;
     private String exitId;
 
-    public void enterScope(String id) {
+    public ParseTreeProperty<Scope> scopesProperty = new ParseTreeProperty<Scope>();
+
+    public void enterScope(String id, ParseTree tree) {
         for (Scope s: currentScope.getSubScopes()) {
             if (s.id == exitId) {
                 currentScope = s;
@@ -21,6 +25,7 @@ public class SymbolTbl {
         Scope scope = new Scope(currentScope, id);
         currentScope.addSubScope(scope);
         currentScope = scope;
+        scopesProperty.put(tree, currentScope);
     }
 
     public void exitScope() { 

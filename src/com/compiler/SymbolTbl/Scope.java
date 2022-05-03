@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class Scope {
     Map<String, Symbol> symbolDictionary = new HashMap<String, Symbol>();
-    public List<Scope> subScopes = new ArrayList<>();
+    private List<Scope> subScopes = new ArrayList<>();
     public Scope parent;
     public String id;
 
@@ -25,6 +25,15 @@ public class Scope {
 
     public List<Scope> getSubScopes() {
         return subScopes;
+    }
+
+    public Scope getSubScope(String id) {
+        for (Scope s : subScopes) {
+            if (s.id.equals(id)) {
+                return s;
+            }
+        }
+        return null;
     }
 
     public void addThisSymbol(Symbol symbol) {

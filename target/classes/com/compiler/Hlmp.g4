@@ -30,7 +30,7 @@ procBody: (funcProc procBody)?                              #procBodyStmt
         | comment procBody                                  #procBodyComment;
 
 stmt: varDecl END                                           #stmtVarDecl
-    | id ASSIGN expr  END                                   #stmtAssign
+    | id ASSIGN expr END                                    #stmtAssign
     | funcCall END                                          #stmtFuncCall
     | writeFunc END                                         #stmtWriteFunc
     | readFunc END                                          #stmtReadFunc
