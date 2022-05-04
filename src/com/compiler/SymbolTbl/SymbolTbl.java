@@ -10,13 +10,12 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 public class SymbolTbl {
     public Scope globalScope = new Scope(null, null);
     public Scope currentScope = globalScope;
-    private String exitId;
 
     public ParseTreeProperty<Scope> scopesProperty = new ParseTreeProperty<Scope>();
 
     public void enterScope(String id, ParseTree tree) {
         for (Scope s: currentScope.getSubScopes()) {
-            if (s.id == exitId) {
+            if (s.id == id) {
                 currentScope = s;
                 return;
             }
@@ -30,7 +29,6 @@ public class SymbolTbl {
 
     public void exitScope() { 
         currentScope = currentScope.parent;
-        exitId = currentScope.id;
     }
 
     public void addSymbol(Symbol symbol) {

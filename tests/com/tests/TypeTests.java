@@ -70,7 +70,66 @@ public class TypeTests {
                             "proc test() { Num var1 = 2; Num var2 = 3; Num var3 = var1 > var2; }",
                             "proc test() { Num var1 = 2; Bool var2 = true; Bool var3 = var1 > var2; }",
                             "proc test() { Num var1 = 2; Num var2 = 3; Num var3 = var1 > var2; }"})
-    public void BinaryBoolComparison_ShouldFail(String testCode) { //No
+    public void BinaryBoolComparison_ShouldFail(String testCode) {
+        Assertions.assertThrows(TypeException.class, () -> {
+            compile(setUpLoop + testCode);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"proc test() { Bool var1 = true; Bool var2 = true; Bool var3 = var1 && var2; }",
+                            "proc test() { Bool var1 = true; Bool var2 = false; Bool var3 = var1 || var2; }"})
+    public void BinaryLogComparison_ShouldPass(String testCode) {
+        Assertions.assertDoesNotThrow(() -> {
+            compile(setUpLoop + testCode);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"proc test() { Bool var1 = true; Num var2 = 1; Bool var3 = var1 && var2; }",
+                            "proc test() { Bool var1 = true; Bool var2 = true; Num var3 = var1 && var2; }",
+                            "proc test() { Bool var1 = true; Num var2 = 1; Bool var3 = var1 || var2; }",
+                            "proc test() { Bool var1 = true; Bool var2 = false; Num var3 = var1 || var2; }",
+                            "proc test() { Num var1 = 3; Num var2 = 2; Bool var3 = var1 || var2; }",
+                            "proc test() { Num var1 = 3; Num var2 = 2; Num var3 = var1 && var2; }",
+                            "proc test() { Num var1 = 3; Num var2 = 2; Num var3 = var1 || var2; }"})
+    public void BinaryLogComparison_ShouldFail(String testCode) {
+        Assertions.assertThrows(TypeException.class, () -> {
+            compile(setUpLoop + testCode);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"func Num test() { Num var1 = 2; return var1; }",
+                            "func Bool test() { Bool var1 = true; return var1; }",
+                            "func Pwm test() { Pwm outputValue; return outputValue; }"})
+    public void SameReturnTypes_ShouldPass(String testCode) {
+        Assertions.assertDoesNotThrow(() -> {
+            compile(setUpLoop + testCode);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"func Num test() { Bool var1 = true; return var1; }",
+            "func Bool test() { Num var1 = 2; return var1; }",
+            "func Pwm test() { Num var1 = 5; return var1; }"})
+    public void DifferentReturnTypes_ShouldFail(String testCode) {
+        Assertions.assertThrows(TypeException.class, () -> {
+            compile(setUpLoop + testCode);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"func Num test(Num number) { Num var1 = number + 2; return var1; } Num var2 = test(2);"})
+    public void Parameters_ShouldPass(String testCode) {
+        Assertions.assertDoesNotThrow(() -> {
+            compile(setUpLoop + testCode);
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource( strings = {"func Num test(Num number) { Num var1 = number + 2; return var1; } Bool var2 = test(true);"})
+    public void Parameters_ShouldFail(String testCode) {
         Assertions.assertThrows(TypeException.class, () -> {
             compile(setUpLoop + testCode);
         });

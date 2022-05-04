@@ -2,6 +2,6 @@ proc setup() { }
 
 proc loop() {
 	proc kat(Num kat1, Num kat2) { }
-	kat(5, 1<0);
+	kat(5, 4);
 
 }

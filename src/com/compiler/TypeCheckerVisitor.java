@@ -44,10 +44,20 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-        super.visitFuncDefinition(ctx);
-        symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return null;
+        String returnType = ctx.funcHead().type().start.getText();
+        String returnTypeStmt = ctx.body().start.getText();
+
+        System.out.println(returnType + returnTypeStmt);
+
+        if (returnType.equals(returnTypeStmt)) {
+            symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+            super.visitFuncDefinition(ctx);
+            symbolTbl.currentScope = symbolTbl.currentScope.parent;
+            return null;
+        }
+        else {
+            throw new TypeException("ReturnType");
+        }
     }
 
     @Override
@@ -130,7 +140,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitExprBinaryLog(HlmpParser.ExprBinaryLogContext ctx) {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
-        if (left != HlmpLexer.NUMTYPE || right != HlmpLexer.NUMTYPE)
+        if (left != HlmpLexer.BOOLTYPE || right != HlmpLexer.BOOLTYPE)
             throw new TypeException();
         else
             return HlmpLexer.BOOLTYPE;

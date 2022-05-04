@@ -53,9 +53,18 @@ public class SymbolTblListener extends HlmpBaseListener {
     public void enterParam(HlmpParser.ParamContext ctx) {
         TypeSymbol symbol = new TypeSymbol(ctx.id().getText());
         symbol.setType(ctx.type());
-        String id = ctx.getParent().children.get(1).getText(); // Get name of function. Will always be number 1 element.
-        FuncDefSymbol funcDefSymbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
-        funcDefSymbol.addParameter(symbol);
+        if ((ctx.getParent().children.get(0).getText()).equals("func ")) {
+            String id = ctx.getParent().children.get(2).getText(); // Get name of function. Will always be number 2 element functions.
+            FuncDefSymbol funcDefSymbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
+            funcDefSymbol.addParameter(symbol);
+            symbolTbl.addSymbol(symbol);
+        }
+        else {
+            String id = ctx.getParent().children.get(1).getText(); // Get name of procedure. Will always be number 1 element for procedures.
+            FuncDefSymbol funcDefSymbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
+            funcDefSymbol.addParameter(symbol);
+            symbolTbl.addSymbol(symbol);
+        }
     }
 
     @Override
