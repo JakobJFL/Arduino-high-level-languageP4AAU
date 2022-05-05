@@ -2,6 +2,7 @@ package com.compiler;
 
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.TypeException;
+import com.compiler.SymbolTbl.Scope;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.TypeSymbol;
@@ -23,7 +24,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
         super.visitIfStmtDef(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return null;
+        return defaultResult();
     }
 
     @Override
@@ -31,7 +32,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
         super.visitElseStmtDef(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return null;
+        return defaultResult();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
         super.visitWhileExprDef(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return null;
+        return defaultResult();
     }
 
     @Override
@@ -53,7 +54,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
             super.visitFuncDefinition(ctx);
             symbolTbl.currentScope = symbolTbl.currentScope.parent;
-            return null;
+            return defaultResult();
         }
         else {
             throw new TypeException("ReturnType");
@@ -65,7 +66,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
         super.visitProcDefinition(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return null;
+        return defaultResult();
     }
 
     @Override
@@ -199,7 +200,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         String id = ctx.getParent().children.get(0).getText();
         FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
         if (symbol == null) {
-            return null;
+            return defaultResult();
         }
         List<TypeSymbol> parameters = symbol.getParameters();
         if (parametersType.size() != parameters.size()) {

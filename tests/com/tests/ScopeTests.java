@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 import static com.compiler.Main.compile;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
@@ -59,7 +60,7 @@ public class ScopeTests {
         test.add("var60");
         Scope scope = symbolTable.symbolTbl.globalScope;
         String result = getSymbolsInScope(scope, test);
-        assertTrue(result.equals(expected));
+        assertEquals(result,expected);
     }
 
     private String getSymbolsInScope(Scope scope, List<String> symbolsKeys) {
@@ -128,7 +129,7 @@ public class ScopeTests {
         test.add("var60");
         Scope scope = symbolTable.symbolTbl.globalScope;
         String result = getAccessibleSymbols(scope, symbolTable, test);
-        assertTrue(result.equals(expected));
+        assertEquals(result, expected);
     }
 
     private String getAccessibleSymbols(Scope scope, SymbolTblListener symbolTable, List<String> symbolsKeys) {
