@@ -134,14 +134,4 @@ public class TypeTests {
             compile(setUpLoop + testCode);
         });
     }
-
-    /*
-    @ParameterizedTest
-    @ValueSource( strings = {"proc setup() {} proc loop() {} ; }",
-            "proc setup() {} proc loop() {} ; }"})
-    public void BinaryBoolEqualComparison_ShouldFail(String testCode) {
-        Assertions.assertThrows(TypeException.class, () -> {
-            compile(testCode);
-        });
-        */
 }

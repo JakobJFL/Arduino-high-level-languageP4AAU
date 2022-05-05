@@ -45,7 +45,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     @Override
     public Integer visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
         String returnType = ctx.funcHead().type().start.getText();
-        String returnTypeStmt = ctx.body().start.getText();
+        String returnTypeStmt = ctx.body().start.getText(); // THIS NOOOO GOOD!!!!!
 
         System.out.println(returnType + returnTypeStmt);
 

@@ -2,6 +2,8 @@ proc setup() { }
 proc loop() { }
 
 func Num test(Num number) {
-    Num var1 = number + 2; return var1;
+    if (true) {}
+    Num var1 = number + 2; 
+    return var1;
 }
 Num var2 = test(2);
