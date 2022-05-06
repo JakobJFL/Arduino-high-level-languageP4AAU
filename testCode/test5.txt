@@ -1,9 +1,14 @@
 proc setup() { }
-proc loop() { }
-
-proc func1() {
-    Bool test = true;
-    if (test) {
-
-    }
+proc loop() { 
 }
+
+Pin pins{A1, in};
+
+proc func1(Num kat1) {
+	proc func2(Num kat2) {
+		proc func3(Num kat3) {
+			Bool test2 = true;
+		}
+	}
+}
+

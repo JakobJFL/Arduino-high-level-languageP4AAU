@@ -84,18 +84,17 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
+        return ctx.type().start.getType();
+    }
+
+    @Override
+    public Integer visitVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx) {
         Integer type = ctx.type().start.getType();
-        if (ctx.expr() != null) {
-            Integer expr = visit(ctx.expr());
-            if (expr == type) {
-                return type;
-            }
-            else {
-                throw new TypeException("VarDeclaration");
-            }
+        if (visit(ctx.expr()) == type) {
+            return type;
         }
         else {
-            return type;
+            throw new TypeException("VarDeclaration");
         }
     }
 

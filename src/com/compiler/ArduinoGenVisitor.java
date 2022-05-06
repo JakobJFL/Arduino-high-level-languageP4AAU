@@ -9,11 +9,17 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     }
 
-    private String setupContext = "";
+    private String setupContent = "";
+    private String globalContent = "";
 
-    private void addSetupContext(String str) {
-        setupContext += str;
+    private void addSetupContent(String str) {
+        setupContent += str;
     }
+
+    private void addGlobalContent(String str) {
+        globalContent += str;
+    }
+
     @Override
     protected String defaultResult() {
         return "";
@@ -26,11 +32,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override // måske ikke noget der er nødving.
     public String visitProgram(ProgramContext ctx) {
-        String str = visit(ctx.setupDef());
-        str += visit(ctx.loopDef());
+        String str = visit(ctx.loopDef());
         for (ContentContext c : ctx.content()) {
             str += visit(c);
         }
+        str += visit(ctx.setupDef());
+        str += globalContent;
         return str;
     }
 
@@ -38,7 +45,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitFuncDefinition(FuncDefinitionContext ctx) {
         String result = visit(ctx.funcHead());
         result += visit(ctx.body());
-        result += "}";
+        result += "}\n";
         return result;
     }
 
@@ -46,7 +53,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitProcDefinition(ProcDefinitionContext ctx) {
         String result = visit(ctx.procHead());
         result += visit(ctx.procBody());
-        result += "}";
+        result += "}\n";
         return result;
     }
 
@@ -81,32 +88,121 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     @Override
+    public String visitBodyFuncProc(BodyFuncProcContext ctx) {
+        addGlobalContent(super.visitBodyFuncProc(ctx));
+        return defaultResult();
+    }
+
+    @Override
+    public String visitProcBodyFuncProc(ProcBodyFuncProcContext ctx) {
+        addGlobalContent(super.visitProcBodyFuncProc(ctx));
+        return defaultResult();
+    }
+
+    @Override
     public String visitVarDeclaration(VarDeclarationContext ctx) {
         return visit(ctx.type()) + " " + visit(ctx.id()) + ";";
     }
 
     @Override
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
-        System.out.println(visit(ctx.expr()));
-        return visit(ctx.type()) + visit(ctx.id()) + "=" + ctx.expr().getText() + ";";
+        return visit(ctx.type()) + visit(ctx.id()) + "=" + visit(ctx.expr())+ ";";
+    }
+
+    @Override
+    public String visitExprParenthesised(ExprParenthesisedContext ctx) {
+        return "("+visit(ctx.expr())+")";
+    }
+
+    @Override
+    public String visitExprBinaryFloat(ExprBinaryFloatContext ctx) {
+        String operator = switch (ctx.op.getType()) {
+            case HlmpLexer.PLUS -> "+";
+            case HlmpLexer.MINUS -> "-";
+            case HlmpLexer.MULT -> "*";
+            case HlmpLexer.DIVIDE -> "/";
+            case HlmpLexer.MODULU -> "%";
+            default -> "";
+        };
+        return visit(ctx.left) + operator + visit(ctx.right);
+    }
+
+    @Override
+    public String visitExprBinaryLog(ExprBinaryLogContext ctx) {
+        String operator = switch (ctx.op.getType()) {
+            case HlmpLexer.LOGAND -> "&&";
+            case HlmpLexer.LOGOR -> "||";
+            default -> "";
+        };
+        return visit(ctx.left) + operator + visit(ctx.right);
+    }
+
+    @Override
+    public String visitExprBinaryBool(ExprBinaryBoolContext ctx) {
+        String operator = switch (ctx.op.getType()) {
+            case HlmpLexer.LESSTHAN -> "<";
+            case HlmpLexer.GREATERTHAN -> ">";
+            default -> "";
+        };
+        return visit(ctx.left) + operator + visit(ctx.right);
+    }
+
+    @Override
+    public String visitExprReadFunc(ExprReadFuncContext ctx) {
+        return super.visitExprReadFunc(ctx);
+    }
+
+    @Override
+    public String visitExprUnaryNeg(ExprUnaryNegContext ctx) {
+        return "!" + visit(ctx.expr());
+    }
+
+    @Override
+    public String visitExprBinaryBoolEqual(ExprBinaryBoolEqualContext ctx) {
+        String operator = switch (ctx.op.getTokenIndex()) {
+            case HlmpLexer.EQUAL -> "==";
+            case HlmpLexer.NOTEQUAL -> "!=";
+            default -> "";
+        };
+        return visit(ctx.left) + operator + visit(ctx.right);
+    }
+
+    @Override
+    public String visitOperandSFloat(OperandSFloatContext ctx) {
+        return ctx.getText();
+    }
+
+    @Override
+    public String visitOperandBool(OperandBoolContext ctx) {
+        String str = switch (ctx.bool().start.getType()) {
+            case HlmpLexer.TRUE -> "true";
+            case HlmpLexer.FALSE -> "false";
+            default -> "";
+        };
+        return str;
     }
 
     @Override
     public String visitPinLiteralDef(PinLiteralDefContext ctx) {
-        String pinmode = switch (ctx.pinmode().getRuleIndex()) {
+        String pinmode = switch (ctx.pinmode().start.getType()) {
             case HlmpLexer.OUT -> "OUTPUT";
             case HlmpLexer.IN -> "INPUT";
             default -> "";
         };
-        addSetupContext("pinMode(" + ctx.PINNUMBER() + "," + pinmode + ");");
-        return "int " + visit(ctx.id()) + " = " + ctx.PINNUMBER() + ";";
+        String pinNum = "";
+        if (ctx.PINNUMBER().getText().charAt(0) == 'A') {
+            pinNum += 'A';
+        }
+        pinNum += ctx.PINNUMBER().getText().substring(1);
+        addSetupContent("pinMode(" + pinNum + "," + pinmode + ");");
+        return "int " + visit(ctx.id()) + " = " + pinNum + ";";
     }
 
     @Override
     public String visitWriteFuncDef(WriteFuncDefContext ctx) {
-        String result = visit(ctx.val());
+        String result = visit(ctx.id());
         result += "(";
-        result += ctx.val();
+        result += visit(ctx.val());
         result += ")";
         return result;
     }
@@ -138,7 +234,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += "loop";
         result += "() {";
         result += visit(ctx.procBody());
-        result += "}";
+        result += "}\n";
         return result;
     }
 
@@ -167,12 +263,26 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     @Override
+    public String visitArguments(ArgumentsContext ctx) {
+        String result = "";
+        if (ctx.expr().size() > 0) {
+            result += visit(ctx.expr().get(0));
+            for (int i = 1; i < ctx.expr().size(); i++) {
+                result += ",";
+                result += visit(ctx.expr().get(i));
+            }
+        }
+        return result;
+    }
+
+    @Override
     public String visitSetupDefinition(SetupDefinitionContext ctx) {
         String result = "void ";
         result += "setup";
         result += "() {";
+        result += setupContent;
         result += visit(ctx.procBody());
-        result += "}";
+        result += "}\n";
         return result;
     }
 

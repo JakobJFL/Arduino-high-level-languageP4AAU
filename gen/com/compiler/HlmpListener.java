@@ -110,18 +110,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitParam(HlmpParser.ParamContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code identifier}
-	 * labeled alternative in {@link HlmpParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdentifier(HlmpParser.IdentifierContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code identifier}
-	 * labeled alternative in {@link HlmpParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdentifier(HlmpParser.IdentifierContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link HlmpParser#type}.
 	 * @param ctx the parse tree
 	 */
@@ -131,6 +119,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitType(HlmpParser.TypeContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code bodyFuncProc}
+	 * labeled alternative in {@link HlmpParser#body}.
+	 * @param ctx the parse tree
+	 */
+	void enterBodyFuncProc(HlmpParser.BodyFuncProcContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code bodyFuncProc}
+	 * labeled alternative in {@link HlmpParser#body}.
+	 * @param ctx the parse tree
+	 */
+	void exitBodyFuncProc(HlmpParser.BodyFuncProcContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code bodyStmt}
 	 * labeled alternative in {@link HlmpParser#body}.
@@ -167,6 +167,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBodyReturn(HlmpParser.BodyReturnContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code procBodyFuncProc}
+	 * labeled alternative in {@link HlmpParser#procBody}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcBodyFuncProc(HlmpParser.ProcBodyFuncProcContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code procBodyFuncProc}
+	 * labeled alternative in {@link HlmpParser#procBody}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcBodyFuncProc(HlmpParser.ProcBodyFuncProcContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code procBodyStmt}
 	 * labeled alternative in {@link HlmpParser#procBody}.
@@ -657,4 +669,26 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitPinmode(HlmpParser.PinmodeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HlmpParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void enterBool(HlmpParser.BoolContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HlmpParser#bool}.
+	 * @param ctx the parse tree
+	 */
+	void exitBool(HlmpParser.BoolContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(HlmpParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(HlmpParser.IdentifierContext ctx);
 }

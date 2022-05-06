@@ -71,18 +71,18 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParam(HlmpParser.ParamContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code identifier}
-	 * labeled alternative in {@link HlmpParser#id}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdentifier(HlmpParser.IdentifierContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link HlmpParser#type}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitType(HlmpParser.TypeContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code bodyFuncProc}
+	 * labeled alternative in {@link HlmpParser#body}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBodyFuncProc(HlmpParser.BodyFuncProcContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code bodyStmt}
 	 * labeled alternative in {@link HlmpParser#body}.
@@ -104,6 +104,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBodyReturn(HlmpParser.BodyReturnContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code procBodyFuncProc}
+	 * labeled alternative in {@link HlmpParser#procBody}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcBodyFuncProc(HlmpParser.ProcBodyFuncProcContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code procBodyStmt}
 	 * labeled alternative in {@link HlmpParser#procBody}.
@@ -390,4 +397,17 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPinmode(HlmpParser.PinmodeContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HlmpParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(HlmpParser.BoolContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifier(HlmpParser.IdentifierContext ctx);
 }

@@ -16,16 +16,14 @@ procHead: PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
 
 parameter: type id                                          #param;
 
-id : ID                                                     #identifier;
-
 type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 
-body: (funcProc body)?                                      #bodyStmt
+body: (funcProc body)?                                      #bodyFuncProc
     | stmt body                                             #bodyStmt
     | comment body                                          #bodyComment
     | returnExpr END body?                                  #bodyReturn;
 
-procBody: (funcProc procBody)?                              #procBodyStmt
+procBody: (funcProc procBody)?                              #procBodyFuncProc
         | stmt procBody                                     #procBodyStmt
         | comment procBody                                  #procBodyComment;
 
@@ -55,7 +53,7 @@ expr: operand                                               #exprOperand
 
 operand: id                                                 #operandId
        | SFLOAT                                             #operandSFloat
-       | BOOL                                               #operandBool
+       | bool                                               #operandBool
        | funcCall                                           #operandFuncCall;
 
 readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
@@ -63,6 +61,7 @@ readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
         | id READD LPAREN RPAREN                            #readFuncDig;
 
 pinLiteral: PINTYPE id LBRACE PINNUMBER ',' pinmode RBRACE  #pinLiteralDef;
+
 
 returnExpr: RETURN expr                                     #returnExpression;
 
@@ -91,6 +90,8 @@ comment: COMMENT                                            #commentDel
        | LINECOMMENT                                        #commentDel;
 
 pinmode: OUT | IN;
+bool: TRUE | FALSE;
+id : ID                                                     #identifier;
 
 //Lexer Rules
 
@@ -136,7 +137,6 @@ NEGATIVE: '~';
 HIGH: 'HIGH';
 LOW: 'LOW';
 TOGGLE: 'TOGGLE';
-BOOL: TRUE | FALSE;
 TRUE: 'true';
 FALSE: 'false';
 IN: 'in';
@@ -146,7 +146,6 @@ IF: 'if';
 ELSE: 'else';
 RETURN: 'return';
 WHILE: 'while';
-
 PINNUMBER: 'D' [0-9]+ | 'A' [0-9]+;
 
 COMMENT: '/*' .*?  '*/' -> skip;

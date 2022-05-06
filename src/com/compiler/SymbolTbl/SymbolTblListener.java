@@ -50,6 +50,13 @@ public class SymbolTblListener extends HlmpBaseListener {
     }
 
     @Override
+    public void enterVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx) {
+        TypeSymbol symbol = new TypeSymbol(ctx.id().getText());
+        symbol.setType(ctx.type());
+        symbolTbl.addSymbol(symbol);
+    }
+
+    @Override
     public void enterParam(HlmpParser.ParamContext ctx) {
         TypeSymbol symbol = new TypeSymbol(ctx.id().getText());
         symbol.setType(ctx.type());
@@ -109,6 +116,28 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void exitWhileExprDef(HlmpParser.WhileExprDefContext ctx) {
+        symbolTbl.exitScope();
+    }
+
+    @Override
+    public void enterSetupDefinition(HlmpParser.SetupDefinitionContext ctx) {
+        FuncDefSymbol symbol = new FuncDefSymbol("setup");
+        symbolTbl.addSymbol(symbol);
+        symbolTbl.enterScope("setup", ctx);
+    }
+
+    @Override
+    public void exitSetupDefinition(HlmpParser.SetupDefinitionContext ctx) {symbolTbl.exitScope();}
+
+    @Override
+    public void enterLoopDefinition(HlmpParser.LoopDefinitionContext ctx) {
+        FuncDefSymbol symbol = new FuncDefSymbol("loop");
+        symbolTbl.addSymbol(symbol);
+        symbolTbl.enterScope("loop", ctx);
+    }
+
+    @Override
+    public void exitLoopDefinition(HlmpParser.LoopDefinitionContext ctx) {
         symbolTbl.exitScope();
     }
 
