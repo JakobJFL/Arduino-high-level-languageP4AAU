@@ -8,6 +8,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public ArduinoGenVisitor() {
 
     }
+
+    private String setupContext = "";
+
+    private void addSetupContext(String str) {
+        setupContext += str;
+    }
     @Override
     protected String defaultResult() {
         return "";
@@ -30,28 +36,94 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitFuncDefinition(FuncDefinitionContext ctx) {
-        return super.visitFuncDefinition(ctx);
+        String result = visit(ctx.funcHead());
+        result += visit(ctx.body());
+        result += "}";
+        return result;
     }
 
     @Override
     public String visitProcDefinition(ProcDefinitionContext ctx) {
-        return super.visitProcDefinition(ctx);
+        String result = visit(ctx.procHead());
+        result += visit(ctx.procBody());
+        result += "}";
+        return result;
     }
 
     @Override
     public String visitFuncHead(FuncHeadContext ctx) {
-        makeFuncProcHead(ctx.type(), ctx.id(), ctx.parameter());
+        return makeFuncProcHead(ctx.type(), ctx.id(), ctx.parameter());
     }
 
     @Override
     public String visitProcHead(ProcHeadContext ctx) {
-        makeFuncProcHead(null, ctx.id(), ctx.parameter());
+        return makeFuncProcHead(null, ctx.id(), ctx.parameter());
+    }
+
+    @Override
+    public String visitIdentifier(IdentifierContext ctx) {
+        return ctx.getText();
+    }
+
+    @Override
+    public String visitParam(ParamContext ctx) {
+        return visit(ctx.type()) + visit(ctx.id());
+    }
+
+    @Override
+    public String visitType(TypeContext ctx) {
+        return switch (ctx.start.getType()) {
+            case HlmpLexer.NUMTYPE -> "float ";
+            case HlmpLexer.BOOLTYPE -> "bool ";
+            case HlmpLexer.PWMTYPE -> "byte ";
+            default -> "";
+        };
+    }
+
+    @Override
+    public String visitVarDeclaration(VarDeclarationContext ctx) {
+        return visit(ctx.type()) + " " + visit(ctx.id()) + ";";
+    }
+
+    @Override
+    public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
+        return visit(ctx.type()) + " " + visit(ctx.id()) + "=" + visit(ctx.expr()) + ";";
+    }
+
+    @Override
+    public String visitPinLiteralDef(PinLiteralDefContext ctx) {
+        String pinmode = switch (ctx.pinmode().getRuleIndex()) {
+            case HlmpLexer.OUT -> "OUTPUT";
+            case HlmpLexer.IN -> "INPUT";
+            default -> "";
+        };
+        addSetupContext("pinMode(" + ctx.PINNUMBER() + "," + pinmode + ");");
+        return "int " + visit(ctx.id()) + " = " + ctx.PINNUMBER() + ";";
+    }
+
+    @Override
+    public String visitWriteFuncDef(WriteFuncDefContext ctx) {
+        String result = visit(ctx.val());
+        result += "(";
+        result += ctx.val();
+        result += ")";
+        return result;
+    }
+
+    @Override
+    public String visitLoopDefinition(LoopDefinitionContext ctx) {
+        String result = "void ";
+        result += "loop";
+        result += "() {";
+        result += visit(ctx.procBody());
+        result += "}";
+        return result;
     }
 
     private String makeFuncProcHead(TypeContext typeCtx, IdContext idCtx, List<ParameterContext> parameters) {
         String result = "void ";
         if (typeCtx != null) {
-            result = visit(typeCtx) + " ";
+            result = visit(typeCtx);
         }
         result += visit(idCtx);
         result += "(";
@@ -63,7 +135,50 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             }
         }
         result += ") {";
+
         return result;
     }
 
+    @Override
+    public String visitFunctionCall(FunctionCallContext ctx) {
+        return ctx.id().getText() + "(" + visit(ctx.args()) + ")";
+    }
+
+    @Override
+    public String visitSetupDefinition(SetupDefinitionContext ctx) {
+        String result = "void ";
+        result += "setup";
+        result += "() {";
+        result += visit(ctx.procBody());
+        result += "}";
+        return result;
+    }
+
+    @Override
+    public String visitIfStmtDef(IfStmtDefContext ctx) {
+        String result = "if (";
+        result += visit(ctx.expr());
+        result += ") {";
+        result += visit(ctx.body());
+        result += "}";
+        return result;
+    }
+
+    @Override
+    public String visitElseStmtDef(ElseStmtDefContext ctx) {
+        String result = "else {";
+        result += visit(ctx.body());
+        result += "}";
+        return result;
+    }
+
+    @Override
+    public String visitWhileExprDef(WhileExprDefContext ctx) {
+        String result = "while (";
+        result += visit(ctx.expr());
+        result += ") {";
+        result += visit(ctx.body());
+        result += "}";
+        return result;
+    }
 }

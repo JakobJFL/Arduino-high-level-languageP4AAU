@@ -1,4 +1,4 @@
-// Generated from D:/OneDrive - Aalborg Universitet/Dokumenter/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -64,19 +64,19 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProcHead(HlmpParser.ProcHeadContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code identifier}
-	 * labeled alternative in {@link HlmpParser#id}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitIdentifier(HlmpParser.IdentifierContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code param}
 	 * labeled alternative in {@link HlmpParser#parameter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitParam(HlmpParser.ParamContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIdentifier(HlmpParser.IdentifierContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link HlmpParser#type}.
 	 * @param ctx the parse tree
@@ -174,6 +174,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVarDeclaration(HlmpParser.VarDeclarationContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code varDeclarationAssign}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code varDeclPinLiteral}
 	 * labeled alternative in {@link HlmpParser#varDecl}.
@@ -377,4 +384,10 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCommentDel(HlmpParser.CommentDelContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HlmpParser#pinmode}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPinmode(HlmpParser.PinmodeContext ctx);
 }

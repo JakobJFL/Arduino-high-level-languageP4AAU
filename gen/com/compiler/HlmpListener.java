@@ -1,4 +1,4 @@
-// Generated from D:/OneDrive - Aalborg Universitet/Dokumenter/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -98,18 +98,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitProcHead(HlmpParser.ProcHeadContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code identifier}
-	 * labeled alternative in {@link HlmpParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void enterIdentifier(HlmpParser.IdentifierContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code identifier}
-	 * labeled alternative in {@link HlmpParser#id}.
-	 * @param ctx the parse tree
-	 */
-	void exitIdentifier(HlmpParser.IdentifierContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code param}
 	 * labeled alternative in {@link HlmpParser#parameter}.
 	 * @param ctx the parse tree
@@ -121,6 +109,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitParam(HlmpParser.ParamContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(HlmpParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code identifier}
+	 * labeled alternative in {@link HlmpParser#id}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(HlmpParser.IdentifierContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link HlmpParser#type}.
 	 * @param ctx the parse tree
@@ -287,6 +287,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVarDeclaration(HlmpParser.VarDeclarationContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code varDeclarationAssign}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code varDeclarationAssign}
+	 * labeled alternative in {@link HlmpParser#varDecl}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code varDeclPinLiteral}
 	 * labeled alternative in {@link HlmpParser#varDecl}.
@@ -635,4 +647,14 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCommentDel(HlmpParser.CommentDelContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HlmpParser#pinmode}.
+	 * @param ctx the parse tree
+	 */
+	void enterPinmode(HlmpParser.PinmodeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HlmpParser#pinmode}.
+	 * @param ctx the parse tree
+	 */
+	void exitPinmode(HlmpParser.PinmodeContext ctx);
 }

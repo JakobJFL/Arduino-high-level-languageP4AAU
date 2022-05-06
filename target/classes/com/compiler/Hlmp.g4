@@ -14,9 +14,9 @@ funcProc: funcHead LBRACE body RBRACE                       #funcDefinition
 funcHead: FUNC type id LPAREN (parameter (',' parameter)*)? RPAREN;
 procHead: PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
 
-id : ID                                                     #identifier;
-
 parameter: type id                                          #param;
+
+id : ID                                                     #identifier;
 
 type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 
@@ -38,7 +38,7 @@ stmt: varDecl END                                           #stmtVarDecl
     | whileExpr                                             #stmtWhileExpr;
 
 varDecl: type id                                            #varDeclaration
-       | type id ASSIGN expr                                #varDeclaration
+       | type id ASSIGN expr                                #varDeclarationAssign
        | pinLiteral                                         #varDeclPinLiteral;
 
 expr: operand                                               #exprOperand
@@ -62,7 +62,7 @@ readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
         | id READA LPAREN RPAREN                            #readFuncAnal
         | id READD LPAREN RPAREN                            #readFuncDig;
 
-pinLiteral: PINTYPE id LBRACE PINNUMBER ',' PINMODE RBRACE  #pinLiteralDef;
+pinLiteral: PINTYPE id LBRACE PINNUMBER ',' pinmode RBRACE  #pinLiteralDef;
 
 returnExpr: RETURN expr                                     #returnExpression;
 
@@ -89,6 +89,8 @@ loopDef: PROC LOOP LPAREN RPAREN LBRACE procBody RBRACE     #loopDefinition;
 
 comment: COMMENT                                            #commentDel
        | LINECOMMENT                                        #commentDel;
+
+pinmode: OUT | IN;
 
 //Lexer Rules
 
@@ -137,7 +139,6 @@ TOGGLE: 'TOGGLE';
 BOOL: TRUE | FALSE;
 TRUE: 'true';
 FALSE: 'false';
-PINMODE: OUT | IN;
 IN: 'in';
 OUT: 'out';
 
