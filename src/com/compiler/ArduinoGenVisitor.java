@@ -87,7 +87,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
-        return visit(ctx.type()) + " " + visit(ctx.id()) + "=" + visit(ctx.expr()) + ";";
+        System.out.println(visit(ctx.expr()));
+        return visit(ctx.type()) + visit(ctx.id()) + "=" + ctx.expr().getText() + ";";
     }
 
     @Override
@@ -107,6 +108,27 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += "(";
         result += ctx.val();
         result += ")";
+        return result;
+    }
+
+    @Override
+    public String visitReadFuncPWM(ReadFuncPWMContext ctx) {
+        String result = visit(ctx.id());
+        result += ".ReadPwm()";
+        return result;
+    }
+
+    @Override
+    public String visitReadFuncAnal(ReadFuncAnalContext ctx) {
+        String result = visit(ctx.id());
+        result += ".ReadAnalog()";
+        return result;
+    }
+
+    @Override
+    public String visitReadFuncDig(ReadFuncDigContext ctx) {
+        String result = visit(ctx.id());
+        result += ".ReadDigital()";
         return result;
     }
 

@@ -1,4 +1,9 @@
 proc setup() { }
 proc loop() { }
 
-Num test = 5;
+proc func1() {
+    Bool test = true;
+    if (test) {
+
+    }
+}
