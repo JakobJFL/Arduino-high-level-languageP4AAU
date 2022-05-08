@@ -10,14 +10,9 @@ proc func1(Num kat1) {
 			Bool test2 = true;
 		}
 	}
-}
-
-proc func21(Num kat11) {
-	Num var1; 
-	proc func2(Num kat22) {
-		proc func3(Num kat33) {
+	proc func22(Num kat22) {
+		proc func33(Num kat33) {
 			Bool test2 = true;
 		}
 	}
 }
-

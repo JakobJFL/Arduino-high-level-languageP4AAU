@@ -46,17 +46,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     @Override
-    public String visitCntFuncProc(CntFuncProcContext ctx) {
-        String result = super.visitCntFuncProc(ctx);
-        scopeParameters = new ArrayList<>();
-        return result;
-    }
-
-    @Override
     public String visitFuncDefinition(FuncDefinitionContext ctx) {
         String result = visit(ctx.funcHead());
         result += visit(ctx.body());
         result += "}\n";
+        scopeParameters.remove(scopeParameters.size()-1);
         return result;
     }
 
@@ -65,6 +59,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String result = visit(ctx.procHead());
         result += visit(ctx.procBody());
         result += "}\n";
+        scopeParameters.remove(scopeParameters.size()-1);
         return result;
     }
 
