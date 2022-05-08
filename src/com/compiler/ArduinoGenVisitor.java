@@ -1,7 +1,9 @@
 package com.compiler;
 
 import com.compiler.HlmpParser.*;
+import org.antlr.v4.runtime.tree.ParseTree;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
@@ -11,6 +13,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     private String setupContent = "";
     private String globalContent = "";
+
+    private List<String> scopeParameters = new ArrayList<>();
 
     private void addSetupContent(String str) {
         setupContent += str;
@@ -30,7 +34,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return aggregate+nextResult;
     }
 
-    @Override // måske ikke noget der er nødving.
+    @Override
     public String visitProgram(ProgramContext ctx) {
         String str = visit(ctx.loopDef());
         for (ContentContext c : ctx.content()) {
@@ -39,6 +43,13 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         str += visit(ctx.setupDef());
         str += globalContent;
         return str;
+    }
+
+    @Override
+    public String visitCntFuncProc(CntFuncProcContext ctx) {
+        String result = super.visitCntFuncProc(ctx);
+        scopeParameters = new ArrayList<>();
+        return result;
     }
 
     @Override
@@ -246,10 +257,13 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += visit(idCtx);
         result += "(";
         if (parameters.size() > 0) {
-            result += visit(parameters.get(0));
-            for (int i = 1; i < parameters.size(); i++) {
-                result += ",";
-                result += visit(parameters.get(i));
+            for (ParameterContext p : parameters) {
+                scopeParameters.add(visit(p));
+            }
+            result += scopeParameters.get(0);
+            for (int i = 1; i < scopeParameters.size(); i++) {
+                result += ", ";
+                result += scopeParameters.get(i);
             }
         }
         result += ") {";
