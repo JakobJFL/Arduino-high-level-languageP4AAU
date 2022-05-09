@@ -1,7 +1,8 @@
-void loop() {}
-int uid2 = A1;void uid3(float kat1) {float  uid5;}
-void setup() {pinMode(A1,INPUT);}
-void uid8(float kat1, float kat2, float kat3) {bool uid10=true;}
-void uid13(float kat1, float kat22, float kat33) {bool uid15=true;}
-void uid11(float kat1, float kat22) {}
-void uid6(float kat1, float kat2) {uid8(5);}
+proc setup() {}
+proc loop() {}
+
+func Num func1(Num kat1) {
+	return 8;
+	
+	return 875;
+}

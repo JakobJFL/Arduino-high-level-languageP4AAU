@@ -21,7 +21,7 @@ type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
 body: (funcProc body)?                                      #bodyFuncProc
     | stmt body                                             #bodyStmt
     | comment body                                          #bodyComment
-    | returnExpr END body?                                  #bodyReturn;
+    | (returnExpr END)+                                     #bodyReturn;
 
 procBody: (funcProc procBody)?                              #procBodyFuncProc
         | stmt procBody                                     #procBodyStmt

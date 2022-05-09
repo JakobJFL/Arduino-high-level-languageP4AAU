@@ -109,6 +109,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     @Override
+    public String visitStmtAssign(StmtAssignContext ctx) {
+        return symbolTbl.idProperty.get(ctx) + "=" + visit(ctx.expr())+ ";";
+    }
+
+    @Override
     public String visitVarDeclaration(VarDeclarationContext ctx) {
         return visit(ctx.type()) + " " + symbolTbl.idProperty.get(ctx) + ";";
     }
@@ -205,6 +210,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         pinNum += ctx.PINNUMBER().getText().substring(1);
         addSetupContent("pinMode(" + pinNum + "," + pinmode + ");");
         return "int " + symbolTbl.idProperty.get(ctx) + " = " + pinNum + ";";
+    }
+
+    @Override
+    public String visitReturnExpression(ReturnExpressionContext ctx) {
+        return "return " + visit(ctx.expr()) + ";";
     }
 
     @Override

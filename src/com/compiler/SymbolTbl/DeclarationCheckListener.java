@@ -3,7 +3,7 @@ package com.compiler.SymbolTbl;
 import com.compiler.HlmpBaseListener;
 import com.compiler.HlmpParser;
 import org.antlr.v4.runtime.tree.ParseTree;
-s
+
 public class DeclarationCheckListener extends HlmpBaseListener {
     public SymbolTbl symbolTbl;
 

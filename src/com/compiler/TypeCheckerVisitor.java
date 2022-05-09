@@ -45,12 +45,8 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        String returnType = ctx.funcHead().type().start.getText();
-        String returnTypeStmt = ctx.body().start.getText(); // THIS NOOOO GOOD!!!!!
-
-        System.out.println(returnType + returnTypeStmt);
-
-        if (returnType.equals(returnTypeStmt)) {
+        int type = ctx.funcHead().type().start.getType();
+        if (type == visit(ctx.body())) {
             symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
             super.visitFuncDefinition(ctx);
             symbolTbl.currentScope = symbolTbl.currentScope.parent;
@@ -62,12 +58,29 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     }
 
     @Override
+    public Integer visitBodyReturn(HlmpParser.BodyReturnContext ctx) {
+        int preType = visit(ctx.returnExpr().get(0));
+        for (int i = 1; i < ctx.returnExpr().size(); i++) {
+            int thisType = visit(ctx.returnExpr().get(i));
+            if (thisType == preType) {
+                preType = thisType;
+            }
+            else {
+                return 0;
+            }
+        }
+        return preType;
+    }
+
+    @Override
     public Integer visitProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
         super.visitProcDefinition(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
         return defaultResult();
     }
+
+
 
     @Override
     public Integer visitStmtAssign(HlmpParser.StmtAssignContext ctx) {
