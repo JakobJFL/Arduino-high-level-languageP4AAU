@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
-    SymbolTbl symbolTbl;
+    private SymbolTbl symbolTbl;
 
     public TypeCheckerVisitor(SymbolTbl symbolTbl) {
         this.symbolTbl = symbolTbl;

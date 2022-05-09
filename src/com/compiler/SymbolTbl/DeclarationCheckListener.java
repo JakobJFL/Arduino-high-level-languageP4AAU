@@ -2,10 +2,8 @@ package com.compiler.SymbolTbl;
 
 import com.compiler.HlmpBaseListener;
 import com.compiler.HlmpParser;
-import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
-import com.compiler.SymbolTbl.Symbols.Symbol;
 import org.antlr.v4.runtime.tree.ParseTree;
-
+s
 public class DeclarationCheckListener extends HlmpBaseListener {
     public SymbolTbl symbolTbl;
 
@@ -24,37 +22,51 @@ public class DeclarationCheckListener extends HlmpBaseListener {
 
     @Override
     public void enterFunctionCall(HlmpParser.FunctionCallContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        String id = ctx.id().getText();
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+        symbolTbl.checkId(id);
     }
 
     @Override
     public void enterWriteFuncDef(HlmpParser.WriteFuncDefContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        String id = ctx.id().getText();
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+        symbolTbl.checkId(id);
     }
 
     @Override
     public void enterReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        String id = ctx.id().getText();
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+        symbolTbl.checkId(id);
     }
 
     @Override
     public void enterReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        String id = ctx.id().getText();
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+        symbolTbl.checkId(id);
     }
 
     @Override
     public void enterReadFuncDig(HlmpParser.ReadFuncDigContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        String id = ctx.id().getText();
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+        symbolTbl.checkId(id);
     }
 
     @Override
     public void enterOperandId(HlmpParser.OperandIdContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        String id = ctx.id().getText();
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+        symbolTbl.checkId(id);
     }
 
     @Override
     public void enterStmtAssign(HlmpParser.StmtAssignContext ctx) {
-        symbolTbl.checkId(ctx.id().getText());
+        String id = ctx.id().getText();
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+        symbolTbl.checkId(id);
     }
 
 

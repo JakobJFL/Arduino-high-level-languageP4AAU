@@ -12,14 +12,19 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 public class SymbolTblListener extends HlmpBaseListener {
     public SymbolTbl symbolTbl = new SymbolTbl();
     private int id = 0;
+    private int uniqueId = 0;
 
-    private String getUniqueId() {
-        return "uId"+id++;
+    private String makeUniqueId() {
+        return "uid"+uniqueId++;
+    }
+
+    private String makeId() {
+        return "id"+id++;
     }
 
     @Override
     public void enterFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        FuncDefSymbol symbol = new FuncDefSymbol(ctx.funcHead().id().getText());
+        FuncDefSymbol symbol = new FuncDefSymbol(ctx.funcHead().id().getText(), makeUniqueId());
         symbol.setType(ctx.funcHead().type());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(ctx.funcHead().id().getText(), ctx);
@@ -32,7 +37,7 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
-        FuncDefSymbol symbol = new FuncDefSymbol(ctx.procHead().id().getText());
+        FuncDefSymbol symbol = new FuncDefSymbol(ctx.procHead().id().getText(), makeUniqueId());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(ctx.procHead().id().getText(), ctx);
     }
@@ -43,22 +48,34 @@ public class SymbolTblListener extends HlmpBaseListener {
     }
 
     @Override
+    public void enterFuncHead(HlmpParser.FuncHeadContext ctx) {
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(ctx.id().getText()).getUniqueId());
+    }
+
+    @Override
+    public void enterProcHead(HlmpParser.ProcHeadContext ctx) {
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(ctx.id().getText()).getUniqueId());
+    }
+
+    @Override
     public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
-        TypeSymbol symbol = new TypeSymbol(ctx.id().getText());
+        TypeSymbol symbol = new TypeSymbol(ctx.id().getText(), makeUniqueId());
         symbol.setType(ctx.type());
         symbolTbl.addSymbol(symbol);
+        symbolTbl.idProperty.put(ctx, symbol.getUniqueId());
     }
 
     @Override
     public void enterVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx) {
-        TypeSymbol symbol = new TypeSymbol(ctx.id().getText());
+        TypeSymbol symbol = new TypeSymbol(ctx.id().getText(), makeUniqueId());
         symbol.setType(ctx.type());
         symbolTbl.addSymbol(symbol);
+        symbolTbl.idProperty.put(ctx, symbol.getUniqueId());
     }
 
     @Override
     public void enterParam(HlmpParser.ParamContext ctx) {
-        TypeSymbol symbol = new TypeSymbol(ctx.id().getText());
+        TypeSymbol symbol = new TypeSymbol(ctx.id().getText(), makeUniqueId());
         symbol.setType(ctx.type());
         if ((ctx.getParent().children.get(0).getText()).equals("func ")) {
             String id = ctx.getParent().children.get(2).getText(); // Get name of function. Will always be number 2 element functions.
@@ -76,14 +93,15 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) {
-        Symbol symbol = new Symbol(ctx.id().getText());
+        Symbol symbol = new Symbol(ctx.id().getText(), makeUniqueId());
+        symbolTbl.idProperty.put(ctx, symbol.getUniqueId());
         symbolTbl.addSymbol(symbol);
     }
 
     @Override
     public void enterIfStmtDef(HlmpParser.IfStmtDefContext ctx) {
-        String thisId = getUniqueId();
-        Symbol symbol = new FuncDefSymbol(thisId);
+        String thisId = makeId();
+        Symbol symbol = new FuncDefSymbol(thisId, makeUniqueId());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(thisId, ctx);
     }
@@ -95,8 +113,8 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterElseStmtDef(HlmpParser.ElseStmtDefContext ctx) {
-        String thisId = getUniqueId();
-        Symbol symbol = new FuncDefSymbol(thisId);
+        String thisId = makeId();
+        Symbol symbol = new FuncDefSymbol(thisId, makeUniqueId());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(thisId, ctx);
     }
@@ -108,8 +126,8 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterWhileExprDef(HlmpParser.WhileExprDefContext ctx) {
-        String thisId = getUniqueId();
-        Symbol symbol = new FuncDefSymbol(thisId);
+        String thisId = makeId();
+        Symbol symbol = new FuncDefSymbol(thisId, makeUniqueId());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(thisId, ctx);
     }
@@ -121,7 +139,7 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterSetupDefinition(HlmpParser.SetupDefinitionContext ctx) {
-        FuncDefSymbol symbol = new FuncDefSymbol("setup");
+        FuncDefSymbol symbol = new FuncDefSymbol("setup", makeUniqueId());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope("setup", ctx);
     }
@@ -131,7 +149,7 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterLoopDefinition(HlmpParser.LoopDefinitionContext ctx) {
-        FuncDefSymbol symbol = new FuncDefSymbol("loop");
+        FuncDefSymbol symbol = new FuncDefSymbol("loop", makeUniqueId());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope("loop", ctx);
     }
@@ -143,7 +161,7 @@ public class SymbolTblListener extends HlmpBaseListener {
 
     @Override
     public void enterValueId(HlmpParser.ValueIdContext ctx) {
-        Symbol symbol = new Symbol(ctx.id().getText());
+        Symbol symbol = new Symbol(ctx.id().getText(), makeUniqueId());
         symbolTbl.addSymbol(symbol);
     }
 }

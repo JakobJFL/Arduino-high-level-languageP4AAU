@@ -10,8 +10,10 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 public class SymbolTbl {
     public Scope globalScope = new Scope(null, null);
     public Scope currentScope = globalScope;
+    private int uniqueIdCounter = 1;
 
     public ParseTreeProperty<Scope> scopesProperty = new ParseTreeProperty<Scope>();
+    public ParseTreeProperty<String> idProperty = new ParseTreeProperty<>();
 
     public void enterScope(String id, ParseTree tree) {
         for (Scope s: currentScope.getSubScopes()) {

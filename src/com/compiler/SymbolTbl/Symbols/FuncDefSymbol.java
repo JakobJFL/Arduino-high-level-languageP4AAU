@@ -9,8 +9,8 @@ public class FuncDefSymbol extends TypeSymbol {
     private HlmpParser.TypeContext type;
     private List<TypeSymbol> parameters = new ArrayList<>();
 
-    public FuncDefSymbol(String text) {
-        super(text);
+    public FuncDefSymbol(String id, String uid) {
+        super(id, uid);
     }
 
     public void setType(HlmpParser.TypeContext type) {

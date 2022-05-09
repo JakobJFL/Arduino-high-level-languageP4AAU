@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class TypeSymbol extends Symbol {
     private HlmpParser.TypeContext type;
 
-    public TypeSymbol(String text) {
-        super(text);
+    public TypeSymbol(String id, String uid) {
+        super(id, uid);
     }
 
     public void setType(HlmpParser.TypeContext type) {

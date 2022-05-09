@@ -1,14 +1,17 @@
 package com.compiler;
 
 import com.compiler.HlmpParser.*;
+import com.compiler.SymbolTbl.SymbolTbl;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
-    public ArduinoGenVisitor() {
+    private SymbolTbl symbolTbl;
 
+    public ArduinoGenVisitor(SymbolTbl symbolTbl) {
+        this.symbolTbl = symbolTbl;
     }
 
     private String setupContent = "";
@@ -65,12 +68,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitFuncHead(FuncHeadContext ctx) {
-        return makeFuncProcHead(ctx.type(), ctx.id(), ctx.parameter());
+        return makeFuncProcHead(ctx.type(), symbolTbl.idProperty.get(ctx), ctx.parameter());
     }
 
     @Override
     public String visitProcHead(ProcHeadContext ctx) {
-        return makeFuncProcHead(null, ctx.id(), ctx.parameter());
+        return makeFuncProcHead(null, symbolTbl.idProperty.get(ctx), ctx.parameter());
     }
 
     @Override
@@ -107,12 +110,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitVarDeclaration(VarDeclarationContext ctx) {
-        return visit(ctx.type()) + " " + visit(ctx.id()) + ";";
+        return visit(ctx.type()) + " " + symbolTbl.idProperty.get(ctx) + ";";
     }
 
     @Override
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
-        return visit(ctx.type()) + visit(ctx.id()) + "=" + visit(ctx.expr())+ ";";
+        return visit(ctx.type()) + symbolTbl.idProperty.get(ctx) + "=" + visit(ctx.expr())+ ";";
     }
 
     @Override
@@ -201,12 +204,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
         pinNum += ctx.PINNUMBER().getText().substring(1);
         addSetupContent("pinMode(" + pinNum + "," + pinmode + ");");
-        return "int " + visit(ctx.id()) + " = " + pinNum + ";";
+        return "int " + symbolTbl.idProperty.get(ctx) + " = " + pinNum + ";";
     }
 
     @Override
     public String visitWriteFuncDef(WriteFuncDefContext ctx) {
-        String result = visit(ctx.id());
+        String result = symbolTbl.idProperty.get(ctx);
         result += "(";
         result += visit(ctx.val());
         result += ")";
@@ -215,14 +218,14 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitReadFuncPWM(ReadFuncPWMContext ctx) {
-        String result = visit(ctx.id());
+        String result = symbolTbl.idProperty.get(ctx);
         result += ".ReadPwm()";
         return result;
     }
 
     @Override
     public String visitReadFuncAnal(ReadFuncAnalContext ctx) {
-        String result = visit(ctx.id());
+        String result = symbolTbl.idProperty.get(ctx);
         result += ".ReadAnalog()";
         return result;
     }
@@ -244,12 +247,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return result;
     }
 
-    private String makeFuncProcHead(TypeContext typeCtx, IdContext idCtx, List<ParameterContext> parameters) {
+    private String makeFuncProcHead(TypeContext typeCtx, String idCtx, List<ParameterContext> parameters) {
         String result = "void ";
         if (typeCtx != null) {
             result = visit(typeCtx);
         }
-        result += visit(idCtx);
+        result += idCtx;
         result += "(";
         if (parameters.size() > 0) {
             for (ParameterContext p : parameters) {
@@ -268,7 +271,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitFunctionCall(FunctionCallContext ctx) {
-        return ctx.id().getText() + "(" + visit(ctx.args()) + ")";
+        return symbolTbl.idProperty.get(ctx)+ "(" + visit(ctx.args()) + ");";
     }
 
     @Override

@@ -54,7 +54,7 @@ public class Main {
         walker.walk(DeclarationChecker, tree);
         TypeCheckerVisitor visitor = new TypeCheckerVisitor(symbolTable.symbolTbl);
         visitor.visitProgram((HlmpParser.ProgramContext) tree);
-        ArduinoGenVisitor codeGen = new ArduinoGenVisitor();
+        ArduinoGenVisitor codeGen = new ArduinoGenVisitor(symbolTable.symbolTbl);
         System.out.println(codeGen.visitProgram((HlmpParser.ProgramContext) tree));
         return symbolTable;
     }
