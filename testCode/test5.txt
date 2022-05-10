@@ -8,6 +8,6 @@ proc func1(Num par1) {
 	func2(var1);
 	
 	proc func2(Num par2) {
-		
+
 	}
 }
