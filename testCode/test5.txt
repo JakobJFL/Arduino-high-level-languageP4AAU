@@ -1,8 +1,12 @@
 proc setup() {}
 proc loop() {}
+ 	
 
-func Num func1(Num kat1) {
-	return 8;
-	
-	return 875;
+func Num fun1() {
+	if (true) {
+			return 4;
+
+	} else {
+	}
+	return 4;
 }

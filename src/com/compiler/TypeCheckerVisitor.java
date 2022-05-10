@@ -2,7 +2,6 @@ package com.compiler;
 
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.TypeException;
-import com.compiler.SymbolTbl.Scope;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.TypeSymbol;
@@ -21,22 +20,25 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitIfStmtDef(HlmpParser.IfStmtDefContext ctx) {
+        Integer type = 0;
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-        super.visitIfStmtDef(ctx);
+        type = super.visitIfStmtDef(ctx);
+
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return defaultResult();
+        return type;
     }
 
     @Override
     public Integer visitElseStmtDef(HlmpParser.ElseStmtDefContext ctx) {
+        Integer type = 0;
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-        super.visitElseStmtDef(ctx);
+        type = super.visitElseStmtDef(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return defaultResult();
+        return null;
     }
 
     @Override
-    public Integer visitWhileExprDef(HlmpParser.WhileExprDefContext ctx) {
+    public Integer visitWhileExprDef(HlmpParser.WhileExprDefContext ctx){
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
         super.visitWhileExprDef(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
@@ -45,10 +47,13 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
-        int type = ctx.funcHead().type().start.getType();
-        if (type == visit(ctx.body())) {
-            symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-            super.visitFuncDefinition(ctx);
+        Integer funcType = ctx.funcHead().type().start.getType();
+        if (funcType == HlmpLexer.PWMTYPE)
+            funcType = HlmpLexer.NUMTYPE;
+        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        int kat = visit(ctx.body());
+        System.out.println(funcType +"=="+ kat);
+        if (funcType == kat) {
             symbolTbl.currentScope = symbolTbl.currentScope.parent;
             return defaultResult();
         }
@@ -59,9 +64,9 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitBodyReturn(HlmpParser.BodyReturnContext ctx) {
-        int preType = visit(ctx.returnExpr().get(0));
+        Integer preType = visit(ctx.returnExpr().get(0));
         for (int i = 1; i < ctx.returnExpr().size(); i++) {
-            int thisType = visit(ctx.returnExpr().get(i));
+            Integer thisType = visit(ctx.returnExpr().get(i));
             if (thisType == preType) {
                 preType = thisType;
             }
@@ -80,12 +85,12 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         return defaultResult();
     }
 
-
-
     @Override
     public Integer visitStmtAssign(HlmpParser.StmtAssignContext ctx) {
         TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         Integer type = symbol.getType().start.getType();
+        if (type == HlmpLexer.PWMTYPE)
+            type = HlmpLexer.NUMTYPE;
         Integer expr = visit(ctx.expr());
         if (expr == type) {
             return type;
@@ -97,12 +102,17 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
-        return ctx.type().start.getType();
+        Integer type = ctx.type().start.getType();
+        if (type == HlmpLexer.PWMTYPE)
+            type = HlmpLexer.NUMTYPE;
+        return type;
     }
 
     @Override
     public Integer visitVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx) {
         Integer type = ctx.type().start.getType();
+        if (type == HlmpLexer.PWMTYPE)
+            type = HlmpLexer.NUMTYPE;
         if (visit(ctx.expr()) == type) {
             return type;
         }
@@ -131,7 +141,6 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitExprBinaryBool(HlmpParser.ExprBinaryBoolContext ctx) {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
-
         if (left == HlmpLexer.NUMTYPE && right == HlmpLexer.NUMTYPE)
             return HlmpLexer.BOOLTYPE;
         throw new TypeException();
@@ -183,7 +192,10 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         if (symbol == null) {
             throw new NotDeclared();
         }
-        return symbol.getType().start.getType();
+        Integer type = symbol.getType().start.getType();
+        if (type == HlmpLexer.PWMTYPE)
+            type = HlmpLexer.NUMTYPE;
+        return type;
     }
 
     @Override

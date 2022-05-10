@@ -20,7 +20,10 @@ public class Main {
         FileHandler fileHandler = new FileHandler("testCode/test5.txt");
         try {
             SymbolTblListener symbolTable = compile(fileHandler.getFileContent());
-        } catch (AlreadyDeclared ex) {
+        } catch (NotDeclared ex) {
+            System.out.println("NotDeclared: " + ex.getMessage());
+        }
+        catch (AlreadyDeclared ex) {
             System.out.println("AlreadyDeclared: " + ex.getMessage());
         }
         catch (SyntaxException ex) {

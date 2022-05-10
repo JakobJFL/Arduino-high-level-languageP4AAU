@@ -111,8 +111,7 @@ public class TypeTests {
 
     @ParameterizedTest
     @ValueSource( strings = {"func Num test() { Bool var1 = true; return var1; }",
-            "func Bool test() { Num var1 = 2; return var1; }",
-            "func Pwm test() { Num var1 = 5; return var1; }"})
+            "func Bool test() { Num var1 = 2; return var1; }"})
     public void DifferentReturnTypes_ShouldFail(String testCode) {
         Assertions.assertThrows(TypeException.class, () -> {
             compile(setUpLoop + testCode);

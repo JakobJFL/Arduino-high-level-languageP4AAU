@@ -10,7 +10,6 @@ import org.antlr.v4.runtime.tree.ParseTreeProperty;
 public class SymbolTbl {
     public Scope globalScope = new Scope(null, null);
     public Scope currentScope = globalScope;
-    private int uniqueIdCounter = 1;
 
     public ParseTreeProperty<Scope> scopesProperty = new ParseTreeProperty<Scope>();
     public ParseTreeProperty<String> idProperty = new ParseTreeProperty<>();
@@ -22,6 +21,7 @@ public class SymbolTbl {
                 return;
             }
         }
+
         //No match in loop, so we need to add a new scope
         Scope scope = new Scope(currentScope, id);
         currentScope.addSubScope(scope);
@@ -29,7 +29,7 @@ public class SymbolTbl {
         scopesProperty.put(tree, currentScope);
     }
 
-    public void exitScope() { 
+    public void exitScope() {
         currentScope = currentScope.parent;
     }
 
@@ -42,7 +42,7 @@ public class SymbolTbl {
         }
     }
 
-    public void checkId(String id)   {
+    public void checkId(String id) {
         if (!isSymbol(id, currentScope)) {
             throw new NotDeclared();
         }

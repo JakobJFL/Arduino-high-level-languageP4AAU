@@ -53,7 +53,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String result = visit(ctx.funcHead());
         result += visit(ctx.body());
         result += "}\n";
-        scopeParameters.remove(scopeParameters.size()-1);
+        if (scopeParameters.size() > 0)
+            scopeParameters.remove(scopeParameters.size()-1);
         return result;
     }
 
@@ -62,7 +63,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String result = visit(ctx.procHead());
         result += visit(ctx.procBody());
         result += "}\n";
-        scopeParameters.remove(scopeParameters.size()-1);
+        if (scopeParameters.size() > 0)
+            scopeParameters.remove(scopeParameters.size()-1);
         return result;
     }
 
@@ -320,10 +322,13 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitElseStmtDef(ElseStmtDefContext ctx) {
-        String result = "else {";
-        result += visit(ctx.body());
-        result += "}";
-        return result;
+        if (ctx.body() != null) {
+            String result = "else {";
+            result += visit(ctx.body());
+            result += "}";
+            return result;
+        }
+        return defaultResult();
     }
 
     @Override

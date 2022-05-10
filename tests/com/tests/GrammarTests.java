@@ -90,7 +90,7 @@ public class GrammarTests {
 
     @Test
     public void BoolTest () {
-        String boolInput = setUpLoop + "func Bool fun1() {Num x = 4; if (x > 5) {return false;} else {return true;}}";
+        String boolInput = setUpLoop + "func Bool fun1() {Num x = 4; Bool ret; if (x > 5) {ret = true;} else {ret = false;} return ret;}";
 
         Assertions.assertDoesNotThrow(() -> {
             compile(boolInput);

@@ -1,13 +1,10 @@
 package com.compiler.SymbolTbl;
 
 import com.compiler.HlmpBaseListener;
-import com.compiler.HlmpLexer;
 import com.compiler.HlmpParser;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.Symbol;
 import com.compiler.SymbolTbl.Symbols.TypeSymbol;
-import com.compiler.TypeCheckerVisitor;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 public class SymbolTblListener extends HlmpBaseListener {
     public SymbolTbl symbolTbl = new SymbolTbl();
