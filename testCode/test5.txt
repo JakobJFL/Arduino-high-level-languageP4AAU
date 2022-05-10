@@ -3,11 +3,13 @@ proc setup() {
 }
 proc loop() { }
 
+Num kat = 5;
+
 proc func1(Num par1) {
 	Num var1 = 10;
-	func2(var1);
+	func2(5);
 	
 	proc func2(Num par2) {
-
+		par2 = par2+par1*8;
 	}
 }

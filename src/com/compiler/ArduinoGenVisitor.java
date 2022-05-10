@@ -3,12 +3,9 @@ package com.compiler;
 import com.compiler.HlmpParser.*;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Tuple;
-import com.ibm.icu.impl.Pair;
-import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private SymbolTbl symbolTbl;
@@ -20,9 +17,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private String setupContent = "";
     private String globalContent = "";
 
-    private List<String> scopeVars = new ArrayList<>();
-
-    List<Tuple> scopeParameters = new ArrayList<>();
+    List<Tuple> referenceVars = new ArrayList<>();
 
 
     private void addSetupContent(String str) {
@@ -55,10 +50,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     private void exitScope() {
-        if (scopeParameters.size() > 0)
-            scopeParameters.remove(scopeParameters.size()-1);
-        if (scopeVars.size() > 0)
-            scopeVars.remove(scopeVars.size()-1);
+        if (referenceVars.size() > 0)
+            referenceVars.remove(referenceVars.size()-1);
     }
 
     @Override
@@ -95,16 +88,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     @Override
-    public String visitParam(ParamContext ctx) {
-        scopeParameters.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
-        return defaultResult();
-    }
-
-    private String visitParamStar(IdentifierContext id, TypeContext type) {
-        return visit(type) + "* " + visit(id);
-    }
-
-    @Override
     public String visitType(TypeContext ctx) {
         return switch (ctx.start.getType()) {
             case HlmpLexer.NUMTYPE -> "float ";
@@ -128,22 +111,24 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitStmtAssign(StmtAssignContext ctx) {
-        return symbolTbl.idProperty.get(ctx) + "=" + visit(ctx.expr())+ ";";
+        return ctx.id().getText() + "=" + visit(ctx.expr())+ ";";
     }
 
     @Override
     public String visitVarDeclaration(VarDeclarationContext ctx) {
-        String id = symbolTbl.idProperty.get(ctx);
-        System.out.println(id +"kat");
-        scopeVars.add(id);
+        String id = ctx.id().getText();
+        if (ctx.parent instanceof StmtVarDeclContext) {
+           referenceVars.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
+        }
         return visit(ctx.type()) + " " + id + ";";
     }
 
     @Override
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
-        String id = symbolTbl.idProperty.get(ctx);
-        System.out.println(id +"kat");
-        scopeVars.add(id);
+        String id = ctx.id().getText();
+        if (ctx.parent instanceof StmtVarDeclContext) {
+            referenceVars.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
+        }
         return visit(ctx.type()) + id + "=" + visit(ctx.expr())+ ";";
     }
 
@@ -162,7 +147,19 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             case HlmpLexer.MODULU -> "%";
             default -> "";
         };
-        return visit(ctx.left) + operator + visit(ctx.right);
+
+        return getVal(ctx.left) + operator + getVal(ctx.right);
+    }
+
+    private String getVal(ExprContext ctx) {
+        String result = "";
+        for (Tuple var : referenceVars) {
+            if (var.id.equals(ctx.getText())) {
+                result += "*";
+            }
+        }
+        result += visit(ctx);
+        return result;
     }
 
     @Override
@@ -233,7 +230,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
         pinNum += ctx.PINNUMBER().getText().substring(1);
         addSetupContent("pinMode(" + pinNum + "," + pinmode + ");");
-        return "int " + symbolTbl.idProperty.get(ctx) + " = " + pinNum + ";";
+        return "int " + ctx.id().getText() + " = " + pinNum + ";";
     }
 
     @Override
@@ -243,7 +240,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitWriteFuncDef(WriteFuncDefContext ctx) {
-        String result = symbolTbl.idProperty.get(ctx);
+        String result = ctx.id().getText();
         result += "(";
         result += visit(ctx.val());
         result += ")";
@@ -252,14 +249,14 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitReadFuncPWM(ReadFuncPWMContext ctx) {
-        String result = symbolTbl.idProperty.get(ctx);
+        String result = ctx.id().getText();
         result += ".ReadPwm()";
         return result;
     }
 
     @Override
     public String visitReadFuncAnal(ReadFuncAnalContext ctx) {
-        String result = symbolTbl.idProperty.get(ctx);
+        String result = ctx.id().getText();
         result += ".ReadAnalog()";
         return result;
     }
@@ -288,25 +285,37 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
         result += idCtx;
         result += "(";
-        if (parameters.size() > 0) {
-            for (ParameterContext p : parameters) {
-                visit(p);
-            }
-            result += scopeParameters.get(0).type;
-            result += scopeParameters.get(0).id;
-
-            for (int i = 1; i < scopeParameters.size(); i++) {
+        if (referenceVars.size() > 0) {
+            result += referenceVars.get(0).type;
+            result += "*";
+            result += referenceVars.get(0).id;
+            for (int i = 1; i < referenceVars.size(); i++) {
                 result += ", ";
-                result += scopeParameters.get(i).type;
-                if (!parameters.contains(scopeParameters.get(i))) {
-                    result += "*";
-                }
-                result += scopeParameters.get(i).id;
+                result += referenceVars.get(i).type;
+                result += "*";
+                result += referenceVars.get(i).id;
             }
         }
-        result += ") {";
 
+        if (parameters.size() > 0) {
+            if (referenceVars.size() > 0) {
+                result += ", ";
+            }
+            result += visit(parameters.get(0));
+            for (int i = 1; i < parameters.size(); i++) {
+                result += ", ";
+                result += visit(parameters.get(i));
+            }
+
+        }
+        result += ") {";
         return result;
+    }
+
+    @Override
+    public String visitParam(ParamContext ctx) {
+        referenceVars.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
+        return visit(ctx.type()) + visit(ctx.id());
     }
 
     @Override
@@ -317,17 +326,24 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     @Override
     public String visitArguments(ArgumentsContext ctx) {
         String result = "";
-        if (ctx.expr().size() > 0) {
-            result += visit(ctx.expr().get(0));
-            for (int i = 1; i < ctx.expr().size(); i++) {
-                result += ",";
-                result += visit(ctx.expr().get(i));
-            }
-            for (String s: scopeVars) {
-                result += ",";
-                result += "&"+s;
+        if (referenceVars.size() > 0) {
+            result += "&"+ referenceVars.get(0).id;
+            for (int i = 1; i < referenceVars.size(); i++) {
+                result += ", ";
+                result += "&"+ referenceVars.get(i).id;
             }
         }
+        if (ctx.expr().size() > 0) {
+            if (referenceVars.size() > 0) {
+                result += ", ";
+            }
+            result += visit(ctx.expr().get(0));
+            for (int i = 1; i < ctx.expr().size(); i++) {
+                result += ", ";
+                result += visit(ctx.expr().get(i));
+            }
+        }
+
         return result;
     }
 
