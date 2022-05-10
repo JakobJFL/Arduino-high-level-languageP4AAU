@@ -2,10 +2,13 @@ package com.compiler;
 
 import com.compiler.HlmpParser.*;
 import com.compiler.SymbolTbl.SymbolTbl;
+import com.compiler.SymbolTbl.Tuple;
+import com.ibm.icu.impl.Pair;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private SymbolTbl symbolTbl;
@@ -17,7 +20,10 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private String setupContent = "";
     private String globalContent = "";
 
-    private List<String> scopeParameters = new ArrayList<>();
+    private List<String> scopeVars = new ArrayList<>();
+
+    List<Tuple> scopeParameters = new ArrayList<>();
+
 
     private void addSetupContent(String str) {
         setupContent += str;
@@ -48,13 +54,19 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return str;
     }
 
+    private void exitScope() {
+        if (scopeParameters.size() > 0)
+            scopeParameters.remove(scopeParameters.size()-1);
+        if (scopeVars.size() > 0)
+            scopeVars.remove(scopeVars.size()-1);
+    }
+
     @Override
     public String visitFuncDefinition(FuncDefinitionContext ctx) {
         String result = visit(ctx.funcHead());
         result += visit(ctx.body());
         result += "}\n";
-        if (scopeParameters.size() > 0)
-            scopeParameters.remove(scopeParameters.size()-1);
+        exitScope();
         return result;
     }
 
@@ -63,8 +75,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String result = visit(ctx.procHead());
         result += visit(ctx.procBody());
         result += "}\n";
-        if (scopeParameters.size() > 0)
-            scopeParameters.remove(scopeParameters.size()-1);
+        exitScope();
         return result;
     }
 
@@ -85,7 +96,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitParam(ParamContext ctx) {
-        return visit(ctx.type()) + visit(ctx.id());
+        scopeParameters.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
+        return defaultResult();
+    }
+
+    private String visitParamStar(IdentifierContext id, TypeContext type) {
+        return visit(type) + "* " + visit(id);
     }
 
     @Override
@@ -117,12 +133,18 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitVarDeclaration(VarDeclarationContext ctx) {
-        return visit(ctx.type()) + " " + symbolTbl.idProperty.get(ctx) + ";";
+        String id = symbolTbl.idProperty.get(ctx);
+        System.out.println(id +"kat");
+        scopeVars.add(id);
+        return visit(ctx.type()) + " " + id + ";";
     }
 
     @Override
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
-        return visit(ctx.type()) + symbolTbl.idProperty.get(ctx) + "=" + visit(ctx.expr())+ ";";
+        String id = symbolTbl.idProperty.get(ctx);
+        System.out.println(id +"kat");
+        scopeVars.add(id);
+        return visit(ctx.type()) + id + "=" + visit(ctx.expr())+ ";";
     }
 
     @Override
@@ -268,12 +290,18 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += "(";
         if (parameters.size() > 0) {
             for (ParameterContext p : parameters) {
-                scopeParameters.add(visit(p));
+                visit(p);
             }
-            result += scopeParameters.get(0);
+            result += scopeParameters.get(0).type;
+            result += scopeParameters.get(0).id;
+
             for (int i = 1; i < scopeParameters.size(); i++) {
                 result += ", ";
-                result += scopeParameters.get(i);
+                result += scopeParameters.get(i).type;
+                if (!parameters.contains(scopeParameters.get(i))) {
+                    result += "*";
+                }
+                result += scopeParameters.get(i).id;
             }
         }
         result += ") {";
@@ -294,6 +322,10 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             for (int i = 1; i < ctx.expr().size(); i++) {
                 result += ",";
                 result += visit(ctx.expr().get(i));
+            }
+            for (String s: scopeVars) {
+                result += ",";
+                result += "&"+s;
             }
         }
         return result;

@@ -1,12 +1,13 @@
-proc setup() {}
-proc loop() {}
- 	
+proc setup() {
+	func1(1);
+}
+proc loop() { }
 
-func Num fun1() {
-	if (true) {
-			return 4;
-
-	} else {
+proc func1(Num par1) {
+	Num var1 = 10;
+	func2(var1);
+	
+	proc func2(Num par2) {
+		
 	}
-	return 4;
 }

@@ -20,21 +20,18 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitIfStmtDef(HlmpParser.IfStmtDefContext ctx) {
-        Integer type = 0;
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-        type = super.visitIfStmtDef(ctx);
-
+        super.visitIfStmtDef(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return type;
+        return defaultResult();
     }
 
     @Override
     public Integer visitElseStmtDef(HlmpParser.ElseStmtDefContext ctx) {
-        Integer type = 0;
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-        type = super.visitElseStmtDef(ctx);
+        super.visitElseStmtDef(ctx);
         symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        return null;
+        return defaultResult();
     }
 
     @Override
