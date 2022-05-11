@@ -43,61 +43,25 @@ public class UnitTest {
     }
 
     @Test
-    public void enterScope_shouldCreateNewScope() { //help
+    public void enterScope_idDoesNotExist_shouldCreateNewScope() {
         // Arrange
-        String id = "testFunction";
-        Scope globalScope = new Scope(null, null);
-        Scope currentScope = globalScope;
-        List<Scope> actualScopes = new ArrayList<>();
-        List<Scope> expectedScopes = new ArrayList<>();
-        Scope expectedScope = new Scope(globalScope, "testFunction");
+        SymbolTbl symbolTbl = new SymbolTbl();
+        String id = "func";
+        symbolTbl.enterScope(id, null);
 
-        // Act
-        expectedScopes.add(expectedScope);
-
-        for (Scope s: currentScope.getSubScopes()) {
-            if (s.id == id) {
-                currentScope = s;
-                return;
-            }
-        }
-        Scope scope = new Scope(currentScope, id);
-        currentScope.addSubScope(scope);
-        currentScope = scope;
-        actualScopes.add(currentScope);
-        System.out.println(expectedScopes);
-        System.out.println(actualScopes);
-
-        // Assert
-        Assertions.assertEquals(expectedScopes, actualScopes);
+        Assertions.assertEquals(id, symbolTbl.currentScope.id);
     }
 
     @Test
-    public void enterScope_shouldNotCreateNewScopeIfAlreadyExists() {
+    public void enterScope_idAlreadyExist_shouldReturnSameScope() {
         // Arrange
-        String id = "testFunction";
-        Scope globalScope = new Scope(null, "testFunction");
-        Scope currentScope = globalScope;
-        List<Scope> actualScopes = new ArrayList<>();
-        List<Scope> expectedScopes = new ArrayList<>();
+        SymbolTbl symbolTbl = new SymbolTbl();
+        String id = "func";
+        symbolTbl.enterScope(id, null);
+        Scope preScope = symbolTbl.currentScope;
+        symbolTbl.enterScope(id, null);
 
-        // Act
-        expectedScopes.add(globalScope);
-        currentScope.addSubScope(new Scope(currentScope, "testFunction"));
-
-        for (Scope s: currentScope.getSubScopes()) {
-            if (s.id == id) {
-                currentScope = s;
-                return;
-            }
-        }
-        Scope scope = new Scope(currentScope, id);
-        currentScope.addSubScope(scope);
-        currentScope = scope;
-        actualScopes.add(currentScope);
-
-        // Assert
-        Assertions.assertEquals(expectedScopes, actualScopes);
+        Assertions.assertEquals(preScope.id, symbolTbl.currentScope.id);
     }
 
     @Test
@@ -122,15 +86,15 @@ public class UnitTest {
     @Test
     public void accessGlobalSymbolFromInner() {
         // Arrange
-        Symbol symbol = new Symbol("test", "1");
-        Scope globalScope = new Scope(null, "globalScope");
-        Scope subScope = new Scope(globalScope, "subScope");
+        SymbolTbl symbolTbl = new SymbolTbl();
+        String symbolId = "test";
+        Symbol symbol = new Symbol(symbolId, "1");
 
         // Act
-        globalScope.addSubScope(subScope);
-        globalScope.addThisSymbol(symbol);
+        symbolTbl.addSymbol(symbol);
+        symbolTbl.enterScope("func", null);
 
         // Assert
-        Assertions.assertEquals(subScope.parent.getThisSymbol("test"), symbol);
+        Assertions.assertEquals(symbolTbl.getSymbol(symbolId), symbol);
     }
 }

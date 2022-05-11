@@ -116,20 +116,22 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitVarDeclaration(VarDeclarationContext ctx) {
-        String id = ctx.id().getText();
+        String type = visit(ctx.type());
+        String id = visit(ctx.id());
         if (ctx.parent instanceof StmtVarDeclContext) {
-           referenceVars.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
+           referenceVars.add(new Tuple(type, id));
         }
-        return visit(ctx.type()) + " " + id + ";";
+        return type + " " + id + ";";
     }
 
     @Override
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
-        String id = ctx.id().getText();
+        String type = visit(ctx.type());
+        String id = visit(ctx.id());
         if (ctx.parent instanceof StmtVarDeclContext) {
-            referenceVars.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
+            referenceVars.add(new Tuple(type, id));
         }
-        return visit(ctx.type()) + id + "=" + visit(ctx.expr())+ ";";
+        return type + id + "=" + visit(ctx.expr())+ ";";
     }
 
     @Override
@@ -306,7 +308,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
                 result += ", ";
                 result += visit(parameters.get(i));
             }
-
         }
         result += ") {";
         return result;
@@ -314,8 +315,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitParam(ParamContext ctx) {
-        referenceVars.add(new Tuple(visit(ctx.type()), visit(ctx.id())));
-        return visit(ctx.type()) + visit(ctx.id());
+        String type = visit(ctx.type());
+        String id = visit(ctx.id());
+       // if (!(ctx.parent.parent instanceof ProcDefinitionContext))
+        referenceVars.add(new Tuple(type, id));
+        return type + id;
     }
 
     @Override

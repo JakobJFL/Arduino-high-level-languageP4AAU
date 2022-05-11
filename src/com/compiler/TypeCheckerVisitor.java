@@ -48,9 +48,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         if (funcType == HlmpLexer.PWMTYPE)
             funcType = HlmpLexer.NUMTYPE;
         symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-        int kat = visit(ctx.body());
-        System.out.println(funcType +"=="+ kat);
-        if (funcType == kat) {
+        if (funcType == visit(ctx.body())) {
             symbolTbl.currentScope = symbolTbl.currentScope.parent;
             return defaultResult();
         }
@@ -214,9 +212,8 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     @Override
     public Integer visitArguments(HlmpParser.ArgumentsContext ctx) {
         List<Integer> parametersType = new ArrayList<>();
-        for (ParseTree i : ctx.expr()) {
-            if (i instanceof HlmpParser.ExprContext)
-                parametersType.add(visit(i));
+        for (HlmpParser.ExprContext i : ctx.expr()) {
+            parametersType.add(visit(i));
         }
         String id = ctx.getParent().children.get(0).getText();
         FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
