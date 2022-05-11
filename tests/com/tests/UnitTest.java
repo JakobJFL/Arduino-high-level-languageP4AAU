@@ -73,6 +73,34 @@ public class UnitTest {
     }
 
     @Test
+    public void enterScope_shouldNotCreateNewScopeIfAlreadyExists() {
+        // Arrange
+        String id = "testFunction";
+        Scope globalScope = new Scope(null, "testFunction");
+        Scope currentScope = globalScope;
+        List<Scope> actualScopes = new ArrayList<>();
+        List<Scope> expectedScopes = new ArrayList<>();
+
+        // Act
+        expectedScopes.add(globalScope);
+        currentScope.addSubScope(new Scope(currentScope, "testFunction"));
+
+        for (Scope s: currentScope.getSubScopes()) {
+            if (s.id == id) {
+                currentScope = s;
+                return;
+            }
+        }
+        Scope scope = new Scope(currentScope, id);
+        currentScope.addSubScope(scope);
+        currentScope = scope;
+        actualScopes.add(currentScope);
+
+        // Assert
+        Assertions.assertEquals(expectedScopes, actualScopes);
+    }
+
+    @Test
     public void getDefinedSubScopes_shouldGet() {
         // Arrange
         Scope scope = new Scope(null, null);
@@ -92,7 +120,7 @@ public class UnitTest {
     }
 
     @Test
-    public void accessGlobalSymbolFromInner() { //nono right?
+    public void accessGlobalSymbolFromInner() {
         // Arrange
         Symbol symbol = new Symbol("test", "1");
         Scope globalScope = new Scope(null, "globalScope");
