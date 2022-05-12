@@ -57,7 +57,9 @@ public class Main {
         TypeCheckerVisitor visitor = new TypeCheckerVisitor(symbolTable.symbolTbl);
         visitor.visitProgram((HlmpParser.ProgramContext) tree);
         ArduinoGenVisitor codeGen = new ArduinoGenVisitor(symbolTable.symbolTbl);
-        System.out.println(codeGen.visitProgram((HlmpParser.ProgramContext) tree));
+        String result = codeGen.visitProgram((HlmpParser.ProgramContext) tree);
+        System.out.println("----------------");
+        System.out.println(result);
         return symbolTable;
     }
 }

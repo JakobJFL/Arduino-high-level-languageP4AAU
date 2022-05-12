@@ -1,15 +1,20 @@
 proc setup() {
-	func1(1);
+	func1(1, 4);
 }
 proc loop() { }
 
 Num kat = 5;
 
-proc func1(Num par1) {
+proc func1(Num par1, Num pa) {
 	Num var1 = 10;
 	func2(5);
 	
 	proc func2(Num par2) {
-		par2 = par2+par1*8;
+		Num var2;
+		par2 = par2+var1+par1+8;
+		proc func3() {
+			par2 = par2+var1+par1+8;
+		}
+		
 	}
 }
