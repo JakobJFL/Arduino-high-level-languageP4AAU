@@ -16,7 +16,7 @@ procHead: PROC id LPAREN (parameter (',' parameter)*)?  RPAREN;
 
 parameter: type id                                          #param;
 
-type: NUMTYPE | BOOLTYPE | PWMTYPE | PINTYPE                #types;
+type: NUMTYPE | BOOLTYPE | PWMTYPE                          #types;
 
 body: (funcProc body)?                                      #bodyFuncProc
     | stmt body                                             #bodyStmt
@@ -71,8 +71,8 @@ args: (expr (',' expr)*)?                                   #arguments;
 
 writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
-val: HIGH                                                   #value
-   | LOW                                                    #value
+val: TRUE                                                   #value
+   | FALSE                                                  #value
    | SFLOAT                                                 #value
    | id                                                     #valueId
    | TOGGLE                                                 #value;
@@ -134,9 +134,7 @@ END: ';';
 ASSIGN: '=';
 NEGATIVE: '~';
 
-HIGH: 'HIGH';
-LOW: 'LOW';
-TOGGLE: 'TOGGLE';
+TOGGLE: 'toggle';
 TRUE: 'true';
 FALSE: 'false';
 IN: 'in';

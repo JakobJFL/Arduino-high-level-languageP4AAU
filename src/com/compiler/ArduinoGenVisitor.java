@@ -52,6 +52,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     private void exitScope() {
         referenceVars = new ArrayList<>();
+        deReferenceVars.remove(deReferenceVars.size()-1);
     }
 
     @Override
@@ -93,7 +94,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             case HlmpLexer.NUMTYPE -> "float ";
             case HlmpLexer.BOOLTYPE -> "bool ";
             case HlmpLexer.PWMTYPE -> "byte ";
-            default -> "";
+            default -> defaultResult();
         };
     }
 
@@ -122,7 +123,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         if (ctx.parent instanceof StmtVarDeclContext) {
            referenceVars.add(new Tuple(type, id));
         }
-        return type + " " + id + ";";
+        return type + id + ";";
     }
 
     @Override
@@ -148,7 +149,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             case HlmpLexer.MULT -> "*";
             case HlmpLexer.DIVIDE -> "/";
             case HlmpLexer.MODULU -> "%";
-            default -> "";
+            default -> defaultResult();
         };
 
         return getVal(ctx.left) + operator + getVal(ctx.right);
@@ -156,16 +157,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     private String getVal(ExprContext ctx) {
         String result = "";
-        result += shouldDeRef(ctx.getText());
         result += visit(ctx);
         return result;
-    }
-
-    private String shouldDeRef(String id) {
-        if (deReferenceVars.contains(id)) {
-            return "*";
-        }
-        return defaultResult();
     }
 
     @Override
@@ -176,6 +169,18 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             default -> "";
         };
         return visit(ctx.left) + operator + visit(ctx.right);
+    }
+
+    @Override
+    public String visitExprOperand(ExprOperandContext ctx) {
+        return shouldDeRef(ctx.getText()) + super.visitExprOperand(ctx);
+    }
+
+    private String shouldDeRef(String id) {
+        if (deReferenceVars.contains(id)) {
+            return "*";
+        }
+        return defaultResult();
     }
 
     @Override
@@ -203,7 +208,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String operator = switch (ctx.op.getTokenIndex()) {
             case HlmpLexer.EQUAL -> "==";
             case HlmpLexer.NOTEQUAL -> "!=";
-            default -> "";
+            default -> defaultResult();
         };
         return visit(ctx.left) + operator + visit(ctx.right);
     }
@@ -218,7 +223,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String str = switch (ctx.bool().start.getType()) {
             case HlmpLexer.TRUE -> "true";
             case HlmpLexer.FALSE -> "false";
-            default -> "";
+            default -> defaultResult();
         };
         return str;
     }
@@ -228,7 +233,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String pinmode = switch (ctx.pinmode().start.getType()) {
             case HlmpLexer.OUT -> "OUTPUT";
             case HlmpLexer.IN -> "INPUT";
-            default -> "";
+            default -> defaultResult();
         };
         String pinNum = "";
         if (ctx.PINNUMBER().getText().charAt(0) == 'A') {
@@ -246,32 +251,43 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitWriteFuncDef(WriteFuncDefContext ctx) {
-        String result = ctx.id().getText();
-        result += "(";
-        result += visit(ctx.val());
-        result += ")";
+        return "analogWrite("+ctx.id().getText()+","+ visit(ctx.val()) +");";
+    }
+
+    @Override
+    public String visitValue(ValueContext ctx) {
+        String result = switch (ctx.start.getType()) {
+            case HlmpLexer.TRUE -> "255";
+            case HlmpLexer.FALSE -> "0";
+            case HlmpLexer.SFLOAT -> ctx.getText();
+            case HlmpLexer.TOGGLE -> "!digitalRead("+ ctx.parent.getChild(0).getText() +")";
+            default -> defaultResult();
+        };
         return result;
     }
 
     @Override
+    public String visitValueId(ValueIdContext ctx) {
+        return shouldDeRef(ctx.id().getText()) + super.visitValueId(ctx);
+    }
+
+
+
+    @Override
     public String visitReadFuncPWM(ReadFuncPWMContext ctx) {
-        String result = ctx.id().getText();
-        result += ".ReadPwm()";
-        return result;
+        return "map(analogRead(" + ctx.id().getText() + "), 0, 1023, 0, 255)";
     }
 
     @Override
     public String visitReadFuncAnal(ReadFuncAnalContext ctx) {
-        String result = ctx.id().getText();
-        result += ".ReadAnalog()";
-        return result;
+        return "analogRead(" + ctx.id().getText() + ")";
     }
 
     @Override
     public String visitReadFuncDig(ReadFuncDigContext ctx) {
         String result = visit(ctx.id());
         result += ".ReadDigital()";
-        return result;
+        return "digitalRead(" + ctx.id().getText() + ")";
     }
 
     @Override

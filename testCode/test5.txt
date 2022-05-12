@@ -3,17 +3,20 @@ proc setup() {
 }
 proc loop() { }
 
-Num kat = 5;
+Pin pin{D3, out};
 
-proc func1(Num par1, Num pa) {
-	Num var1 = 10;
+Pwm kat = 5;
+
+proc func1(Num par1, Pwm pa) {
+	Bool var1 = true;
 	func2(5);
-	
 	proc func2(Num par2) {
 		Num var2;
-		par2 = par2+var1+par1+8;
+		pin.Write(true);
+		pin.Write(toggle);
+		Pwm kat5 = pin.ReadPwm();
 		proc func3() {
-			par2 = par2+var1+par1+8;
+			var2 = par2+var2+pa+kat+par1+8;
 		}
 		
 	}

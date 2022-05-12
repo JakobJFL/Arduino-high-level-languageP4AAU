@@ -108,7 +108,9 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer type = ctx.type().start.getType();
         if (type == HlmpLexer.PWMTYPE)
             type = HlmpLexer.NUMTYPE;
-        if (visit(ctx.expr()) == type) {
+        int kat = visit(ctx.expr());
+        System.out.println(kat +"=="+ type);
+        if (kat == type) {
             return type;
         }
         else {
@@ -129,7 +131,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             return HlmpLexer.NUMTYPE;
         }
         else
-            throw new TypeException();
+            throw new TypeException("visitExprBinaryFloat");
     }
 
     @Override
@@ -138,7 +140,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer right = visit(ctx.right);
         if (left == HlmpLexer.NUMTYPE && right == HlmpLexer.NUMTYPE)
             return HlmpLexer.BOOLTYPE;
-        throw new TypeException();
+        throw new TypeException("visitExprBinaryBool");
     }
 
     @Override
@@ -150,7 +152,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         else if (left == HlmpLexer.BOOLTYPE || right == HlmpLexer.BOOLTYPE)
             return HlmpLexer.BOOLTYPE;
         else
-            throw new TypeException();
+            throw new TypeException("visitExprBinaryBoolEqual");
     }
 
     @Override
@@ -158,7 +160,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
         if (left != HlmpLexer.BOOLTYPE || right != HlmpLexer.BOOLTYPE)
-            throw new TypeException();
+            throw new TypeException("visitExprBinaryLog");
         else
             return HlmpLexer.BOOLTYPE;
     }
@@ -177,12 +179,34 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     }
 
     @Override
-    public Integer visitExprReadFunc(HlmpParser.ExprReadFuncContext ctx) {
-        return super.visitExprReadFunc(ctx);
+    public Integer visitReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx) {
+        return HlmpLexer.NUMTYPE;
+    }
+
+    @Override
+    public Integer visitReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx) {
+        return HlmpLexer.NUMTYPE;
+    }
+
+    @Override
+    public Integer visitReadFuncDig(HlmpParser.ReadFuncDigContext ctx) {
+        return HlmpLexer.BOOLTYPE;
     }
 
     @Override
     public Integer visitOperandId(HlmpParser.OperandIdContext ctx) {
+        TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
+        if (symbol == null) {
+            throw new NotDeclared();
+        }
+        Integer type = symbol.getType().start.getType();
+        if (type == HlmpLexer.PWMTYPE)
+            type = HlmpLexer.NUMTYPE;
+        return type;
+    }
+
+    @Override
+    public Integer visitValueId(HlmpParser.ValueIdContext ctx) {
         TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         if (symbol == null) {
             throw new NotDeclared();
@@ -222,11 +246,14 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         }
         List<TypeSymbol> parameters = symbol.getParameters();
         if (parametersType.size() != parameters.size()) {
-            throw new TypeException();
+            throw new TypeException("visitArguments1");
         }
         for (int i = 0; i < parameters.size(); i++) {
-            if (parameters.get(i).getType().start.getType() != parametersType.get(i)) {
-                throw new TypeException();
+            int type = parameters.get(i).getType().start.getType();
+            if (type == HlmpLexer.PWMTYPE)
+                type = HlmpLexer.NUMTYPE;
+            if (type != parametersType.get(i)) {
+                throw new TypeException("visitArguments2");
             }
         }
         return parametersType.get(0);

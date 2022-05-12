@@ -156,9 +156,4 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbolTbl.exitScope();
     }
 
-    @Override
-    public void enterValueId(HlmpParser.ValueIdContext ctx) {
-        Symbol symbol = new Symbol(ctx.id().getText(), makeUniqueId());
-        symbolTbl.addSymbol(symbol);
-    }
 }

@@ -1,4 +1,4 @@
-// Generated from C:/Users/JFL/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
+// Generated from C:/Users/Jakob/Documents/GitHub/Arduino-high-level-languageP4AAU/src/com/compiler\Hlmp.g4 by ANTLR 4.10.1
 package com.compiler;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -21,9 +21,9 @@ public class HlmpParser extends Parser {
 		DIVIDE=9, MULT=10, MODULU=11, LESSTHAN=12, GREATERTHAN=13, EQUAL=14, NOTEQUAL=15, 
 		LOGAND=16, LOGOR=17, SETUP=18, LOOP=19, FUNC=20, PROC=21, SFLOAT=22, FLOAT=23, 
 		WRITE=24, READPWM=25, READA=26, READD=27, LPAREN=28, RPAREN=29, LBRACE=30, 
-		RBRACE=31, END=32, ASSIGN=33, NEGATIVE=34, HIGH=35, LOW=36, TOGGLE=37, 
-		TRUE=38, FALSE=39, IN=40, OUT=41, IF=42, ELSE=43, RETURN=44, WHILE=45, 
-		PINNUMBER=46, COMMENT=47, LINECOMMENT=48, WS=49, NEWLINE=50, ID=51;
+		RBRACE=31, END=32, ASSIGN=33, NEGATIVE=34, TOGGLE=35, TRUE=36, FALSE=37, 
+		IN=38, OUT=39, IF=40, ELSE=41, RETURN=42, WHILE=43, PINNUMBER=44, COMMENT=45, 
+		LINECOMMENT=46, WS=47, NEWLINE=48, ID=49;
 	public static final int
 		RULE_program = 0, RULE_content = 1, RULE_funcProc = 2, RULE_funcHead = 3, 
 		RULE_procHead = 4, RULE_parameter = 5, RULE_type = 6, RULE_body = 7, RULE_procBody = 8, 
@@ -49,8 +49,8 @@ public class HlmpParser extends Parser {
 			"'/'", "'*'", "'%'", "'<'", "'>'", "'=='", "'!='", "'&&'", "'||'", "'setup'", 
 			"'loop'", "'func '", "'proc '", null, null, "'.Write'", "'.ReadPwm'", 
 			"'.ReadAnalog'", "'.ReadDigital'", "'('", "')'", "'{'", "'}'", "';'", 
-			"'='", "'~'", "'HIGH'", "'LOW'", "'TOGGLE'", "'true'", "'false'", "'in'", 
-			"'out'", "'if'", "'else'", "'return'", "'while'"
+			"'='", "'~'", "'toggle'", "'true'", "'false'", "'in'", "'out'", "'if'", 
+			"'else'", "'return'", "'while'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -60,9 +60,9 @@ public class HlmpParser extends Parser {
 			"MINUS", "DIVIDE", "MULT", "MODULU", "LESSTHAN", "GREATERTHAN", "EQUAL", 
 			"NOTEQUAL", "LOGAND", "LOGOR", "SETUP", "LOOP", "FUNC", "PROC", "SFLOAT", 
 			"FLOAT", "WRITE", "READPWM", "READA", "READD", "LPAREN", "RPAREN", "LBRACE", 
-			"RBRACE", "END", "ASSIGN", "NEGATIVE", "HIGH", "LOW", "TOGGLE", "TRUE", 
-			"FALSE", "IN", "OUT", "IF", "ELSE", "RETURN", "WHILE", "PINNUMBER", "COMMENT", 
-			"LINECOMMENT", "WS", "NEWLINE", "ID"
+			"RBRACE", "END", "ASSIGN", "NEGATIVE", "TOGGLE", "TRUE", "FALSE", "IN", 
+			"OUT", "IF", "ELSE", "RETURN", "WHILE", "PINNUMBER", "COMMENT", "LINECOMMENT", 
+			"WS", "NEWLINE", "ID"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -506,7 +506,7 @@ public class HlmpParser extends Parser {
 			setState(111);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUMTYPE) | (1L << BOOLTYPE) | (1L << PWMTYPE) | (1L << PINTYPE))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUMTYPE) | (1L << BOOLTYPE) | (1L << PWMTYPE))) != 0)) {
 				{
 				setState(103);
 				parameter();
@@ -592,7 +592,7 @@ public class HlmpParser extends Parser {
 			setState(126);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUMTYPE) | (1L << BOOLTYPE) | (1L << PWMTYPE) | (1L << PINTYPE))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUMTYPE) | (1L << BOOLTYPE) | (1L << PWMTYPE))) != 0)) {
 				{
 				setState(118);
 				parameter();
@@ -692,7 +692,6 @@ public class HlmpParser extends Parser {
 		public TerminalNode NUMTYPE() { return getToken(HlmpParser.NUMTYPE, 0); }
 		public TerminalNode BOOLTYPE() { return getToken(HlmpParser.BOOLTYPE, 0); }
 		public TerminalNode PWMTYPE() { return getToken(HlmpParser.PWMTYPE, 0); }
-		public TerminalNode PINTYPE() { return getToken(HlmpParser.PINTYPE, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -721,7 +720,7 @@ public class HlmpParser extends Parser {
 			{
 			setState(133);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUMTYPE) | (1L << BOOLTYPE) | (1L << PWMTYPE) | (1L << PINTYPE))) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << NUMTYPE) | (1L << BOOLTYPE) | (1L << PWMTYPE))) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -2535,8 +2534,8 @@ public class HlmpParser extends Parser {
 		}
 	}
 	public static class ValueContext extends ValContext {
-		public TerminalNode HIGH() { return getToken(HlmpParser.HIGH, 0); }
-		public TerminalNode LOW() { return getToken(HlmpParser.LOW, 0); }
+		public TerminalNode TRUE() { return getToken(HlmpParser.TRUE, 0); }
+		public TerminalNode FALSE() { return getToken(HlmpParser.FALSE, 0); }
 		public TerminalNode SFLOAT() { return getToken(HlmpParser.SFLOAT, 0); }
 		public TerminalNode TOGGLE() { return getToken(HlmpParser.TOGGLE, 0); }
 		public ValueContext(ValContext ctx) { copyFrom(ctx); }
@@ -2562,20 +2561,20 @@ public class HlmpParser extends Parser {
 			setState(297);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case HIGH:
+			case TRUE:
 				_localctx = new ValueContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(292);
-				match(HIGH);
+				match(TRUE);
 				}
 				break;
-			case LOW:
+			case FALSE:
 				_localctx = new ValueContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(293);
-				match(LOW);
+				match(FALSE);
 				}
 				break;
 			case SFLOAT:
@@ -3225,7 +3224,7 @@ public class HlmpParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u00013\u015d\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u00011\u015d\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -3280,11 +3279,11 @@ public class HlmpParser extends Parser {
 		"\b\u0019\u0001\u001a\u0001\u001a\u0001\u001b\u0001\u001b\u0001\u001c\u0001"+
 		"\u001c\u0001\u001c\u0000\u0001\u0016\u001d\u0000\u0002\u0004\u0006\b\n"+
 		"\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.0246"+
-		"8\u0000\u0007\u0001\u0000\u0002\u0005\u0001\u0000\t\n\u0002\u0000\u0007"+
-		"\b\u000b\u000b\u0001\u0000\f\r\u0001\u0000\u000e\u000f\u0001\u0000()\u0001"+
-		"\u0000&\'\u0170\u0000N\u0001\u0000\u0000\u0000\u0002U\u0001\u0000\u0000"+
-		"\u0000\u0004a\u0001\u0000\u0000\u0000\u0006c\u0001\u0000\u0000\u0000\b"+
-		"s\u0001\u0000\u0000\u0000\n\u0082\u0001\u0000\u0000\u0000\f\u0085\u0001"+
+		"8\u0000\u0007\u0001\u0000\u0002\u0004\u0001\u0000\t\n\u0002\u0000\u0007"+
+		"\b\u000b\u000b\u0001\u0000\f\r\u0001\u0000\u000e\u000f\u0001\u0000&\'"+
+		"\u0001\u0000$%\u0170\u0000N\u0001\u0000\u0000\u0000\u0002U\u0001\u0000"+
+		"\u0000\u0000\u0004a\u0001\u0000\u0000\u0000\u0006c\u0001\u0000\u0000\u0000"+
+		"\bs\u0001\u0000\u0000\u0000\n\u0082\u0001\u0000\u0000\u0000\f\u0085\u0001"+
 		"\u0000\u0000\u0000\u000e\u0099\u0001\u0000\u0000\u0000\u0010\u00a6\u0001"+
 		"\u0000\u0000\u0000\u0012\u00be\u0001\u0000\u0000\u0000\u0014\u00c9\u0001"+
 		"\u0000\u0000\u0000\u0016\u00d4\u0001\u0000\u0000\u0000\u0018\u00f1\u0001"+
@@ -3403,10 +3402,10 @@ public class HlmpParser extends Parser {
 		"\u0000\u0102\u00f3\u0001\u0000\u0000\u0000\u0102\u00f8\u0001\u0000\u0000"+
 		"\u0000\u0102\u00fd\u0001\u0000\u0000\u0000\u0103\u001b\u0001\u0000\u0000"+
 		"\u0000\u0104\u0105\u0005\u0005\u0000\u0000\u0105\u0106\u00038\u001c\u0000"+
-		"\u0106\u0107\u0005\u001e\u0000\u0000\u0107\u0108\u0005.\u0000\u0000\u0108"+
+		"\u0106\u0107\u0005\u001e\u0000\u0000\u0107\u0108\u0005,\u0000\u0000\u0108"+
 		"\u0109\u0005\u0001\u0000\u0000\u0109\u010a\u00034\u001a\u0000\u010a\u010b"+
 		"\u0005\u001f\u0000\u0000\u010b\u001d\u0001\u0000\u0000\u0000\u010c\u010d"+
-		"\u0005,\u0000\u0000\u010d\u010e\u0003\u0016\u000b\u0000\u010e\u001f\u0001"+
+		"\u0005*\u0000\u0000\u010d\u010e\u0003\u0016\u000b\u0000\u010e\u001f\u0001"+
 		"\u0000\u0000\u0000\u010f\u0110\u00038\u001c\u0000\u0110\u0111\u0005\u001c"+
 		"\u0000\u0000\u0111\u0112\u0003\"\u0011\u0000\u0112\u0113\u0005\u001d\u0000"+
 		"\u0000\u0113!\u0001\u0000\u0000\u0000\u0114\u0119\u0003\u0016\u000b\u0000"+
@@ -3418,20 +3417,20 @@ public class HlmpParser extends Parser {
 		"\u011d#\u0001\u0000\u0000\u0000\u011e\u011f\u00038\u001c\u0000\u011f\u0120"+
 		"\u0005\u0018\u0000\u0000\u0120\u0121\u0005\u001c\u0000\u0000\u0121\u0122"+
 		"\u0003&\u0013\u0000\u0122\u0123\u0005\u001d\u0000\u0000\u0123%\u0001\u0000"+
-		"\u0000\u0000\u0124\u012a\u0005#\u0000\u0000\u0125\u012a\u0005$\u0000\u0000"+
+		"\u0000\u0000\u0124\u012a\u0005$\u0000\u0000\u0125\u012a\u0005%\u0000\u0000"+
 		"\u0126\u012a\u0005\u0016\u0000\u0000\u0127\u012a\u00038\u001c\u0000\u0128"+
-		"\u012a\u0005%\u0000\u0000\u0129\u0124\u0001\u0000\u0000\u0000\u0129\u0125"+
+		"\u012a\u0005#\u0000\u0000\u0129\u0124\u0001\u0000\u0000\u0000\u0129\u0125"+
 		"\u0001\u0000\u0000\u0000\u0129\u0126\u0001\u0000\u0000\u0000\u0129\u0127"+
 		"\u0001\u0000\u0000\u0000\u0129\u0128\u0001\u0000\u0000\u0000\u012a\'\u0001"+
-		"\u0000\u0000\u0000\u012b\u012c\u0005*\u0000\u0000\u012c\u012d\u0005\u001c"+
+		"\u0000\u0000\u0000\u012b\u012c\u0005(\u0000\u0000\u012c\u012d\u0005\u001c"+
 		"\u0000\u0000\u012d\u012e\u0003\u0016\u000b\u0000\u012e\u012f\u0005\u001d"+
 		"\u0000\u0000\u012f\u0130\u0005\u001e\u0000\u0000\u0130\u0131\u0003\u000e"+
 		"\u0007\u0000\u0131\u0132\u0005\u001f\u0000\u0000\u0132)\u0001\u0000\u0000"+
-		"\u0000\u0133\u0134\u0005+\u0000\u0000\u0134\u0135\u0005\u001e\u0000\u0000"+
+		"\u0000\u0133\u0134\u0005)\u0000\u0000\u0134\u0135\u0005\u001e\u0000\u0000"+
 		"\u0135\u0136\u0003\u000e\u0007\u0000\u0136\u0137\u0005\u001f\u0000\u0000"+
 		"\u0137\u0139\u0001\u0000\u0000\u0000\u0138\u0133\u0001\u0000\u0000\u0000"+
 		"\u0138\u0139\u0001\u0000\u0000\u0000\u0139+\u0001\u0000\u0000\u0000\u013a"+
-		"\u013b\u0005-\u0000\u0000\u013b\u013c\u0005\u001c\u0000\u0000\u013c\u013d"+
+		"\u013b\u0005+\u0000\u0000\u013b\u013c\u0005\u001c\u0000\u0000\u013c\u013d"+
 		"\u0003\u0016\u000b\u0000\u013d\u013e\u0005\u001d\u0000\u0000\u013e\u013f"+
 		"\u0005\u001e\u0000\u0000\u013f\u0140\u0003\u000e\u0007\u0000\u0140\u0141"+
 		"\u0005\u001f\u0000\u0000\u0141-\u0001\u0000\u0000\u0000\u0142\u0143\u0005"+
@@ -3442,11 +3441,11 @@ public class HlmpParser extends Parser {
 		"\u0000\u014b\u014c\u0005\u0013\u0000\u0000\u014c\u014d\u0005\u001c\u0000"+
 		"\u0000\u014d\u014e\u0005\u001d\u0000\u0000\u014e\u014f\u0005\u001e\u0000"+
 		"\u0000\u014f\u0150\u0003\u0010\b\u0000\u0150\u0151\u0005\u001f\u0000\u0000"+
-		"\u01511\u0001\u0000\u0000\u0000\u0152\u0155\u0005/\u0000\u0000\u0153\u0155"+
-		"\u00050\u0000\u0000\u0154\u0152\u0001\u0000\u0000\u0000\u0154\u0153\u0001"+
+		"\u01511\u0001\u0000\u0000\u0000\u0152\u0155\u0005-\u0000\u0000\u0153\u0155"+
+		"\u0005.\u0000\u0000\u0154\u0152\u0001\u0000\u0000\u0000\u0154\u0153\u0001"+
 		"\u0000\u0000\u0000\u01553\u0001\u0000\u0000\u0000\u0156\u0157\u0007\u0005"+
 		"\u0000\u0000\u01575\u0001\u0000\u0000\u0000\u0158\u0159\u0007\u0006\u0000"+
-		"\u0000\u01597\u0001\u0000\u0000\u0000\u015a\u015b\u00053\u0000\u0000\u015b"+
+		"\u0000\u01597\u0001\u0000\u0000\u0000\u015a\u015b\u00051\u0000\u0000\u015b"+
 		"9\u0001\u0000\u0000\u0000\u001b?INUalo{~\u008a\u0097\u0099\u009e\u00a6"+
 		"\u00bb\u00be\u00c9\u00d4\u00e8\u00ea\u00f1\u0102\u0119\u011c\u0129\u0138"+
 		"\u0154";
