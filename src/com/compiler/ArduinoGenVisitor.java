@@ -3,7 +3,6 @@ package com.compiler;
 import com.compiler.HlmpParser.*;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Tuple;
-import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
@@ -19,9 +18,9 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private String setupContent = "";
     private String globalContent = "";
 
-    List<Tuple> referenceVars = new ArrayList<>();
+    List<Tuple> refVars = new ArrayList<>();
 
-    List<String> deReferenceVars = new ArrayList<>();
+    List<String> deRefVars = new ArrayList<>();
 
     private void addSetupContent(String str) {
         setupContent += str;
@@ -53,9 +52,9 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     private void exitScope() {
-        referenceVars = new ArrayList<>();
-        if (deReferenceVars.size() > 0) {
-            deReferenceVars.remove(deReferenceVars.size()-1);
+        refVars = new ArrayList<>();
+        if (deRefVars.size() > 0) {
+            deRefVars.remove(deRefVars.size()-1);
         }
     }
 
@@ -125,7 +124,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
         if (ctx.parent instanceof StmtVarDeclContext) {
-           referenceVars.add(new Tuple(type, id));
+           refVars.add(new Tuple(type, id));
         }
         return type + id + ";";
     }
@@ -135,7 +134,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
         if (ctx.parent instanceof StmtVarDeclContext) {
-            referenceVars.add(new Tuple(type, id));
+            refVars.add(new Tuple(type, id));
         }
         return type + id + "=" + visit(ctx.expr())+ ";";
     }
@@ -181,7 +180,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     private String shouldDeRef(String id) {
-        if (deReferenceVars.contains(id)) {
+        if (deRefVars.contains(id)) {
             return "*";
         }
         return defaultResult();
@@ -311,13 +310,13 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
         result += idCtx;
         result += "(";
-        if (referenceVars.size() > 0) {
+        if (refVars.size() > 0) {
             result += addWithPointer(0);
-            deReferenceVars.add(referenceVars.get(0).id);
-            for (int i = 1; i < referenceVars.size(); i++) {
+            deRefVars.add(refVars.get(0).id);
+            for (int i = 1; i < refVars.size(); i++) {
                 result += ", ";
                 result += addWithPointer(i);
-                deReferenceVars.add(referenceVars.get(i).id);
+                deRefVars.add(refVars.get(i).id);
             }
         }
         result += addCommaSeparated(parameters);
@@ -326,9 +325,9 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     private String addWithPointer(int index) {
-        String result = referenceVars.get(index).type;
+        String result = refVars.get(index).type;
         result += "*";
-        result += referenceVars.get(index).id;
+        result += refVars.get(index).id;
         return result;
     }
 
@@ -337,7 +336,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             return defaultResult();
         }
         String result = "";
-        if (referenceVars.size() > 0) {
+        if (refVars.size() > 0) {
             result += ", ";
         }
         result += visit((ParseTree) list.get(0));
@@ -351,11 +350,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     @Override
     public String visitArguments(ArgumentsContext ctx) {
         String result = "";
-        if (referenceVars.size() > 0) {
-            result += "&" + referenceVars.get(0).id;
-            for (int i = 1; i < referenceVars.size(); i++) {
+        if (refVars.size() > 0) {
+            result += "&" + refVars.get(0).id;
+            for (int i = 1; i < refVars.size(); i++) {
                 result += ", ";
-                result += "&"+ referenceVars.get(i).id;
+                result += "&"+ refVars.get(i).id;
             }
         }
         result += addCommaSeparated(ctx.expr());
@@ -366,7 +365,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitParam(ParamContext ctx) {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
-        referenceVars.add(new Tuple(type, id));
+        refVars.add(new Tuple(type, id));
         return type + id;
     }
 
