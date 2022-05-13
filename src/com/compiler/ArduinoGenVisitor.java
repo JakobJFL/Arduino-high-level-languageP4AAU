@@ -3,6 +3,8 @@ package com.compiler;
 import com.compiler.HlmpParser.*;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Tuple;
+import org.antlr.v4.runtime.ParserRuleContext;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -310,30 +312,53 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += idCtx;
         result += "(";
         if (referenceVars.size() > 0) {
-            result += referenceVars.get(0).type;
-            result += "*";
-            result += referenceVars.get(0).id;
+            result += addWithPointer(0);
             deReferenceVars.add(referenceVars.get(0).id);
             for (int i = 1; i < referenceVars.size(); i++) {
                 result += ", ";
-                result += referenceVars.get(i).type;
-                result += "*";
-                result += referenceVars.get(i).id;
+                result += addWithPointer(i);
                 deReferenceVars.add(referenceVars.get(i).id);
             }
         }
+        result += addCommaSeparated(parameters);
+        result += ") {";
+        return result;
+    }
 
-        if (parameters.size() > 0) {
-            if (referenceVars.size() > 0) {
+    private String addWithPointer(int index) {
+        String result = referenceVars.get(index).type;
+        result += "*";
+        result += referenceVars.get(index).id;
+        return result;
+    }
+
+    private <T> String addCommaSeparated(List<T> list) {
+        if (list.size() == 0) {
+            return defaultResult();
+        }
+        String result = "";
+        if (referenceVars.size() > 0) {
+            result += ", ";
+        }
+        result += visit((ParseTree) list.get(0));
+        for (int i = 1; i < list.size(); i++) {
+            result += ", ";
+            result += visit((ParseTree) list.get(i));
+        }
+        return result;
+    }
+
+    @Override
+    public String visitArguments(ArgumentsContext ctx) {
+        String result = "";
+        if (referenceVars.size() > 0) {
+            result += "&" + referenceVars.get(0).id;
+            for (int i = 1; i < referenceVars.size(); i++) {
                 result += ", ";
-            }
-            result += visit(parameters.get(0));
-            for (int i = 1; i < parameters.size(); i++) {
-                result += ", ";
-                result += visit(parameters.get(i));
+                result += "&"+ referenceVars.get(i).id;
             }
         }
-        result += ") {";
+        result += addCommaSeparated(ctx.expr());
         return result;
     }
 
@@ -348,29 +373,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     @Override
     public String visitFunctionCall(FunctionCallContext ctx) {
         return symbolTbl.idProperty.get(ctx)+ "(" + visit(ctx.args()) + ");";
-    }
-
-    @Override
-    public String visitArguments(ArgumentsContext ctx) {
-        String result = "";
-        if (referenceVars.size() > 0) {
-            result += "&" + referenceVars.get(0).id;
-            for (int i = 1; i < referenceVars.size(); i++) {
-                result += ", ";
-                result += "&"+ referenceVars.get(i).id;
-            }
-        }
-        if (ctx.expr().size() > 0) {
-            if (referenceVars.size() > 0) {
-                result += ", ";
-            }
-            result += visit(ctx.expr().get(0));
-            for (int i = 1; i < ctx.expr().size(); i++) {
-                result += ", ";
-                result += visit(ctx.expr().get(i));
-            }
-        }
-        return result;
     }
 
     @Override
