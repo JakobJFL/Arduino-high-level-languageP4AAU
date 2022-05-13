@@ -108,9 +108,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer type = ctx.type().start.getType();
         if (type == HlmpLexer.PWMTYPE)
             type = HlmpLexer.NUMTYPE;
-        int kat = visit(ctx.expr());
-        System.out.println(kat +"=="+ type);
-        if (kat == type) {
+        if (visit(ctx.expr()) == type) {
             return type;
         }
         else {

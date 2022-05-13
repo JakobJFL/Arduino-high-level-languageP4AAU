@@ -52,6 +52,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterCntComment(HlmpParser.CntCommentContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -304,6 +316,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterVarDeclaration(HlmpParser.VarDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -323,18 +347,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -515,18 +527,6 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitReadFuncDig(HlmpParser.ReadFuncDigContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

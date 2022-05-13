@@ -52,7 +52,9 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     private void exitScope() {
         referenceVars = new ArrayList<>();
-        deReferenceVars.remove(deReferenceVars.size()-1);
+        if (deReferenceVars.size() > 0) {
+            deReferenceVars.remove(deReferenceVars.size()-1);
+        }
     }
 
     @Override

@@ -42,6 +42,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitCntvarDecl(HlmpParser.CntvarDeclContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code varDeclPinLiteral}
+	 * labeled alternative in {@link HlmpParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void enterVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code varDeclPinLiteral}
+	 * labeled alternative in {@link HlmpParser#content}.
+	 * @param ctx the parse tree
+	 */
+	void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code cntComment}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
@@ -288,6 +300,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitStmtWhileExpr(HlmpParser.StmtWhileExprContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code pinLiteralDef}
+	 * labeled alternative in {@link HlmpParser#pinLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code pinLiteralDef}
+	 * labeled alternative in {@link HlmpParser#pinLiteral}.
+	 * @param ctx the parse tree
+	 */
+	void exitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code varDeclaration}
 	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
@@ -311,18 +335,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code varDeclPinLiteral}
-	 * labeled alternative in {@link HlmpParser#varDecl}.
-	 * @param ctx the parse tree
-	 */
-	void enterVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code varDeclPinLiteral}
-	 * labeled alternative in {@link HlmpParser#varDecl}.
-	 * @param ctx the parse tree
-	 */
-	void exitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code exprParenthesised}
 	 * labeled alternative in {@link HlmpParser#expr}.
@@ -503,18 +515,6 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitReadFuncDig(HlmpParser.ReadFuncDigContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code pinLiteralDef}
-	 * labeled alternative in {@link HlmpParser#pinLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void enterPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code pinLiteralDef}
-	 * labeled alternative in {@link HlmpParser#pinLiteral}.
-	 * @param ctx the parse tree
-	 */
-	void exitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code returnExpression}
 	 * labeled alternative in {@link HlmpParser#returnExpr}.

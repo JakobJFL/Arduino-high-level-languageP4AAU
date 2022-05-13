@@ -132,7 +132,7 @@ public class GrammarTests {
 
     @Test
     public void WriteFuncTest () {
-        String writeTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {DigitalTestPin.Write(HIGH);}";
+        String writeTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {DigitalTestPin.Write(true);}";
         Assertions.assertDoesNotThrow(() -> {
             compile(writeTest);
         });
@@ -140,7 +140,7 @@ public class GrammarTests {
 
     @Test
     public void WriteNotDeclaredTest () {
-        String pinSyntaxFailTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {DoesNotExist.Write(HIGH);}";
+        String pinSyntaxFailTest = setUpLoop + "Pin DigitalTestPin {D4,out}; proc fun1() {DoesNotExist.Write(true);}";
         Assertions.assertThrows(NotDeclared.class,() -> {
             compile(pinSyntaxFailTest);
         });

@@ -31,6 +31,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCntvarDecl(HlmpParser.CntvarDeclContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code varDeclPinLiteral}
+	 * labeled alternative in {@link HlmpParser#content}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code cntComment}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree
@@ -175,6 +182,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStmtWhileExpr(HlmpParser.StmtWhileExprContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code pinLiteralDef}
+	 * labeled alternative in {@link HlmpParser#pinLiteral}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code varDeclaration}
 	 * labeled alternative in {@link HlmpParser#varDecl}.
 	 * @param ctx the parse tree
@@ -188,13 +202,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVarDeclarationAssign(HlmpParser.VarDeclarationAssignContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code varDeclPinLiteral}
-	 * labeled alternative in {@link HlmpParser#varDecl}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitVarDeclPinLiteral(HlmpParser.VarDeclPinLiteralContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code exprParenthesised}
 	 * labeled alternative in {@link HlmpParser#expr}.
@@ -300,13 +307,6 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitReadFuncDig(HlmpParser.ReadFuncDigContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code pinLiteralDef}
-	 * labeled alternative in {@link HlmpParser#pinLiteral}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPinLiteralDef(HlmpParser.PinLiteralDefContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code returnExpression}
 	 * labeled alternative in {@link HlmpParser#returnExpr}.

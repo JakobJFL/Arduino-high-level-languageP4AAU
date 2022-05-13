@@ -6,7 +6,9 @@ program: setupDef loopDef content* EOF
 
 content: funcProc                                           #cntFuncProc
        | varDecl END                                        #cntvarDecl
+       | pinLiteral END                                     #varDeclPinLiteral
        | comment                                            #cntComment;
+
 
 funcProc: funcHead LBRACE body RBRACE                       #funcDefinition
         | procHead LBRACE procBody RBRACE                   #procDefinition;
@@ -35,9 +37,10 @@ stmt: varDecl END                                           #stmtVarDecl
     | ifStmt elseStmt?                                      #stmtIfStmt
     | whileExpr                                             #stmtWhileExpr;
 
+pinLiteral: PINTYPE id LBRACE PINNUMBER ',' pinmode RBRACE  #pinLiteralDef;
+
 varDecl: type id                                            #varDeclaration
-       | type id ASSIGN expr                                #varDeclarationAssign
-       | pinLiteral                                         #varDeclPinLiteral;
+       | type id ASSIGN expr                                #varDeclarationAssign;
 
 expr: operand                                               #exprOperand
     | readFunc                                              #exprReadFunc
@@ -59,9 +62,6 @@ operand: id                                                 #operandId
 readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
         | id READA LPAREN RPAREN                            #readFuncAnal
         | id READD LPAREN RPAREN                            #readFuncDig;
-
-pinLiteral: PINTYPE id LBRACE PINNUMBER ',' pinmode RBRACE  #pinLiteralDef;
-
 
 returnExpr: RETURN expr                                     #returnExpression;
 
