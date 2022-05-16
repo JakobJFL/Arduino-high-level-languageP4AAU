@@ -69,6 +69,17 @@ public class DeclarationCheckListener extends HlmpBaseListener {
         symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
     }
 
+    @Override
+    public void enterWhileWait(HlmpParser.WhileWaitContext ctx) {
+        String id = ctx.id().getText();
+        symbolTbl.checkId(id);
+        symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
+    }
+
+    @Override
+    public void enterValueId(HlmpParser.ValueIdContext ctx) {
+        enterScope(ctx);
+    }
 
     @Override
     public void enterIfStmtDef(HlmpParser.IfStmtDefContext ctx) {
@@ -98,11 +109,6 @@ public class DeclarationCheckListener extends HlmpBaseListener {
     @Override
     public void exitWhileExprDef(HlmpParser.WhileExprDefContext ctx) {
         exitScope();
-    }
-
-    @Override
-    public void enterValueId(HlmpParser.ValueIdContext ctx) {
-        enterScope(ctx);
     }
 
     @Override

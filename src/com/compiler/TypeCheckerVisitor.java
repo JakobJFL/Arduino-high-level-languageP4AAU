@@ -53,7 +53,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             return defaultResult();
         }
         else {
-            throw new TypeException("ReturnType");
+            throw new TypeException("Expected return type -\"" + ctx.funcHead().type().getText());
         }
     }
 
@@ -91,7 +91,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             return type;
         }
         else {
-            throw new TypeException("StmtAssign");
+            throw new TypeException("Assignment -\"" + ctx.id().getText() + "\" is not of expected type:" +symbol.getType().getText());
         }
     }
 
@@ -112,7 +112,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             return type;
         }
         else {
-            throw new TypeException("VarDeclaration");
+            throw new TypeException("In variable declaration assignment - \""+ ctx.expr().getText() + "\" is not of type " + ctx.type().getText());
         }
     }
 
@@ -129,7 +129,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             return HlmpLexer.NUMTYPE;
         }
         else
-            throw new TypeException("visitExprBinaryFloat");
+            throw new TypeException("Expected the type: Num");
     }
 
     @Override
@@ -138,7 +138,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer right = visit(ctx.right);
         if (left == HlmpLexer.NUMTYPE && right == HlmpLexer.NUMTYPE)
             return HlmpLexer.BOOLTYPE;
-        throw new TypeException("visitExprBinaryBool");
+        throw new TypeException("Expected the type: Bool");
     }
 
     @Override
@@ -150,7 +150,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         else if (left == HlmpLexer.BOOLTYPE || right == HlmpLexer.BOOLTYPE)
             return HlmpLexer.BOOLTYPE;
         else
-            throw new TypeException("visitExprBinaryBoolEqual");
+            throw new TypeException("visitExprBinaryBoolEqual"); //PATRICK SKAL FORTSÆTTE HERFRA
     }
 
     @Override
@@ -195,7 +195,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitOperandId(HlmpParser.OperandIdContext ctx) {
         TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         if (symbol == null) {
-            throw new NotDeclared();
+            throw new NotDeclared(ctx.id().getText());
         }
         Integer type = symbol.getType().start.getType();
         if (type == HlmpLexer.PWMTYPE)
@@ -207,7 +207,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitValueId(HlmpParser.ValueIdContext ctx) {
         TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         if (symbol == null) {
-            throw new NotDeclared();
+            throw new NotDeclared(ctx.id().getText());
         }
         Integer type = symbol.getType().start.getType();
         if (type == HlmpLexer.PWMTYPE)
@@ -217,11 +217,17 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitFunctionCall(HlmpParser.FunctionCallContext ctx) {
-        if (ctx.args().children != null)
+        if (ctx.id().getText().equals("whileWait")){
+            if (ctx.args().children.size() == 3) { // size should be 3 because ',' is included
+                return HlmpLexer.BOOLTYPE;
+            }
+        }
+        if (ctx.args().children != null) {
             visit(ctx.args());
+        }
         FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.getSymbol(ctx.id().getText());
         if (symbol == null) {
-            throw new NotDeclared();
+            throw new NotDeclared(ctx.id().getText());
         }
         else if (symbol.getType() == null) {
             return null;
@@ -244,14 +250,14 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         }
         List<TypeSymbol> parameters = symbol.getParameters();
         if (parametersType.size() != parameters.size()) {
-            throw new TypeException("visitArguments1");
+            throw new TypeException("Not same size");
         }
         for (int i = 0; i < parameters.size(); i++) {
             int type = parameters.get(i).getType().start.getType();
             if (type == HlmpLexer.PWMTYPE)
                 type = HlmpLexer.NUMTYPE;
             if (type != parametersType.get(i)) {
-                throw new TypeException("visitArguments2");
+                throw new TypeException("type does not match");
             }
         }
         return parametersType.get(0);

@@ -4,7 +4,7 @@ import java.util.concurrent.CancellationException;
 
 public class SyntaxException extends CancellationException {
     public SyntaxException() {
-        super("Not supported in AHLL");
+        super("Not supported in HLMP");
     } {
 
     }

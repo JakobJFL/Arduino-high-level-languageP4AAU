@@ -31,6 +31,7 @@ procBody: (funcProc procBody)?                              #procBodyFuncProc
 
 stmt: varDecl END                                           #stmtVarDecl
     | id ASSIGN expr END                                    #stmtAssign
+    | whileWaitCall END                                     #stmtWhileWaitCall
     | funcCall END                                          #stmtFuncCall
     | writeFunc END                                         #stmtWriteFunc
     | readFunc END                                          #stmtReadFunc
@@ -53,9 +54,8 @@ expr: operand                                               #exprOperand
     | left=expr op=LOGAND right=expr                        #exprBinaryLog
     | left=expr op=LOGOR right=expr                         #exprBinaryLog;
 
-
 operand: id                                                 #operandId
-       | SFLOAT                                             #operandSFloat
+       | sfloat                                             #operandSFloat
        | bool                                               #operandBool
        | funcCall                                           #operandFuncCall;
 
@@ -65,15 +65,16 @@ readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
 
 returnExpr: RETURN expr                                     #returnExpression;
 
+whileWaitCall: WHILEWAIT LPAREN INT ',' id RPAREN           #whileWait;
+
 funcCall: id LPAREN args RPAREN                             #functionCall;
 args: (expr (',' expr)*)?                                   #arguments;
-
 
 writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
 val: TRUE                                                   #value
    | FALSE                                                  #value
-   | SFLOAT                                                 #value
+   | sfloat                                                 #value
    | id                                                     #valueId
    | TOGGLE                                                 #value;
 
@@ -91,9 +92,11 @@ comment: COMMENT                                            #commentDel
 
 pinmode: OUT | IN;
 bool: TRUE | FALSE;
+sfloat: INT | SFLOAT;
 id : ID                                                     #identifier;
 
 //Lexer Rules
+INT: [0-9]+;
 
 NUMTYPE: 'Num ';
 BOOLTYPE: 'Bool ';
@@ -113,13 +116,14 @@ NOTEQUAL: '!=';
 LOGAND: '&&';
 LOGOR: '||';
 
+WHILEWAIT: 'whileWait';
 SETUP: 'setup';
 LOOP: 'loop';
 FUNC: 'func ';
 PROC: 'proc ';
 
 SFLOAT: (NEGATIVE)? FLOAT;
-FLOAT : [0-9]+|[0-9]+'.'[0-9]+;
+FLOAT: [0-9]+'.'[0-9]+;
 
 WRITE: '.Write';
 READPWM: '.ReadPwm';

@@ -147,6 +147,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStmtAssign(HlmpParser.StmtAssignContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code stmtWhileWaitCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtWhileWaitCall(HlmpParser.StmtWhileWaitCallContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code stmtFuncCall}
 	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
@@ -315,6 +322,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturnExpression(HlmpParser.ReturnExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code whileWait}
+	 * labeled alternative in {@link HlmpParser#whileWaitCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileWait(HlmpParser.WhileWaitContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code functionCall}
 	 * labeled alternative in {@link HlmpParser#funcCall}.
 	 * @param ctx the parse tree
@@ -403,6 +417,12 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitBool(HlmpParser.BoolContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link HlmpParser#sfloat}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSfloat(HlmpParser.SfloatContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code identifier}
 	 * labeled alternative in {@link HlmpParser#id}.

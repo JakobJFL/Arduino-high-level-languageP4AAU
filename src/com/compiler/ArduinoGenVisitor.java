@@ -22,12 +22,36 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     List<String> deRefVars = new ArrayList<>();
 
+    List<String> whileWaitsAdded = new ArrayList<>();
+
     private void addSetupContent(String str) {
         setupContent += str;
     }
 
     private void addGlobalContent(String str) {
         globalContent += str;
+    }
+
+    @Override
+    public String visitWhileWait(WhileWaitContext ctx) {
+        String id = ctx.id().getText();
+        if (!whileWaitsAdded.contains(id)) {
+            String str = "unsigned long timer = 0;\n" +
+                    "bool "+symbolTbl.idProperty.get(ctx)+"(int delayTime) {\n" +
+                    "  unsigned long startTime = millis();\n" +
+                    "  timer = millis();\n" +
+                    "  while (timer < startTime+delayTime) {\n" +
+                    "    timer = millis();\n" +
+                    "    if (!"+symbolTbl.getSymbol(id).getUniqueId()+"()) {\n" +
+                    "      return true;\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "  return false;\n" +
+                    "}";
+            addGlobalContent(str);
+            whileWaitsAdded.add(id);
+        }
+        return symbolTbl.idProperty.get(ctx)+"("+ctx.INT() + ");";
     }
 
     @Override
@@ -288,8 +312,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitReadFuncDig(ReadFuncDigContext ctx) {
-        String result = visit(ctx.id());
-        result += ".ReadDigital()";
         return "digitalRead(" + ctx.id().getText() + ")";
     }
 

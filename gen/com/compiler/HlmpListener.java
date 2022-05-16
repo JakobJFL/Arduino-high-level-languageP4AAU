@@ -240,6 +240,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitStmtAssign(HlmpParser.StmtAssignContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code stmtWhileWaitCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtWhileWaitCall(HlmpParser.StmtWhileWaitCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtWhileWaitCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtWhileWaitCall(HlmpParser.StmtWhileWaitCallContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code stmtFuncCall}
 	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
@@ -528,6 +540,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitReturnExpression(HlmpParser.ReturnExpressionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code whileWait}
+	 * labeled alternative in {@link HlmpParser#whileWaitCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterWhileWait(HlmpParser.WhileWaitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code whileWait}
+	 * labeled alternative in {@link HlmpParser#whileWaitCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitWhileWait(HlmpParser.WhileWaitContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code functionCall}
 	 * labeled alternative in {@link HlmpParser#funcCall}.
 	 * @param ctx the parse tree
@@ -679,6 +703,16 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitBool(HlmpParser.BoolContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link HlmpParser#sfloat}.
+	 * @param ctx the parse tree
+	 */
+	void enterSfloat(HlmpParser.SfloatContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HlmpParser#sfloat}.
+	 * @param ctx the parse tree
+	 */
+	void exitSfloat(HlmpParser.SfloatContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code identifier}
 	 * labeled alternative in {@link HlmpParser#id}.

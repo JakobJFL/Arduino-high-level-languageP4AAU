@@ -256,6 +256,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStmtWhileWaitCall(HlmpParser.StmtWhileWaitCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStmtWhileWaitCall(HlmpParser.StmtWhileWaitCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterStmtFuncCall(HlmpParser.StmtFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -544,6 +556,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterWhileWait(HlmpParser.WhileWaitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhileWait(HlmpParser.WhileWaitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFunctionCall(HlmpParser.FunctionCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -695,6 +719,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitBool(HlmpParser.BoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSfloat(HlmpParser.SfloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSfloat(HlmpParser.SfloatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

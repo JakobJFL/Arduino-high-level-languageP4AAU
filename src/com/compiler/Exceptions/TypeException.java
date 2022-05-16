@@ -4,7 +4,7 @@ import java.util.concurrent.CancellationException;
 
 public class TypeException extends CancellationException {
     public TypeException() {
-        super("Not supported in AHLL");
+        super("is not supported in HLMP");
     } {
 
     }

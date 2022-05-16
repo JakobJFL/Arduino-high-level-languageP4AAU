@@ -2,10 +2,15 @@ package com.compiler.SymbolTbl;
 
 import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
+import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.Symbol;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class SymbolTbl {
     public Scope globalScope = new Scope(null, null);
@@ -13,6 +18,11 @@ public class SymbolTbl {
 
     public ParseTreeProperty<Scope> scopesProperty = new ParseTreeProperty<Scope>();
     public ParseTreeProperty<String> idProperty = new ParseTreeProperty<>();
+
+    public SymbolTbl() {
+        FuncDefSymbol symbol = new FuncDefSymbol("whileWait", "default1");
+        globalScope.addThisSymbol(symbol);
+    }
 
     public void enterScope(String id, ParseTree tree) {
         for (Scope s: currentScope.getSubScopes()) {
@@ -38,13 +48,13 @@ public class SymbolTbl {
             currentScope.addThisSymbol(symbol);
         }
         else {
-            throw new AlreadyDeclared();
+            throw new AlreadyDeclared(symbol.getId());
         }
     }
 
     public void checkId(String id) {
         if (!isSymbol(id, currentScope)) {
-            throw new NotDeclared();
+            throw new NotDeclared(id);
         }
     }
 

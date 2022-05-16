@@ -16,23 +16,23 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        FileHandler fileHandler = new FileHandler("testCode/test5.txt");
+        FileHandler fileHandler = new FileHandler("testCode/test4.txt");
         try {
             SymbolTblListener symbolTable = compile(fileHandler.getFileContent());
         } catch (NotDeclared ex) {
-            System.out.println("NotDeclared: " + ex.getMessage());
+            System.out.println("ERROR: \"" + ex.getMessage() + "\" is not declared");
         }
         catch (AlreadyDeclared ex) {
-            System.out.println("AlreadyDeclared: " + ex.getMessage());
+            System.out.println("ERROR: \"" + ex.getMessage() + "\" is already declared");
         }
         catch (SyntaxException ex) {
-            System.out.println("SyntaxException: " + ex.getMessage());
+            System.out.println("ERROR SyntaxException: " + ex.getMessage());
         }
         catch (IOException ex) {
             System.out.println("Read file Exception: " + ex.getMessage());
         }
         catch (TypeException ex) {
-            System.out.println("TypeException: " + ex.getMessage());
+            System.out.println("ERROR TypeException: " + ex.getMessage());
         }
     }
 

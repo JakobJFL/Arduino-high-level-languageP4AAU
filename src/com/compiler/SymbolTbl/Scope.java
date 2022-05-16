@@ -26,16 +26,7 @@ public class Scope {
     public List<Scope> getSubScopes() {
         return subScopes;
     }
-/* SLET OMG
-    public Scope getSubScope(String id) {
-        for (Scope s : subScopes) {
-            if (s.id.equals(id)) {
-                return s;
-            }
-        }
-        return null;
-    }
-*/
+
     public void addThisSymbol(Symbol symbol) {
         symbolDictionary.put(symbol.getId(), symbol);
     }
