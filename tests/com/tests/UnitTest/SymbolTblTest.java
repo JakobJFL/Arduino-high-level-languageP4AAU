@@ -1,20 +1,15 @@
-package com.tests;
+package com.tests.UnitTest;
 
 import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.SymbolTbl.Scope;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Symbols.Symbol;
-import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.ParseTreeProperty;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.compiler.Main.compile;
-
-public class UnitTest {
+public class SymbolTblTest {
 
     @Test
     public void definingAlreadyDeclaredSymbol_throws() {
@@ -32,7 +27,6 @@ public class UnitTest {
     public void getSymbolDefinedInScope_shouldGet() {
         // Arrange
         Symbol symbol = new Symbol("test", "1");
-        SymbolTbl symbolTbl = new SymbolTbl();
         Scope scope = new Scope(null, null);
 
         // Act

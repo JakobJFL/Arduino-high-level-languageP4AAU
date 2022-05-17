@@ -20,22 +20,4 @@ public class ThrowingErrorListener extends BaseErrorListener {
             throws SyntaxException {
         throw new SyntaxException("Line " + line + ":" + charPositionInLine + " " + msg);
     }
-
-    @Override
-    public void reportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, boolean exact, BitSet ambigAlts, ATNConfigSet configs) {
-        System.out.println("FUCK-reportAmbiguity");
-        super.reportAmbiguity(recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs);
-    }
-
-    @Override
-    public void reportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet conflictingAlts, ATNConfigSet configs) {
-        System.out.println("FUCK-reportAttemptingFullContext");
-        super.reportAttemptingFullContext(recognizer, dfa, startIndex, stopIndex, conflictingAlts, configs);
-    }
-
-    @Override
-    public void reportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction, ATNConfigSet configs) {
-        System.out.println("FUCK-reportContextSensitivity");
-        super.reportContextSensitivity(recognizer, dfa, startIndex, stopIndex, prediction, configs);
-    }
 }

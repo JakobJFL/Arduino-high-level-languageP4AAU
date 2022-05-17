@@ -4,13 +4,9 @@ import java.util.concurrent.CancellationException;
 
 public class TypeException extends CancellationException {
     public TypeException() {
-        super("is not supported in HLMP");
-    } {
-
-    }
+        super("An unknown type error occurred");
+    } {}
     public TypeException(String message) {
         super(message);
-    } {
-
-    }
+    } {}
 }

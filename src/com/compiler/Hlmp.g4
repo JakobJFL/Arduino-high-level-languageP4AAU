@@ -1,8 +1,12 @@
 grammar Hlmp;
 //Parse Rules
 
-program: setupDef loopDef content* EOF
-       | loopDef setupDef content* EOF;
+program: standardProc content* EOF
+       | content* standardProc content* EOF
+       | content* standardProc EOF;
+
+standardProc: setupDef loopDef
+            | loopDef setupDef content;
 
 content: funcProc                                           #cntFuncProc
        | varDecl END                                        #cntvarDecl
@@ -23,7 +27,7 @@ type: NUMTYPE | BOOLTYPE | PWMTYPE                          #types;
 body: (funcProc body)?                                      #bodyFuncProc
     | stmt body                                             #bodyStmt
     | comment body                                          #bodyComment
-    | (returnExpr END)+                                     #bodyReturn;
+    | (returnExpr END)+ body                                #bodyReturn;
 
 procBody: (funcProc procBody)?                              #procBodyFuncProc
         | stmt procBody                                     #procBodyStmt
@@ -92,7 +96,7 @@ comment: COMMENT                                            #commentDel
 
 pinmode: OUT | IN;
 bool: TRUE | FALSE;
-sfloat: INT | SFLOAT;
+sfloat: INT | SFLOAT | (NEGATIVE)?INT;
 id : ID                                                     #identifier;
 
 //Lexer Rules

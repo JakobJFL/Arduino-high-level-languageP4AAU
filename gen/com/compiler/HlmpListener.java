@@ -18,6 +18,16 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitProgram(HlmpParser.ProgramContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link HlmpParser#standardProc}.
+	 * @param ctx the parse tree
+	 */
+	void enterStandardProc(HlmpParser.StandardProcContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link HlmpParser#standardProc}.
+	 * @param ctx the parse tree
+	 */
+	void exitStandardProc(HlmpParser.StandardProcContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code cntFuncProc}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree

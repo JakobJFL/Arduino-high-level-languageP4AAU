@@ -1,17 +1,18 @@
-package com.tests;
+package com.tests.IntegrationTest;
 
 import com.compiler.SymbolTbl.Scope;
 import com.compiler.SymbolTbl.SymbolTblListener;
 import com.compiler.SymbolTbl.Symbols.Symbol;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-import static com.compiler.Main.compile;
+
+import static com.compiler.Main.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 public class ScopeTests {
@@ -45,7 +46,8 @@ public class ScopeTests {
     @ParameterizedTest
     @MethodSource("varsInEachLocalScope")
     public void compile_testCodeAndExpected_varsInEachLocalScope(String testCode, String expected) {
-        SymbolTblListener symbolTable = compile(setUpLoop + testCode);
+        ParseTree tree = DoSyntax(setUpLoop + testCode);
+        SymbolTblListener symbolTable = DoContextual(tree);
         List<String> test = new ArrayList<>();
         test.add("var00");
         test.add("var01");
@@ -114,7 +116,8 @@ public class ScopeTests {
     @ParameterizedTest
     @MethodSource("varsAccessibleInEachScope")
     public void compile_testCodeAndExpected_varsAccessibleInEachScope(String testCode, String expected) {
-        SymbolTblListener symbolTable = compile(setUpLoop + testCode);
+        ParseTree tree = DoSyntax(setUpLoop + testCode);
+        SymbolTblListener symbolTable = DoContextual(tree);
         List<String> test = new ArrayList<>();
         test.add("var00");
         test.add("var01");

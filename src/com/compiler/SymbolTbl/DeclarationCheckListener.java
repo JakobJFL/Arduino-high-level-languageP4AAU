@@ -13,11 +13,15 @@ public class DeclarationCheckListener extends HlmpBaseListener {
     }
 
     private void enterScope(ParseTree ctx) {
-        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        if (symbolTbl.scopesProperty.get(ctx) != null) {
+            symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        }
     }
 
     private void exitScope() {
-        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        if (symbolTbl.currentScope.parent != null) {
+            symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        }
     }
 
     @Override
@@ -108,6 +112,26 @@ public class DeclarationCheckListener extends HlmpBaseListener {
 
     @Override
     public void exitWhileExprDef(HlmpParser.WhileExprDefContext ctx) {
+        exitScope();
+    }
+
+    @Override
+    public void enterSetupDefinition(HlmpParser.SetupDefinitionContext ctx) {
+        enterScope(ctx);
+    }
+
+    @Override
+    public void exitSetupDefinition(HlmpParser.SetupDefinitionContext ctx) {
+        exitScope();
+    }
+
+    @Override
+    public void enterLoopDefinition(HlmpParser.LoopDefinitionContext ctx) {
+        enterScope(ctx);
+    }
+
+    @Override
+    public void exitLoopDefinition(HlmpParser.LoopDefinitionContext ctx) {
         exitScope();
     }
 

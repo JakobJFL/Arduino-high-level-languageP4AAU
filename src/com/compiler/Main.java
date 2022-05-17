@@ -11,14 +11,17 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
+import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        FileHandler fileHandler = new FileHandler("testCode/test4.txt");
+        FileHandler fileHandler = new FileHandler("testCode/GiiCode.txt");
         try {
-            SymbolTblListener symbolTable = compile(fileHandler.getFileContent());
+            System.out.println("Compiling...");
+            String compiledCode = compile(fileHandler.getFileContent());
+            fileHandler.makeFileFromStr(compiledCode);
         } catch (NotDeclared ex) {
             System.out.println("ERROR: \"" + ex.getMessage() + "\" is not declared");
         }
@@ -36,8 +39,26 @@ public class Main {
         }
     }
 
-    public static SymbolTblListener compile(String input) {
-        //Syntax analysis
+    public static String compile(String input) {
+        ParseTree tree = DoSyntax(input);
+        SymbolTblListener symbolTable = DoContextual(tree);
+        ArduinoGenVisitor codeGen = new ArduinoGenVisitor(symbolTable.symbolTbl);
+        String result = codeGen.visitProgram((HlmpParser.ProgramContext) tree);
+        return result;
+    }
+
+    public static SymbolTblListener DoContextual(ParseTree tree) {
+        ParseTreeWalker walker = new ParseTreeWalker();
+        SymbolTblListener symbolTable = new SymbolTblListener();
+        walker.walk(symbolTable, tree);
+        DeclarationCheckListener DeclarationChecker = new DeclarationCheckListener(symbolTable.symbolTbl);
+        walker.walk(DeclarationChecker, tree);
+        TypeCheckerVisitor visitor = new TypeCheckerVisitor(symbolTable.symbolTbl);
+        visitor.visitProgram((HlmpParser.ProgramContext) tree);
+        return symbolTable;
+    }
+
+    public static ParseTree DoSyntax(String input) {
         CharStream stream = CharStreams.fromString(input);
         HlmpLexer lexer = new HlmpLexer(stream);
         lexer.removeErrorListeners();
@@ -47,19 +68,6 @@ public class Main {
         parser.removeErrorListeners();
         parser.addErrorListener(ThrowingErrorListener.INSTANCE);
         ParseTree tree = parser.program();
-        //Symbol table generation
-
-        ParseTreeWalker walker = new ParseTreeWalker();
-        SymbolTblListener symbolTable = new SymbolTblListener();
-        walker.walk(symbolTable, tree);
-        DeclarationCheckListener DeclarationChecker = new DeclarationCheckListener(symbolTable.symbolTbl);
-        walker.walk(DeclarationChecker, tree);
-        TypeCheckerVisitor visitor = new TypeCheckerVisitor(symbolTable.symbolTbl);
-        visitor.visitProgram((HlmpParser.ProgramContext) tree);
-        ArduinoGenVisitor codeGen = new ArduinoGenVisitor(symbolTable.symbolTbl);
-        String result = codeGen.visitProgram((HlmpParser.ProgramContext) tree);
-        System.out.println("----------------");
-        System.out.println(result);
-        return symbolTable;
+        return tree;
     }
 }

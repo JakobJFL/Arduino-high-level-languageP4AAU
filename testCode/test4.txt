@@ -1,22 +1,28 @@
+Pin ledPin1 {D5,out};
+Pin ledPin2 {D6,out};
+Pin sensorPin {A0,in};
+
 proc setup() {
 
 }
 
 proc loop() {
-	ledPin1.Write(true);
-	ledPin2.Write(false);
-	whileWait(2000, shouldBlink);
-	ledPin1.Write(false);
-	ledPin2.Write(true);
-	whileWait(2000, shouldBlink);
+    while (shouldBlink()) {
+        ledPin1.Write(true);
+        ledPin2.Write(false);
+        whileWait(2000, shouldBlink);
+        ledPin1.Write(false);
+        ledPin2.Write(true);
+        whileWait(2000, shouldBlink);
+    } 
+    ledPin1.Write(false);
+    ledPin2.Write(false);
 }
 
-Pin ledPin1 {D5,out};
-Pin ledPin2 {D6,out};
-Pin analogInPin {A0,in};
+
 
 func Bool shouldBlink() {
-    Pwm outputValue = analogInPin.ReadPwm();
+    Pwm outputValue = sensorPin.ReadPwm();
     if(outputValue > 128) {
         return false; 
     } 

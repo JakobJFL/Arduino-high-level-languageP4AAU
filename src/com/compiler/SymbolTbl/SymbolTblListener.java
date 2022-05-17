@@ -124,7 +124,7 @@ public class SymbolTblListener extends HlmpBaseListener {
     @Override
     public void enterWhileExprDef(HlmpParser.WhileExprDefContext ctx) {
         String thisId = makeId();
-        Symbol symbol = new FuncDefSymbol(thisId, makeUniqueId());
+        Symbol symbol = new FuncDefSymbol(makeUniqueId(), makeUniqueId());
         symbolTbl.addSymbol(symbol);
         symbolTbl.enterScope(thisId, ctx);
     }

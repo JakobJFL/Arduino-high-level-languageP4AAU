@@ -18,27 +18,39 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         this.symbolTbl.currentScope = this.symbolTbl.globalScope;
     }
 
+    private void enterScope(ParseTree ctx) {
+        if (symbolTbl.scopesProperty.get(ctx) != null) {
+            symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        }
+    }
+
+    private void exitScope() {
+        if (symbolTbl.currentScope.parent != null) {
+            symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        }
+    }
+
     @Override
     public Integer visitIfStmtDef(HlmpParser.IfStmtDefContext ctx) {
-        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        enterScope(ctx);
         super.visitIfStmtDef(ctx);
-        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        exitScope();
         return defaultResult();
     }
 
     @Override
     public Integer visitElseStmtDef(HlmpParser.ElseStmtDefContext ctx) {
-        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        enterScope(ctx);
         super.visitElseStmtDef(ctx);
-        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        exitScope();
         return defaultResult();
     }
 
     @Override
     public Integer visitWhileExprDef(HlmpParser.WhileExprDefContext ctx){
-        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        enterScope(ctx);
         super.visitWhileExprDef(ctx);
-        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        exitScope();
         return defaultResult();
     }
 
@@ -47,13 +59,13 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer funcType = ctx.funcHead().type().start.getType();
         if (funcType == HlmpLexer.PWMTYPE)
             funcType = HlmpLexer.NUMTYPE;
-        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        enterScope(ctx);
         if (funcType == visit(ctx.body())) {
-            symbolTbl.currentScope = symbolTbl.currentScope.parent;
+            exitScope();
             return defaultResult();
         }
         else {
-            throw new TypeException("Expected return type -\"" + ctx.funcHead().type().getText());
+            throw new TypeException("Expected return type \"" + ctx.funcHead().type().getText() + "\" for \"" + ctx.funcHead().id().getText() + "\"");
         }
     }
 
@@ -62,21 +74,20 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer preType = visit(ctx.returnExpr().get(0));
         for (int i = 1; i < ctx.returnExpr().size(); i++) {
             Integer thisType = visit(ctx.returnExpr().get(i));
-            if (thisType == preType) {
-                preType = thisType;
-            }
-            else {
+            if (!thisType.equals(preType)) {
                 return 0;
             }
         }
+        if (preType == HlmpLexer.PWMTYPE)
+            preType = HlmpLexer.NUMTYPE;
         return preType;
     }
 
     @Override
     public Integer visitProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
-        symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
+        enterScope(ctx);
         super.visitProcDefinition(ctx);
-        symbolTbl.currentScope = symbolTbl.currentScope.parent;
+        exitScope();
         return defaultResult();
     }
 
@@ -150,7 +161,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         else if (left == HlmpLexer.BOOLTYPE || right == HlmpLexer.BOOLTYPE)
             return HlmpLexer.BOOLTYPE;
         else
-            throw new TypeException("visitExprBinaryBoolEqual"); //PATRICK SKAL FORTSÆTTE HERFRA
+            throw new TypeException("Expected the operands type to be Num or Bool");
     }
 
     @Override
@@ -158,7 +169,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer left = visit(ctx.left);
         Integer right = visit(ctx.right);
         if (left != HlmpLexer.BOOLTYPE || right != HlmpLexer.BOOLTYPE)
-            throw new TypeException("visitExprBinaryLog");
+            throw new TypeException("Expected the operands type to be Num");
         else
             return HlmpLexer.BOOLTYPE;
     }
@@ -195,7 +206,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitOperandId(HlmpParser.OperandIdContext ctx) {
         TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         if (symbol == null) {
-            throw new NotDeclared(ctx.id().getText());
+            throw new NotDeclared("The identifier could not be found");
         }
         Integer type = symbol.getType().start.getType();
         if (type == HlmpLexer.PWMTYPE)
@@ -207,7 +218,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitValueId(HlmpParser.ValueIdContext ctx) {
         TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         if (symbol == null) {
-            throw new NotDeclared(ctx.id().getText());
+            throw new NotDeclared("The value identifier could not be found");
         }
         Integer type = symbol.getType().start.getType();
         if (type == HlmpLexer.PWMTYPE)
@@ -250,14 +261,14 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         }
         List<TypeSymbol> parameters = symbol.getParameters();
         if (parametersType.size() != parameters.size()) {
-            throw new TypeException("Not same size");
+            throw new TypeException("The amount of formal parameters supplied does not match the actual parameters");
         }
         for (int i = 0; i < parameters.size(); i++) {
             int type = parameters.get(i).getType().start.getType();
             if (type == HlmpLexer.PWMTYPE)
                 type = HlmpLexer.NUMTYPE;
             if (type != parametersType.get(i)) {
-                throw new TypeException("type does not match");
+                throw new TypeException("Expected parameter type: \"" + parameters.get(i).getType().getText()+"\"");
             }
         }
         return parametersType.get(0);

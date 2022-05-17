@@ -17,6 +17,12 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProgram(HlmpParser.ProgramContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link HlmpParser#standardProc}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStandardProc(HlmpParser.StandardProcContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code cntFuncProc}
 	 * labeled alternative in {@link HlmpParser#content}.
 	 * @param ctx the parse tree

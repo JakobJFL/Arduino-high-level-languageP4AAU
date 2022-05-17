@@ -17,6 +17,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     private String setupContent = "";
     private String globalContent = "";
+    private String topContent = "";
+
 
     List<Tuple> refVars = new ArrayList<>();
 
@@ -27,31 +29,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private void addSetupContent(String str) {
         setupContent += str;
     }
+    private void addTopContent(String str) {
+        topContent += str;
+    }
 
     private void addGlobalContent(String str) {
         globalContent += str;
-    }
-
-    @Override
-    public String visitWhileWait(WhileWaitContext ctx) {
-        String id = ctx.id().getText();
-        if (!whileWaitsAdded.contains(id)) {
-            String str = "unsigned long timer = 0;\n" +
-                    "bool "+symbolTbl.idProperty.get(ctx)+"(int delayTime) {\n" +
-                    "  unsigned long startTime = millis();\n" +
-                    "  timer = millis();\n" +
-                    "  while (timer < startTime+delayTime) {\n" +
-                    "    timer = millis();\n" +
-                    "    if (!"+symbolTbl.getSymbol(id).getUniqueId()+"()) {\n" +
-                    "      return true;\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "  return false;\n" +
-                    "}";
-            addGlobalContent(str);
-            whileWaitsAdded.add(id);
-        }
-        return symbolTbl.idProperty.get(ctx)+"("+ctx.INT() + ");";
     }
 
     @Override
@@ -66,13 +49,15 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitProgram(ProgramContext ctx) {
-        String str = visit(ctx.loopDef());
+        StringBuilder sb = new StringBuilder();
+        sb.append(visit(ctx.standardProc().loopDef()));
         for (ContentContext c : ctx.content()) {
-            str += visit(c);
+            sb.append(visit(c));
         }
-        str += visit(ctx.setupDef());
-        str += globalContent;
-        return str;
+        sb.append(visit(ctx.standardProc().setupDef()));
+        sb.append(globalContent);
+        sb.insert(0, topContent+"\n");
+        return sb.toString();
     }
 
     private void exitScope() {
@@ -80,6 +65,28 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         if (deRefVars.size() > 0) {
             deRefVars.remove(deRefVars.size()-1);
         }
+    }
+
+    @Override
+    public String visitWhileWait(WhileWaitContext ctx) {
+        String id = ctx.id().getText();
+        if (!whileWaitsAdded.contains(id)) {
+            String str = "unsigned long timer"+symbolTbl.getSymbol(id).getUniqueId()+" = 0;\n" +
+                    "bool "+symbolTbl.idProperty.get(ctx)+"WhileWait(int delayTime) {\n" +
+                    "  unsigned long startTime = millis();\n" +
+                    "  timer"+symbolTbl.getSymbol(id).getUniqueId()+" = millis();\n" +
+                    "  while (timer"+symbolTbl.getSymbol(id).getUniqueId()+" < startTime+delayTime) {\n" +
+                    "    timer"+symbolTbl.getSymbol(id).getUniqueId()+" = millis();\n" +
+                    "    if (!"+symbolTbl.getSymbol(id).getUniqueId()+"()) {\n" +
+                    "      return true;\n" +
+                    "    }\n" +
+                    "  }\n" +
+                    "  return false;\n" +
+                    "}";
+            addGlobalContent(str);
+            whileWaitsAdded.add(id);
+        }
+        return symbolTbl.idProperty.get(ctx)+"WhileWait(" + ctx.INT() + ");";
     }
 
     @Override
@@ -141,6 +148,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitStmtAssign(StmtAssignContext ctx) {
         String id = ctx.id().getText();
         return shouldDeRef(id) + id + "=" + visit(ctx.expr())+ ";";
+    }
+
+    @Override
+    public String visitStmtFuncCall(StmtFuncCallContext ctx) {
+        return super.visitStmtFuncCall(ctx) + ";";
     }
 
     @Override
@@ -268,7 +280,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
         pinNum += ctx.PINNUMBER().getText().substring(1);
         addSetupContent("pinMode(" + pinNum + "," + pinmode + ");");
-        return "int " + ctx.id().getText() + " = " + pinNum + ";";
+        addTopContent("int " + ctx.id().getText() + " = " + pinNum + ";");
+        return defaultResult();
     }
 
     @Override
@@ -393,7 +406,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitFunctionCall(FunctionCallContext ctx) {
-        return symbolTbl.idProperty.get(ctx)+ "(" + visit(ctx.args()) + ");";
+        return symbolTbl.idProperty.get(ctx)+ "(" + visit(ctx.args()) + ")";
     }
 
     @Override
