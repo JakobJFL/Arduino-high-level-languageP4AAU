@@ -71,22 +71,20 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitWhileWait(WhileWaitContext ctx) {
         String id = ctx.id().getText();
         if (!whileWaitsAdded.contains(id)) {
-            String str = "unsigned long timer"+symbolTbl.getSymbol(id).getUniqueId()+" = 0;\n" +
-                    "bool "+symbolTbl.idProperty.get(ctx)+"WhileWait(int delayTime) {\n" +
-                    "  unsigned long startTime = millis();\n" +
-                    "  timer"+symbolTbl.getSymbol(id).getUniqueId()+" = millis();\n" +
-                    "  while (timer"+symbolTbl.getSymbol(id).getUniqueId()+" < startTime+delayTime) {\n" +
-                    "    timer"+symbolTbl.getSymbol(id).getUniqueId()+" = millis();\n" +
-                    "    if (!"+symbolTbl.getSymbol(id).getUniqueId()+"()) {\n" +
-                    "      return true;\n" +
-                    "    }\n" +
-                    "  }\n" +
-                    "  return false;\n" +
-                    "}";
+            String str = "bool "+symbolTbl.idProperty.get(ctx)+"WhileWait(int delayTime) {" +
+                         "unsigned long startTime = millis();" +
+                         "while (millis() < startTime+delayTime) {" +
+                         "if (!"+symbolTbl.getSymbol(id).getUniqueId()+"()) {" +
+                         "return true;}}return false;}";
             addGlobalContent(str);
             whileWaitsAdded.add(id);
         }
-        return symbolTbl.idProperty.get(ctx)+"WhileWait(" + ctx.INT() + ");";
+        return symbolTbl.idProperty.get(ctx)+"WhileWait(" + visit(ctx.expr()) + ");";
+    }
+
+    @Override
+    public String visitWait(WaitContext ctx) {
+        return "delay(" + visit(ctx.expr()) + ");";
     }
 
     @Override
@@ -291,16 +289,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitWriteFuncDef(WriteFuncDefContext ctx) {
-        return "analogWrite("+ctx.id().getText()+","+ visit(ctx.val()) +");";
-    }
-
-    @Override
-    public String visitValue(ValueContext ctx) {
-        String result = switch (ctx.start.getType()) {
-            case HlmpLexer.TRUE -> "255";
-            case HlmpLexer.FALSE -> "0";
-            case HlmpLexer.SFLOAT -> ctx.getText();
-            case HlmpLexer.TOGGLE -> "!digitalRead("+ ctx.parent.getChild(0).getText() +")";
+        String result = switch (ctx.val().start.getType()) {
+            case HlmpLexer.TRUE -> "digitalWrite("+ctx.id().getText()+","+ "HIGH" +");";
+            case HlmpLexer.FALSE -> "digitalWrite("+ctx.id().getText()+","+ "LOW" +");";
+            case HlmpLexer.SFLOAT -> "analogWrite("+ctx.id().getText()+","+ ctx.val().getText() +");";
+            case HlmpLexer.TOGGLE -> "digitalWrite("+ctx.id().getText()+","+ "!digitalRead("+ ctx.id().getText() +"));";
             default -> defaultResult();
         };
         return result;

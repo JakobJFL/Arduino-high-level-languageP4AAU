@@ -17,7 +17,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-        FileHandler fileHandler = new FileHandler("testCode/GiiCode.txt");
+        FileHandler fileHandler = new FileHandler("testCode/GiiCode/test.txt");
         try {
             System.out.println("Compiling...");
             String compiledCode = compile(fileHandler.getFileContent());

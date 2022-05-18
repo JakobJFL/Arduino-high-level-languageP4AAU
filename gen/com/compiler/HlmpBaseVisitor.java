@@ -171,6 +171,13 @@ public class HlmpBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements H
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitStmtWaitCall(HlmpParser.StmtWaitCallContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitStmtFuncCall(HlmpParser.StmtFuncCallContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -340,6 +347,13 @@ public class HlmpBaseVisitor<T> extends AbstractParseTreeVisitor<T> implements H
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitWhileWait(HlmpParser.WhileWaitContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitWait(HlmpParser.WaitContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

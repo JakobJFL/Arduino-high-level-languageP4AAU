@@ -1,0 +1,12 @@
+Pin led {D13, out};
+
+proc setup(){
+	
+}
+
+proc loop(){
+	wait(1000);
+	led.Write(true);
+	wait(1000);
+	led.Write(false);
+}

@@ -1,0 +1,8 @@
+Pin led {D13,out};
+
+proc setup() {}
+
+proc loop() {
+    led.Write(toggle);
+	wait(1000);
+}

@@ -262,6 +262,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitStmtWhileWaitCall(HlmpParser.StmtWhileWaitCallContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code stmtWaitCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void enterStmtWaitCall(HlmpParser.StmtWaitCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code stmtWaitCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
+	 * @param ctx the parse tree
+	 */
+	void exitStmtWaitCall(HlmpParser.StmtWaitCallContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code stmtFuncCall}
 	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
@@ -561,6 +573,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitWhileWait(HlmpParser.WhileWaitContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code wait}
+	 * labeled alternative in {@link HlmpParser#waitCall}.
+	 * @param ctx the parse tree
+	 */
+	void enterWait(HlmpParser.WaitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code wait}
+	 * labeled alternative in {@link HlmpParser#waitCall}.
+	 * @param ctx the parse tree
+	 */
+	void exitWait(HlmpParser.WaitContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code functionCall}
 	 * labeled alternative in {@link HlmpParser#funcCall}.

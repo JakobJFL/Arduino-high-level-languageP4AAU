@@ -160,6 +160,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStmtWhileWaitCall(HlmpParser.StmtWhileWaitCallContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code stmtWaitCall}
+	 * labeled alternative in {@link HlmpParser#stmt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStmtWaitCall(HlmpParser.StmtWaitCallContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code stmtFuncCall}
 	 * labeled alternative in {@link HlmpParser#stmt}.
 	 * @param ctx the parse tree
@@ -334,6 +341,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitWhileWait(HlmpParser.WhileWaitContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code wait}
+	 * labeled alternative in {@link HlmpParser#waitCall}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWait(HlmpParser.WaitContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code functionCall}
 	 * labeled alternative in {@link HlmpParser#funcCall}.

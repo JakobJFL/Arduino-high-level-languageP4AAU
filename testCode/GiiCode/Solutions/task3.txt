@@ -2,15 +2,12 @@ Pin ledPin1 {D5,out};
 Pin ledPin2 {D6,out};
 Pin sensorPin {A0,in};
 
-proc setup() {
-
-
-}
+proc setup() {}
 
 proc loop() {
     while (shouldBlink()) {
         ledPin1.Write(true);
-        ledPin2.Write(false);
+        ledPin2.Write(false);        
         whileWait(2000, shouldBlink);
         ledPin1.Write(false);
         ledPin2.Write(true);
@@ -19,8 +16,6 @@ proc loop() {
     ledPin1.Write(false);
     ledPin2.Write(false);
 }
-
-
 
 func Bool shouldBlink() {
     Pwm outputValue = sensorPin.ReadPwm();

@@ -13,24 +13,19 @@ return readSensor();
 	func Pwm readSensor() {
 		return tempSensor.ReadPwm();
 	}
-	
 }
 
 proc ledHandler() {
 	Pwm counter = 0;
 	checkSensor();
 	proc checkSensor() {
-		if (sensorHandler() == 1) {
+		if (sensorHandler() > 40) {
 			whileWait(1000, interrupt);
 			blink();
 		}
-		if (sensorHandler() == 2) {
+		if (sensorHandler() > 60) {
 			whileWait(10, interrupt);
 			fadeUp();
-		}
-		if (sensorHandler() == 3) {
-			whileWait(3000, interrupt);
-			fadeDownFrom30();
 		}
 	}
 
@@ -43,21 +38,10 @@ proc ledHandler() {
 		led.Write(counter);
 		checkSensor();
 	}
-	proc fadeDownFrom30() {
-		Num i = 0;
-		proc fade() {
-			if (i < 30) {
-				i = i + 1;
-				led.Write(i);
-				fade();
-			}
-		}
-		checkSensor();
-	}
 }
 
 func Bool interrupt() {
-    Pwm outputValue = tempSensor.ReadPwm();
+    Pwm outputValue = sensor.ReadPwm();
     if(outputValue > 128) {
         return false; 
     } 

@@ -36,6 +36,7 @@ procBody: (funcProc procBody)?                              #procBodyFuncProc
 stmt: varDecl END                                           #stmtVarDecl
     | id ASSIGN expr END                                    #stmtAssign
     | whileWaitCall END                                     #stmtWhileWaitCall
+    | waitCall END                                          #stmtWaitCall
     | funcCall END                                          #stmtFuncCall
     | writeFunc END                                         #stmtWriteFunc
     | readFunc END                                          #stmtReadFunc
@@ -69,7 +70,9 @@ readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
 
 returnExpr: RETURN expr                                     #returnExpression;
 
-whileWaitCall: WHILEWAIT LPAREN INT ',' id RPAREN           #whileWait;
+whileWaitCall: WHILEWAIT LPAREN expr ',' id RPAREN           #whileWait;
+
+waitCall: WAIT LPAREN expr RPAREN                            #wait;
 
 funcCall: id LPAREN args RPAREN                             #functionCall;
 args: (expr (',' expr)*)?                                   #arguments;
@@ -121,6 +124,7 @@ LOGAND: '&&';
 LOGOR: '||';
 
 WHILEWAIT: 'whileWait';
+WAIT: 'wait';
 SETUP: 'setup';
 LOOP: 'loop';
 FUNC: 'func ';
