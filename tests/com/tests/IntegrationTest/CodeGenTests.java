@@ -21,13 +21,6 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 public class CodeGenTests {
     private static String setUpLoop = " proc setup() {} proc loop() {}";
 
-    @Test
-    public void Test() {
-        String alreadyDeclaredWords = setUpLoop + " proc fun1() {proc  fun1() {}} proc  fun11() {}";
-
-        Assert.assertTrue(true);
-    }
-
     private static Stream<Arguments> generatedCodeStrings() {
         return Stream.of(
                 arguments("proc setup() { } proc loop() { proc kat(Num kat1, Num kat2) { } kat(5, 4); }",

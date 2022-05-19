@@ -57,8 +57,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     @Override
     public Integer visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
         Integer funcType = ctx.funcHead().type().start.getType();
-        if (funcType == HlmpLexer.PWMTYPE)
-            funcType = HlmpLexer.NUMTYPE;
+        funcType = convertToNum(funcType);
         enterScope(ctx);
         if (funcType == visit(ctx.body())) {
             exitScope();
@@ -78,8 +77,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
                 return 0;
             }
         }
-        if (preType == HlmpLexer.PWMTYPE)
-            preType = HlmpLexer.NUMTYPE;
+        preType = convertToNum(preType);
         return preType;
     }
 
@@ -95,8 +93,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitStmtAssign(HlmpParser.StmtAssignContext ctx) {
         TypeSymbol symbol = (TypeSymbol) symbolTbl.getSymbol(ctx.id().getText());
         Integer type = symbol.getType().start.getType();
-        if (type == HlmpLexer.PWMTYPE)
-            type = HlmpLexer.NUMTYPE;
+        type = convertToNum(type);
         Integer expr = visit(ctx.expr());
         if (expr == type) {
             return type;
@@ -109,8 +106,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     @Override
     public Integer visitVarDeclaration(HlmpParser.VarDeclarationContext ctx) {
         Integer type = ctx.type().start.getType();
-        if (type == HlmpLexer.PWMTYPE)
-            type = HlmpLexer.NUMTYPE;
+        type = convertToNum(type);
         return type;
     }
 
@@ -149,7 +145,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         Integer right = visit(ctx.right);
         if (left == HlmpLexer.NUMTYPE && right == HlmpLexer.NUMTYPE)
             return HlmpLexer.BOOLTYPE;
-        throw new TypeException("Expected the type: Bool");
+        throw new TypeException("Expected the type: Num");
     }
 
     @Override
@@ -209,8 +205,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             throw new NotDeclared("The identifier could not be found");
         }
         Integer type = symbol.getType().start.getType();
-        if (type == HlmpLexer.PWMTYPE)
-            type = HlmpLexer.NUMTYPE;
+        type = convertToNum(type);
         return type;
     }
 
@@ -221,8 +216,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             throw new NotDeclared("The value identifier could not be found");
         }
         Integer type = symbol.getType().start.getType();
-        if (type == HlmpLexer.PWMTYPE)
-            type = HlmpLexer.NUMTYPE;
+
         return type;
     }
 
@@ -244,7 +238,9 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             return null;
         }
         else {
-            return symbol.getType().start.getType();
+            Integer type = symbol.getType().start.getType();
+            type = convertToNum(type);
+            return type;
         }
     }
 
@@ -265,12 +261,17 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         }
         for (int i = 0; i < parameters.size(); i++) {
             int type = parameters.get(i).getType().start.getType();
-            if (type == HlmpLexer.PWMTYPE)
-                type = HlmpLexer.NUMTYPE;
+            type = convertToNum(type);
             if (type != parametersType.get(i)) {
                 throw new TypeException("Expected parameter type: \"" + parameters.get(i).getType().getText()+"\"");
             }
         }
         return parametersType.get(0);
+    }
+
+    private Integer convertToNum(Integer type) {
+        if (type == HlmpLexer.PWMTYPE)
+            return HlmpLexer.NUMTYPE;
+        return type;
     }
 }

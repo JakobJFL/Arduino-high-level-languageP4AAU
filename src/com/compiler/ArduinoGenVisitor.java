@@ -1,7 +1,9 @@
 package com.compiler;
 
 import com.compiler.HlmpParser.*;
+import com.compiler.SymbolTbl.Scope;
 import com.compiler.SymbolTbl.SymbolTbl;
+import com.compiler.SymbolTbl.Symbols.Symbol;
 import com.compiler.SymbolTbl.Tuple;
 import org.antlr.v4.runtime.tree.ParseTree;
 
@@ -98,6 +100,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitProcDefinition(ProcDefinitionContext ctx) {
+        //System.out.println(symbolTbl.scopesProperty.get(ctx).);
         String result = visit(ctx.procHead());
         result += visit(ctx.procBody());
         result += "}\n";
@@ -107,12 +110,14 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitFuncHead(FuncHeadContext ctx) {
-        return makeFuncProcHead(ctx.type(), symbolTbl.idProperty.get(ctx), ctx.parameter());
+        Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
+        return makeFuncProcHead(ctx.type(), symbolTbl.idProperty.get(ctx), ctx.parameter(), scope);
     }
 
     @Override
     public String visitProcHead(ProcHeadContext ctx) {
-        return makeFuncProcHead(null, symbolTbl.idProperty.get(ctx), ctx.parameter());
+        Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
+        return makeFuncProcHead(null, symbolTbl.idProperty.get(ctx), ctx.parameter(), scope);
     }
 
     @Override
@@ -157,9 +162,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitVarDeclaration(VarDeclarationContext ctx) {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
-        if (ctx.parent instanceof StmtVarDeclContext) {
-           refVars.add(new Tuple(type, id));
-        }
+        //refVars.add(new Tuple(type, id));
         return type + id + ";";
     }
 
@@ -167,9 +170,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
-        if (ctx.parent instanceof StmtVarDeclContext) {
-            refVars.add(new Tuple(type, id));
-        }
+        //refVars.add(new Tuple(type, id));
         return type + id + "=" + visit(ctx.expr())+ ";";
     }
 
@@ -331,11 +332,21 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return result;
     }
 
-    private String makeFuncProcHead(TypeContext typeCtx, String idCtx, List<ParameterContext> parameters) {
+    private String makeFuncProcHead(TypeContext typeCtx, String idCtx, List<ParameterContext> parameters, Scope scope) {
         String result = "void ";
         if (typeCtx != null) {
             result = visit(typeCtx);
         }
+        refVars = new ArrayList<>();
+        deRefVars = new ArrayList<>();
+        symbolTbl.currentScope = scope;
+        Symbol kat = symbolTbl.getSymbol("counter");
+        if (kat != null) {
+            Tuple tuple = new Tuple("byte " ,kat.getId());
+            if (!refVars.contains(tuple))
+                refVars.add(tuple);
+        }
+
         result += idCtx;
         result += "(";
         if (refVars.size() > 0) {
@@ -393,7 +404,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitParam(ParamContext ctx) {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
-        refVars.add(new Tuple(type, id));
+        //refVars.add(new Tuple(type, id));
         return type + id;
     }
 

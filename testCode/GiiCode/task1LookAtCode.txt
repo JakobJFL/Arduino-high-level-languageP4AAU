@@ -9,7 +9,7 @@ proc setup() {
 proc loop() {}
 
 func Pwm sensorHandler() {
-return readSensor();
+	return readSensor();
 	func Pwm readSensor() {
 		return tempSensor.ReadPwm();
 	}
@@ -28,7 +28,6 @@ proc ledHandler() {
 			fadeUp();
 		}
 	}
-
 	proc blink() {
 		led.Write(toggle);
 		checkSensor();
