@@ -17,4 +17,5 @@ public class TypeSymbol extends Symbol {
     public HlmpParser.TypeContext getType() {
         return type;
     }
+
 }

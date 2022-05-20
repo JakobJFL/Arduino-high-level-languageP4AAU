@@ -24,7 +24,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private String globalContent = "";
     private String topContent = "";
 
-    List<String> refVars = new ArrayList<>();
+    private Scope currentScope;
     List<String> refVarsAddress = new ArrayList<>();
     List<String> deRefVars = new ArrayList<>();
     List<String> whileWaitsAdded = new ArrayList<>();
@@ -57,6 +57,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         for (ContentContext c : ctx.content()) {
             sb.append(visit(c));
         }
+        currentScope = symbolTbl.globalScope;
+        exitScope();
         sb.append(visit(ctx.standardProc().setupDef()));
         sb.append(globalContent);
         sb.insert(0, topContent+"\n");
@@ -64,8 +66,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     private void exitScope() {
-        refVars = new ArrayList<>();
         deRefVars = new ArrayList<>();
+        refVarsAddress = new ArrayList<>();
     }
 
     @Override
@@ -109,20 +111,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     @Override
     public String visitFuncHead(FuncHeadContext ctx) {
         Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
-        List<TypeSymbol> symbols = scope.getAllTypeSymbols();
-        for (TypeSymbol s: symbols) {
-            refVarsAddress.add(s.getId());
-        }
         return makeFuncProcHead(ctx.type(), symbolTbl.idProperty.get(ctx), ctx.parameter(), scope);
     }
 
     @Override
     public String visitProcHead(ProcHeadContext ctx) {
         Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
-        List<TypeSymbol> symbols = scope.getAllTypeSymbols();
-        for (TypeSymbol s: symbols) {
-            refVarsAddress.add(s.getId());
-        }
         return makeFuncProcHead(null, symbolTbl.idProperty.get(ctx), ctx.parameter(), scope);
     }
 
@@ -219,7 +213,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     }
 
     private String shouldDeRef(String id) {
-        if (deRefVars.contains(id)) {
+        if (refVarsAddress.contains(id)) {
             return "*";
         }
         return defaultResult();
@@ -336,6 +330,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return result;
     }
 
+    Map<String, List<TypeSymbol>> argsDictionary = new HashMap<>();
+
     private String makeFuncProcHead(TypeContext typeCtx, String idCtx, List<ParameterContext> parameters, Scope scope) {
         String result = "void ";
         if (typeCtx != null) {
@@ -344,10 +340,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += idCtx;
         result += "(";
         List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope.parent);
+        currentScope = scope;
         for (TypeSymbol s: symbols) {
             result += visit(s.getType()) + "*" + s.getId();
-            refVars.add(s.getId());
+            refVarsAddress.add(s.getId());
         }
+        argsDictionary.put(idCtx, symbols);
         result += addCommaSeparated(parameters);
         result += ") {";
         return result;
@@ -358,9 +356,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             return defaultResult();
         }
         String result = "";
-        if (refVars.size() > 0) {
-            result += ", ";
-        }
         result += visit((ParseTree) list.get(0));
         for (int i = 1; i < list.size(); i++) {
             result += ", ";
@@ -372,24 +367,29 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     @Override
     public String visitArguments(ArgumentsContext ctx) {
         String result = "";
-        if (refVarsAddress.size() > 0) {
-            result += "&" + refVarsAddress.get(0);
-            for (int i = 1; i < refVarsAddress.size(); i++) {
+        Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
+        //Scope scope = symbolTbl.getScope(ctx.parent.getChild(0).getText());
+
+        List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope);
+        if (symbols != null && symbols.size() > 0) {
+            result += makeActualParam(symbols.get(0).getId());
+            for (int i = 1; i < symbols.size(); i++) {
                 result += ", ";
-                result += "&"+ refVarsAddress.get(i);
-            }
-        }
-        if (refVars.size() > 0) {
-            result += refVars.get(0);
-            for (int i = 1; i < refVars.size(); i++) {
-                result += ", ";
-                result += refVars.get(i);
+                result += makeActualParam(symbols.get(0).getId());
             }
         }
         result += addCommaSeparated(ctx.expr());
         return result;
     }
 
+    private String makeActualParam(String id) {
+        if (refVarsAddress.contains(id)) {
+            return id;
+        }
+        else {
+            return "&" + id;
+        }
+    }
     @Override
     public String visitParam(ParamContext ctx) {
         String type = visit(ctx.type());

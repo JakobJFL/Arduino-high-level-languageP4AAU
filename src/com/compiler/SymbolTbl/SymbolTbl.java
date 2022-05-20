@@ -28,6 +28,7 @@ public class SymbolTbl {
     public void enterScope(String id, ParseTree tree) {
         for (Scope s: currentScope.getSubScopes()) {
             if (s.id == id) {
+                System.out.println("OMG");
                 currentScope = s;
                 return;
             }
@@ -88,23 +89,25 @@ public class SymbolTbl {
         }
         return null; //If no parents are left, return null
     }
-/*
+
     public Scope getScope(String id) {
         return getScopeHelper(id, globalScope);
     }
 
     private Scope getScopeHelper(String id, Scope scope) {
-        Scope thisScope = scope;
         if (scope.id != null && scope.id.equals(id)) {
             return scope;
         }
-        for (Scope s : scope.getSubScopes()) {
-            thisScope = getScopeHelper(id, s);
+        else {
+            for (Scope s : scope.getSubScopes()) {
+                Scope retScope = getScopeHelper(id, s);
+                if (retScope != null)
+                    return retScope;
+            }
         }
-        System.out.println(scope.id +"=="+ id);
-        return thisScope;
+        return null;
     }
-*/
+
     public List<TypeSymbol> getParamsVarsFromScope(Scope scope) {
         List<TypeSymbol> result = new ArrayList<>();
         return getParamsVarsFromScopeHelper(scope, result);
