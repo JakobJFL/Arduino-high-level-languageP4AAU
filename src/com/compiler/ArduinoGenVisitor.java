@@ -4,11 +4,14 @@ import com.compiler.HlmpParser.*;
 import com.compiler.SymbolTbl.Scope;
 import com.compiler.SymbolTbl.SymbolTbl;
 import com.compiler.SymbolTbl.Symbols.Symbol;
+import com.compiler.SymbolTbl.Symbols.TypeSymbol;
 import com.compiler.SymbolTbl.Tuple;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private SymbolTbl symbolTbl;
@@ -21,11 +24,9 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private String globalContent = "";
     private String topContent = "";
 
-
-    List<Tuple> refVars = new ArrayList<>();
-
+    List<String> refVars = new ArrayList<>();
+    List<String> refVarsAddress = new ArrayList<>();
     List<String> deRefVars = new ArrayList<>();
-
     List<String> whileWaitsAdded = new ArrayList<>();
 
     private void addSetupContent(String str) {
@@ -64,9 +65,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     private void exitScope() {
         refVars = new ArrayList<>();
-        if (deRefVars.size() > 0) {
-            deRefVars.remove(deRefVars.size()-1);
-        }
+        deRefVars = new ArrayList<>();
     }
 
     @Override
@@ -100,7 +99,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitProcDefinition(ProcDefinitionContext ctx) {
-        //System.out.println(symbolTbl.scopesProperty.get(ctx).);
         String result = visit(ctx.procHead());
         result += visit(ctx.procBody());
         result += "}\n";
@@ -111,12 +109,20 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     @Override
     public String visitFuncHead(FuncHeadContext ctx) {
         Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
+        List<TypeSymbol> symbols = scope.getAllTypeSymbols();
+        for (TypeSymbol s: symbols) {
+            refVarsAddress.add(s.getId());
+        }
         return makeFuncProcHead(ctx.type(), symbolTbl.idProperty.get(ctx), ctx.parameter(), scope);
     }
 
     @Override
     public String visitProcHead(ProcHeadContext ctx) {
         Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
+        List<TypeSymbol> symbols = scope.getAllTypeSymbols();
+        for (TypeSymbol s: symbols) {
+            refVarsAddress.add(s.getId());
+        }
         return makeFuncProcHead(null, symbolTbl.idProperty.get(ctx), ctx.parameter(), scope);
     }
 
@@ -162,7 +168,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitVarDeclaration(VarDeclarationContext ctx) {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
-        //refVars.add(new Tuple(type, id));
         return type + id + ";";
     }
 
@@ -170,7 +175,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitVarDeclarationAssign(VarDeclarationAssignContext ctx) {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
-        //refVars.add(new Tuple(type, id));
         return type + id + "=" + visit(ctx.expr())+ ";";
     }
 
@@ -337,36 +341,15 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         if (typeCtx != null) {
             result = visit(typeCtx);
         }
-        refVars = new ArrayList<>();
-        deRefVars = new ArrayList<>();
-        symbolTbl.currentScope = scope;
-        Symbol kat = symbolTbl.getSymbol("counter");
-        if (kat != null) {
-            Tuple tuple = new Tuple("byte " ,kat.getId());
-            if (!refVars.contains(tuple))
-                refVars.add(tuple);
-        }
-
         result += idCtx;
         result += "(";
-        if (refVars.size() > 0) {
-            result += addWithPointer(0);
-            deRefVars.add(refVars.get(0).id);
-            for (int i = 1; i < refVars.size(); i++) {
-                result += ", ";
-                result += addWithPointer(i);
-                deRefVars.add(refVars.get(i).id);
-            }
+        List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope.parent);
+        for (TypeSymbol s: symbols) {
+            result += visit(s.getType()) + "*" + s.getId();
+            refVars.add(s.getId());
         }
         result += addCommaSeparated(parameters);
         result += ") {";
-        return result;
-    }
-
-    private String addWithPointer(int index) {
-        String result = refVars.get(index).type;
-        result += "*";
-        result += refVars.get(index).id;
         return result;
     }
 
@@ -389,11 +372,18 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     @Override
     public String visitArguments(ArgumentsContext ctx) {
         String result = "";
+        if (refVarsAddress.size() > 0) {
+            result += "&" + refVarsAddress.get(0);
+            for (int i = 1; i < refVarsAddress.size(); i++) {
+                result += ", ";
+                result += "&"+ refVarsAddress.get(i);
+            }
+        }
         if (refVars.size() > 0) {
-            result += "&" + refVars.get(0).id;
+            result += refVars.get(0);
             for (int i = 1; i < refVars.size(); i++) {
                 result += ", ";
-                result += "&"+ refVars.get(i).id;
+                result += refVars.get(i);
             }
         }
         result += addCommaSeparated(ctx.expr());
@@ -404,7 +394,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitParam(ParamContext ctx) {
         String type = visit(ctx.type());
         String id = visit(ctx.id());
-        //refVars.add(new Tuple(type, id));
         return type + id;
     }
 

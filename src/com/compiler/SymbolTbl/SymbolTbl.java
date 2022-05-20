@@ -4,6 +4,7 @@ import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
 import com.compiler.SymbolTbl.Symbols.Symbol;
+import com.compiler.SymbolTbl.Symbols.TypeSymbol;
 import org.antlr.v4.runtime.misc.ParseCancellationException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
@@ -27,7 +28,6 @@ public class SymbolTbl {
     public void enterScope(String id, ParseTree tree) {
         for (Scope s: currentScope.getSubScopes()) {
             if (s.id == id) {
-                System.out.println("OMG");
                 currentScope = s;
                 return;
             }
@@ -87,5 +87,34 @@ public class SymbolTbl {
             }
         }
         return null; //If no parents are left, return null
+    }
+/*
+    public Scope getScope(String id) {
+        return getScopeHelper(id, globalScope);
+    }
+
+    private Scope getScopeHelper(String id, Scope scope) {
+        Scope thisScope = scope;
+        if (scope.id != null && scope.id.equals(id)) {
+            return scope;
+        }
+        for (Scope s : scope.getSubScopes()) {
+            thisScope = getScopeHelper(id, s);
+        }
+        System.out.println(scope.id +"=="+ id);
+        return thisScope;
+    }
+*/
+    public List<TypeSymbol> getParamsVarsFromScope(Scope scope) {
+        List<TypeSymbol> result = new ArrayList<>();
+        return getParamsVarsFromScopeHelper(scope, result);
+    }
+
+    private List<TypeSymbol> getParamsVarsFromScopeHelper(Scope scope, List<TypeSymbol> result) {
+        result.addAll(scope.getAllTypeSymbols());
+        if (scope.parent != null) {
+            return getParamsVarsFromScopeHelper(scope.parent, result);
+        }
+        return result;
     }
 }

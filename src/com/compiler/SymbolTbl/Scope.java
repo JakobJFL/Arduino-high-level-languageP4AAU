@@ -1,6 +1,7 @@
 package com.compiler.SymbolTbl;
 
 import com.compiler.SymbolTbl.Symbols.Symbol;
+import com.compiler.SymbolTbl.Symbols.TypeSymbol;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
@@ -33,6 +34,17 @@ public class Scope {
 
     public Symbol getThisSymbol(String id) {
         return symbolDictionary.get(id);
+    }
+
+    public List<TypeSymbol> getAllTypeSymbols() {
+        List<TypeSymbol> result = new ArrayList<>();
+        for (String key : symbolDictionary.keySet()) {
+            Symbol symbol = symbolDictionary.get(key);
+            if (symbol.getClass() == TypeSymbol.class) {
+                result.add((TypeSymbol) symbol);
+            }
+        }
+        return result;
     }
 
     public boolean containsId(String id) {
