@@ -29,7 +29,6 @@ public class DeclarationCheckListener extends HlmpBaseListener {
         String id = ctx.id().getText();
         symbolTbl.checkId(id);
         symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
-
         symbolTbl.idProperty.put(ctx, symbolTbl.getSymbol(id).getUniqueId());
     }
 

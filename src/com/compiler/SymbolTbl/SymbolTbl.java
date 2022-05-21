@@ -90,23 +90,6 @@ public class SymbolTbl {
         return null; //If no parents are left, return null
     }
 
-    public Scope getScope(String id) {
-        return getScopeHelper(id, globalScope);
-    }
-
-    private Scope getScopeHelper(String id, Scope scope) {
-        if (scope.id != null && scope.id.equals(id)) {
-            return scope;
-        }
-        else {
-            for (Scope s : scope.getSubScopes()) {
-                Scope retScope = getScopeHelper(id, s);
-                if (retScope != null)
-                    return retScope;
-            }
-        }
-        return null;
-    }
 
     public List<TypeSymbol> getParamsVarsFromScope(Scope scope) {
         List<TypeSymbol> result = new ArrayList<>();
@@ -114,9 +97,11 @@ public class SymbolTbl {
     }
 
     private List<TypeSymbol> getParamsVarsFromScopeHelper(Scope scope, List<TypeSymbol> result) {
-        result.addAll(scope.getAllTypeSymbols());
-        if (scope.parent != null) {
-            return getParamsVarsFromScopeHelper(scope.parent, result);
+        if (scope != globalScope) {
+            result.addAll(scope.getAllTypeSymbols());
+            if (scope.parent != null) {
+                return getParamsVarsFromScopeHelper(scope.parent, result);
+            }
         }
         return result;
     }

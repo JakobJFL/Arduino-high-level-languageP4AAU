@@ -36,7 +36,7 @@ public class CodeGenTests {
                         "\nvoid loop() {}\nfloat uid2(float var1, float var2) {return var1+var2;}\nfloat result=uid2(2, 3);void setup() {}\n"),
 
                 arguments(setUpLoop + " proc proc1(Num var1) { proc proc2(Num var2) { proc proc3(Num var3) {}}}",
-                        "\nvoid loop() {}\nvoid uid2(float var1) {}\nvoid setup() {}\nvoid uid6(float *var1, float *var2, float var3) {}\nvoid uid4(float *var1, float var2) {}\n"),
+                        "\nvoid loop() {}\nvoid uid2(float var1) {}\nvoid setup() {}\nvoid uid6(float *var2, float *var1, float var3) {}\nvoid uid4(float *var1, float var2) {}\n"),
 
                 arguments("Pin ledPin1 {D5,out};" + setUpLoop + " proc proc1() { ledPin1.Write(true); } ",
                         "int ledPin1 = 5;\nvoid loop() {}\nvoid uid3() {digitalWrite(ledPin1,HIGH);}\nvoid setup() {pinMode(5,OUTPUT);}\n")

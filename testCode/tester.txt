@@ -1,0 +1,15 @@
+proc setup() {
+	
+}
+proc loop() { }
+Num result = func1(2, 3);
+
+func Num func1(Num var1, Num var2) {
+	return var1 + var2;
+	Num kat = fun0();
+	func Num fun0() {
+		Num kat2 = var1;
+		return var1 + var2; 
+	} 
+} 
+	
