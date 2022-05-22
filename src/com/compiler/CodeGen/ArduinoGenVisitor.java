@@ -1,17 +1,15 @@
-package com.compiler;
+package com.compiler.CodeGen;
 
+import com.compiler.HlmpBaseVisitor;
+import com.compiler.HlmpLexer;
 import com.compiler.HlmpParser.*;
-import com.compiler.SymbolTbl.Scope;
-import com.compiler.SymbolTbl.SymbolTbl;
-import com.compiler.SymbolTbl.Symbols.Symbol;
-import com.compiler.SymbolTbl.Symbols.TypeSymbol;
-import com.compiler.SymbolTbl.Tuple;
+import com.compiler.Contextual.Scope;
+import com.compiler.Contextual.SymbolTbl;
+import com.compiler.Contextual.Symbols.TypeSymbol;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private SymbolTbl symbolTbl;
@@ -55,14 +53,14 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         for (ContentContext c : ctx.content()) {
             sb.append(visit(c));
         }
-        exitScope();
+        resetRefVarsAddress();
         sb.append(visit(ctx.standardProc().setupDef()));
         sb.append(globalContent);
         sb.insert(0, topContent+"\n");
         return sb.toString();
     }
 
-    private void exitScope() {
+    private void resetRefVarsAddress() {
         refVarsAddress = new ArrayList<>();
     }
 
@@ -91,7 +89,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String result = visit(ctx.funcHead());
         result += visit(ctx.body());
         result += "}\n";
-        exitScope();
+        resetRefVarsAddress();
         return result;
     }
 
@@ -100,7 +98,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String result = visit(ctx.procHead());
         result += visit(ctx.procBody());
         result += "}\n";
-        exitScope();
+        resetRefVarsAddress();
         return result;
     }
 

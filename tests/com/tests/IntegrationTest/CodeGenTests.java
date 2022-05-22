@@ -1,17 +1,13 @@
 package com.tests.IntegrationTest;
 
-import com.compiler.ArduinoGenVisitor;
-import com.compiler.Exceptions.AlreadyDeclared;
+import com.compiler.CodeGen.ArduinoGenVisitor;
 import com.compiler.HlmpParser;
-import com.compiler.SymbolTbl.SymbolTblListener;
+import com.compiler.Contextual.SymbolTblListener;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.stream.Stream;
 

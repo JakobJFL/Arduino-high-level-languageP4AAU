@@ -1,8 +1,6 @@
-package com.compiler.SymbolTbl.Symbols;
+package com.compiler.Contextual.Symbols;
 
 import com.compiler.HlmpParser;
-
-import java.util.ArrayList;
 
 public class TypeSymbol extends Symbol {
     private HlmpParser.TypeContext type;

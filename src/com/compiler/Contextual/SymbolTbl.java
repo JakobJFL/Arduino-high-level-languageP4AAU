@@ -1,16 +1,14 @@
-package com.compiler.SymbolTbl;
+package com.compiler.Contextual;
 
 import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
-import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
-import com.compiler.SymbolTbl.Symbols.Symbol;
-import com.compiler.SymbolTbl.Symbols.TypeSymbol;
-import org.antlr.v4.runtime.misc.ParseCancellationException;
+import com.compiler.Contextual.Symbols.FuncDefSymbol;
+import com.compiler.Contextual.Symbols.Symbol;
+import com.compiler.Contextual.Symbols.TypeSymbol;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeProperty;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SymbolTbl {
@@ -57,6 +55,12 @@ public class SymbolTbl {
     public void checkId(String id) {
         if (!isSymbol(id, currentScope)) {
             throw new NotDeclared(id);
+        }
+    }
+
+    public void updateCurrentScope(ParseTree tree) {
+        if (scopesProperty.get(tree) != null) {
+            currentScope = scopesProperty.get(tree);
         }
     }
 

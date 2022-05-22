@@ -1,11 +1,13 @@
-package com.compiler;
+package com.compiler.Contextual;
 
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.TypeException;
-import com.compiler.SymbolTbl.SymbolTbl;
-import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
-import com.compiler.SymbolTbl.Symbols.TypeSymbol;
-import org.antlr.v4.runtime.tree.ParseTree;
+import com.compiler.Contextual.SymbolTbl;
+import com.compiler.Contextual.Symbols.FuncDefSymbol;
+import com.compiler.Contextual.Symbols.TypeSymbol;
+import com.compiler.HlmpBaseVisitor;
+import com.compiler.HlmpLexer;
+import com.compiler.HlmpParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,39 +20,27 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         this.symbolTbl.currentScope = this.symbolTbl.globalScope;
     }
 
-    private void enterScope(ParseTree ctx) {
-        if (symbolTbl.scopesProperty.get(ctx) != null) {
-            symbolTbl.currentScope = symbolTbl.scopesProperty.get(ctx);
-        }
-    }
-
-    private void exitScope() {
-        if (symbolTbl.currentScope.parent != null) {
-            symbolTbl.currentScope = symbolTbl.currentScope.parent;
-        }
-    }
-
     @Override
     public Integer visitIfStmtDef(HlmpParser.IfStmtDefContext ctx) {
-        enterScope(ctx);
+        symbolTbl.updateCurrentScope(ctx);
         super.visitIfStmtDef(ctx);
-        exitScope();
+        symbolTbl.updateCurrentScope(ctx);
         return defaultResult();
     }
 
     @Override
     public Integer visitElseStmtDef(HlmpParser.ElseStmtDefContext ctx) {
-        enterScope(ctx);
+        symbolTbl.updateCurrentScope(ctx);
         super.visitElseStmtDef(ctx);
-        exitScope();
+        symbolTbl.updateCurrentScope(ctx);
         return defaultResult();
     }
 
     @Override
     public Integer visitWhileExprDef(HlmpParser.WhileExprDefContext ctx){
-        enterScope(ctx);
+        symbolTbl.updateCurrentScope(ctx);
         super.visitWhileExprDef(ctx);
-        exitScope();
+        symbolTbl.updateCurrentScope(ctx);
         return defaultResult();
     }
 
@@ -58,9 +48,9 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
     public Integer visitFuncDefinition(HlmpParser.FuncDefinitionContext ctx) {
         Integer funcType = ctx.funcHead().type().start.getType();
         funcType = convertToNum(funcType);
-        enterScope(ctx);
+        symbolTbl.updateCurrentScope(ctx);
         if (funcType == visit(ctx.body())) {
-            exitScope();
+            symbolTbl.updateCurrentScope(ctx);
             return defaultResult();
         }
         else {
@@ -83,9 +73,9 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
 
     @Override
     public Integer visitProcDefinition(HlmpParser.ProcDefinitionContext ctx) {
-        enterScope(ctx);
+        symbolTbl.updateCurrentScope(ctx);
         super.visitProcDefinition(ctx);
-        exitScope();
+        symbolTbl.updateCurrentScope(ctx);
         return defaultResult();
     }
 
@@ -274,4 +264,5 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
             return HlmpLexer.NUMTYPE;
         return type;
     }
+
 }

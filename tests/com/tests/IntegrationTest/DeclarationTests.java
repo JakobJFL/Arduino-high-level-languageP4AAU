@@ -1,9 +1,7 @@
 package com.tests.IntegrationTest;
 
-import com.compiler.ArduinoGenVisitor;
 import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
-import com.compiler.SymbolTbl.SymbolTblListener;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;

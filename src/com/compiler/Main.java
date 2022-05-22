@@ -1,17 +1,18 @@
 package com.compiler;
 
+import com.compiler.CodeGen.ArduinoGenVisitor;
+import com.compiler.Contextual.TypeCheckerVisitor;
 import com.compiler.Exceptions.AlreadyDeclared;
 import com.compiler.Exceptions.NotDeclared;
 import com.compiler.Exceptions.SyntaxException;
 import com.compiler.Exceptions.TypeException;
-import com.compiler.SymbolTbl.DeclarationCheckListener;
-import com.compiler.SymbolTbl.SymbolTblListener;
+import com.compiler.Contextual.DeclarationCheckListener;
+import com.compiler.Contextual.SymbolTblListener;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
-import org.stringtemplate.v4.ST;
 
 import java.io.IOException;
 
@@ -22,7 +23,8 @@ public class Main {
             System.out.println("Compiling...");
             String compiledCode = compile(fileHandler.getFileContent());
             fileHandler.makeFileFromStr(compiledCode);
-        } catch (NotDeclared ex) {
+        }
+        catch (NotDeclared ex) {
             System.out.println("ERROR: \"" + ex.getMessage() + "\" is not declared");
         }
         catch (AlreadyDeclared ex) {

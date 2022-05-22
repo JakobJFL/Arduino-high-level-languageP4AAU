@@ -1,10 +1,10 @@
-package com.compiler.SymbolTbl;
+package com.compiler.Contextual;
 
 import com.compiler.HlmpBaseListener;
 import com.compiler.HlmpParser;
-import com.compiler.SymbolTbl.Symbols.FuncDefSymbol;
-import com.compiler.SymbolTbl.Symbols.Symbol;
-import com.compiler.SymbolTbl.Symbols.TypeSymbol;
+import com.compiler.Contextual.Symbols.FuncDefSymbol;
+import com.compiler.Contextual.Symbols.Symbol;
+import com.compiler.Contextual.Symbols.TypeSymbol;
 
 public class SymbolTblListener extends HlmpBaseListener {
     public SymbolTbl symbolTbl = new SymbolTbl();
@@ -156,4 +156,44 @@ public class SymbolTblListener extends HlmpBaseListener {
         symbolTbl.exitScope();
     }
 
+    @Override
+    public void enterFunctionCall(HlmpParser.FunctionCallContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+    }
+
+    @Override
+    public void enterWriteFuncDef(HlmpParser.WriteFuncDefContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+    }
+
+    @Override
+    public void enterReadFuncPWM(HlmpParser.ReadFuncPWMContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+    }
+
+    @Override
+    public void enterReadFuncAnal(HlmpParser.ReadFuncAnalContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+    }
+
+    @Override
+    public void enterReadFuncDig(HlmpParser.ReadFuncDigContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+    }
+
+    @Override
+    public void enterOperandId(HlmpParser.OperandIdContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+    }
+
+    @Override
+    public void enterStmtAssign(HlmpParser.StmtAssignContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+
+    }
+
+    @Override
+    public void enterWhileWait(HlmpParser.WhileWaitContext ctx) {
+        symbolTbl.scopesProperty.put(ctx, symbolTbl.currentScope);
+    }
 }

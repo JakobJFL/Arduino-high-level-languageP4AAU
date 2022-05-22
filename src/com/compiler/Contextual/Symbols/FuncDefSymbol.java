@@ -1,4 +1,4 @@
-package com.compiler.SymbolTbl.Symbols;
+package com.compiler.Contextual.Symbols;
 
 import com.compiler.HlmpParser;
 

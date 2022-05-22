@@ -1,8 +1,8 @@
 package com.tests.IntegrationTest;
 
-import com.compiler.SymbolTbl.Scope;
-import com.compiler.SymbolTbl.SymbolTblListener;
-import com.compiler.SymbolTbl.Symbols.Symbol;
+import com.compiler.Contextual.Scope;
+import com.compiler.Contextual.SymbolTblListener;
+import com.compiler.Contextual.Symbols.Symbol;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

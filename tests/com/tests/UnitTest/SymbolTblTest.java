@@ -1,9 +1,9 @@
 package com.tests.UnitTest;
 
 import com.compiler.Exceptions.AlreadyDeclared;
-import com.compiler.SymbolTbl.Scope;
-import com.compiler.SymbolTbl.SymbolTbl;
-import com.compiler.SymbolTbl.Symbols.Symbol;
+import com.compiler.Contextual.Scope;
+import com.compiler.Contextual.SymbolTbl;
+import com.compiler.Contextual.Symbols.Symbol;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
