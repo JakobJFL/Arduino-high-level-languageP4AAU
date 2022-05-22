@@ -1,20 +1,49 @@
-proc setup() {
-	
-}
-proc loop() { }
-Num result = func1(2, 3);
+Pin led {D5,out};
+Pin sensor {A0,in};
+Pin tempSensor {A1,in};
 
-func Num func1(Num var1, Num var2) {
-	return var1 + var2;
-	Num kat = fun0();
-	func Num fun0() {
-		Num kat2 = var1;
-		Num test = fun1();
-		return var1 + var2; 
-	} 
-	func Num fun1() {
-		Num kat2 = var1;
-		return var1 + var2; 
-	} 
-} 
-	
+proc setup() {
+	ledHandler();
+}
+
+proc loop() {}
+
+func Pwm sensorHandler() {
+	return readSensor();
+	func Pwm readSensor() {
+		return tempSensor.ReadPwm();
+	}
+}
+
+proc ledHandler() {
+	checkSensor();
+	proc checkSensor() {
+		Pwm counter = 0;
+		if (sensorHandler() > 40) {
+			whileWait(1000, interrupt);
+			blink();
+		}
+		if (sensorHandler() > 60) {
+			whileWait(10, interrupt);
+			fadeUp(counter);
+		}
+	}
+	proc blink() {
+		led.Write(toggle);
+		checkSensor();
+	}
+	proc fadeUp(Pwm counter) {
+		counter = counter + 1;
+		led.Write(counter);
+		checkSensor();
+	}
+}
+
+func Bool interrupt() {
+    Pwm outputValue = sensor.ReadPwm();
+    if(outputValue > 128) {
+        return false; 
+    } 
+    return true;
+}
+

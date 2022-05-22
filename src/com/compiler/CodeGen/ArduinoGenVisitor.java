@@ -90,7 +90,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += visit(ctx.body());
         result += "}\n";
         resetRefVarsAddress();
-        return result;
+        addGlobalContent(result);
+        return defaultResult();
     }
 
     @Override
@@ -99,7 +100,8 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += visit(ctx.procBody());
         result += "}\n";
         resetRefVarsAddress();
-        return result;
+        addGlobalContent(result);
+        return defaultResult();
     }
 
     @Override
@@ -127,18 +129,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
             case HlmpLexer.PWMTYPE -> "byte ";
             default -> defaultResult();
         };
-    }
-
-    @Override
-    public String visitBodyFuncProc(BodyFuncProcContext ctx) {
-        addGlobalContent(super.visitBodyFuncProc(ctx));
-        return defaultResult();
-    }
-
-    @Override
-    public String visitProcBodyFuncProc(ProcBodyFuncProcContext ctx) {
-        addGlobalContent(super.visitProcBodyFuncProc(ctx));
-        return defaultResult();
     }
 
     @Override
@@ -334,9 +324,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope.parent);
         if (symbols.size() > 0) {
             result += visit(symbols.get(0).getType()) + "*" + symbols.get(0).getId();
+            refVarsAddress.add(symbols.get(0).getId());
             for (int i = 1; i < symbols.size(); i++) {
                 result += ", ";
                 result += visit(symbols.get(i).getType()) + "*" + symbols.get(i).getId();
+                refVarsAddress.add(symbols.get(i).getId());
             }
             if (parameters.size() > 0) {
                 result += ", ";
@@ -354,11 +346,9 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope);
         if (symbols.size() > 0) {
             result += makeActualParam(symbols.get(0).getId());
-            refVarsAddress.add(symbols.get(0).getId());
             for (int i = 1; i < symbols.size(); i++) {
                 result += ", ";
                 result += makeActualParam(symbols.get(i).getId());
-                refVarsAddress.add(symbols.get(i).getId());
             }
             if (ctx.expr().size() > 0) {
                 result += ", ";
