@@ -1,15 +1,13 @@
 
 void loop() {}
-void setup() {uid10();}
-void uid5() {}
-bool uid6() {}
-byte uid7() {}
-byte uid8(byte input) {}
-byte uid2() {if (uid6()) {uid5();}return uid8(uid7());}
-void uid11() {if (uid2()==1) {uid18(true);}if (uid2()==2) {uid24();}if (uid2()==3) {uid25();}uid11();}
-void uid22(bool *shouldBlinkFast) {}
-void uid23(bool *shouldBlinkFast) {}
-void uid18(bool shouldBlinkFast) {if (shouldBlinkFast) {uid22(&shouldBlinkFast);}else {uid23(&shouldBlinkFast);}}
-void uid24() {}
-void uid25() {}
-void uid10() {}
+void setup() {}
+void uid2(float param4) {
+  param4 = 5;
+}
+void uid7(float *param1, float *param2, float param3) {
+  *param1 = 0;
+  param3 = 0;
+  uid7(param1, param2, 5);
+  uid2(5);
+}
+void uid4(float param1, float param2) {}

@@ -1,32 +1,18 @@
-proc setup() {ledHandler();}
+proc setup() {}
 
 proc loop() {}
 
-func Pwm sensorHandler() {
-	if (notInitialized()) {
-		initializeSensor();
-	}
-	return checkSensor(readSensor());
-	proc initializeSensor() {}
-	func Bool notInitialized() {}
-	func Pwm readSensor() {}
-	func Pwm checkSensor(Pwm input) {}
+proc outer(Num param4) {
+	param4 = 5;
 }
 
-proc ledHandler() {
-	proc checkSensor() {
-		if (sensorHandler() == 1) {blink(true);}
-		if (sensorHandler() == 2) {fadeUp();}
-		if (sensorHandler() == 3) {fadeDown();}
-		checkSensor();
+proc ledHandler(Num param1, Num param2) {
+	proc inner(Num param3) {
+		param1 = 0;
+		param3 = 0;
+		inner(5);
+		outer(5);
 	}
-	
-	proc blink(Bool shouldBlinkFast) { 
-		if (shouldBlinkFast) {blinkFast();}
-		else {blinkSlow();}
-		proc blinkFast() {}
-		proc blinkSlow() {}
-	}
-	proc fadeUp() {}
-	proc fadeDown() {}
 }
+	
+	

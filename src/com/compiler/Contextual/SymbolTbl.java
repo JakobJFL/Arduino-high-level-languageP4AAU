@@ -26,7 +26,6 @@ public class SymbolTbl {
     public void enterScope(String id, ParseTree tree) {
         for (Scope s: currentScope.getSubScopes()) {
             if (s.id == id) {
-                System.out.println("OMG");
                 currentScope = s;
                 return;
             }
@@ -96,6 +95,11 @@ public class SymbolTbl {
 
     public Scope getScope(String id) {
         return getScopeHelper(id, globalScope);
+    }
+
+    public Scope getInnerScope(String id, Scope scope) {
+        return getScopeHelper(id, scope);
+
     }
 
     private Scope getScopeHelper(String id, Scope scope) {

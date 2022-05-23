@@ -1,5 +1,6 @@
 package com.compiler.CodeGen;
 
+import com.compiler.CommaSeparatedFunc;
 import com.compiler.HlmpBaseVisitor;
 import com.compiler.HlmpLexer;
 import com.compiler.HlmpParser.*;
@@ -311,6 +312,12 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return result;
     }
 
+    CommaSeparatedFunc makeHead = (t) -> {
+        TypeSymbol symbol = (TypeSymbol) t;
+        refVarsAddress.add(symbol.getId());
+        return visit(symbol.getType()) + "*" + symbol.getId();
+    };
+
     private String makeFuncProcHead(TypeContext typeCtx, String idCtx, List<ParameterContext> parameters, Scope scope) {
         String result = "void ";
         if (typeCtx != null) {
@@ -319,65 +326,60 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         result += idCtx;
         result += "(";
         List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope.parent);
-        if (symbols.size() > 0) {
-            result += visit(symbols.get(0).getType()) + "*" + symbols.get(0).getId();
-            refVarsAddress.add(symbols.get(0).getId());
-            for (int i = 1; i < symbols.size(); i++) {
-                result += ", ";
-                result += visit(symbols.get(i).getType()) + "*" + symbols.get(i).getId();
-                refVarsAddress.add(symbols.get(i).getId());
-            }
-            if (parameters.size() > 0) {
-                result += ", ";
-            }
-        }
-        result += addCommaSeparated(parameters);
+        result += addCommaSeparated(symbols, makeHead, parameters.size() > 0);
+        result += addCommaSeparated(parameters, makeParseTree, false);
         result += ") {";
         return result;
     }
 
-    @Override
-    public String visitArguments(ArgumentsContext ctx) {
-        String result = "";
-        Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
-        symbolTbl.updateCurrentScope(ctx.parent);
-        if (scope.parent.id != null) {
-            //scope = symbolTbl.getScope(ctx.parent.getChild(0).getText());
-        }
-
-        List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope);
-        if (symbols.size() > 0) {
-            result += makeActualParam(symbols.get(0).getId());
-            for (int i = 1; i < symbols.size(); i++) {
-                result += ", ";
-                result += makeActualParam(symbols.get(i).getId());
-            }
-            if (ctx.expr().size() > 0) {
-                result += ", ";
-            }
-        }
-        result += addCommaSeparated(ctx.expr());
-        return result;
-    }
-
-    private String makeActualParam(String id) {
+    CommaSeparatedFunc makeActualParam = (id) -> {
         if (refVarsAddress.contains(id)) {
             return id;
         }
         else {
             return "&" + id;
         }
+    };
+
+    CommaSeparatedFunc makeParseTree = (a) -> visit((ParseTree) a);
+
+    @Override
+    public String visitArguments(ArgumentsContext ctx) {
+        String result = "";
+        String calledId = ctx.parent.getChild(0).getText();
+        Scope calledScope = symbolTbl.getScope(calledId);
+        Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
+        if (symbolTbl.getInnerScope(calledId, scope) == null) {
+            scope = calledScope.parent;
+        }
+        if (calledScope.equals(scope)) {
+            result += addCommaSeparated(refVarsAddress, makeActualParam, ctx.expr().size() > 0);
+        }
+        else {
+            List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope);
+            List<String> strSymbols = new ArrayList<>();
+            for (TypeSymbol ts: symbols) {
+                strSymbols.add(ts.getId());
+            }
+            result += addCommaSeparated(strSymbols, makeActualParam, ctx.expr().size() > 0);
+        }
+        result += addCommaSeparated(ctx.expr(), makeParseTree, false);
+        return result;
     }
 
-    private <T> String addCommaSeparated(List<T> list) {
+
+    private <T> String addCommaSeparated(List<T> list, CommaSeparatedFunc func, boolean endWithComma) {
         if (list.size() == 0) {
             return defaultResult();
         }
         String result = "";
-        result += visit((ParseTree) list.get(0));
+        result += func.invoke(list.get(0));
         for (int i = 1; i < list.size(); i++) {
             result += ", ";
-            result += visit((ParseTree) list.get(i));
+            result += func.invoke(list.get(i));
+        }
+        if (endWithComma) {
+            result += ", ";
         }
         return result;
     }
