@@ -28,8 +28,7 @@ public class CodeGenTests {
 
                 arguments("proc setup() {ledHandler();}proc loop() {}proc outer() {Num var1;outer2();proc outer2() {Num var2;}}\n" +
                             "proc ledHandler() {\tNum var1;outer();inner();proc inner() {Num var2;inner();proc inner2() {Num var3;ledHandler();}}}",
-                        "\n" +
-                        "void loop() {}\n" +
+                        "\n" + "void loop() {}\n" +
                         "void setup() {uid6();}\n" +
                         "void uid4(float *var1) {float var2;}\n" +
                         "void uid2() {float var1;uid4(&var1);}\n" +
@@ -55,8 +54,7 @@ public class CodeGenTests {
                         "bool uid16() {byte outputValue=map(analogRead(sensor), 0, 1023, 0, 255);if (outputValue>128) {return false;}return true;}\n"),
 
                 arguments(setUpLoop + " proc func1() { func Num kat(Num kat1, Bool kat2) { kat2 = true; if(kat2) { return kat1 + 10; } return kat1; } } Bool var3 = true; Num var4 = 2;",
-                        "\n" +
-                        "void loop() {}\n" +
+                        "\n" + "void loop() {}\n" +
                         "bool var3=true;float var4=2;void setup() {}\n" +
                         "float uid3(float kat1, bool kat2) {kat2=true;if (kat2) {return kat1+10;}return kat1;}\n" +
                         "void uid2() {}\n"),
@@ -65,14 +63,12 @@ public class CodeGenTests {
                         "\nvoid loop() {}\nfloat var1=2;void setup() {}\n"),
 
                 arguments(setUpLoop + " func Num func1(Num var1, Num var2) {return var1 + var2; } Num result = func1(2, 3);",
-                        "\n" +
-                        "void loop() {}\n" +
+                        "\n" + "void loop() {}\n" +
                         "float result=uid2(2, 3);void setup() {}\n" +
                         "float uid2(float var1, float var2) {return var1+var2;}\n"),
 
                 arguments(setUpLoop + " proc proc1(Num var1) { proc proc2(Num var2) { proc proc3(Num var3) {}}}",
-                        "\n" +
-                        "void loop() {}\n" +
+                        "\n" + "void loop() {}\n" +
                         "void setup() {}\n" +
                         "void uid6(float *var2, float *var1, float var3) {}\n" +
                         "void uid4(float *var1, float var2) {}\n" +
@@ -86,15 +82,11 @@ public class CodeGenTests {
 
                 arguments(setUpLoop +" proc outer(Num param4) {param4 = 5;}proc ledHandler(Num param1, Num param2) {" +
                             "proc inner(Num param3) {param1 = 0;param3 = 0;inner(5);outer(5);}}",
-                        "\n" +
-                        "void loop() {}\n" +
+                        "\n" + "void loop() {}\n" +
                         "void setup() {}\n" +
                         "void uid2(float param4) {param4=5;}\n" +
                         "void uid7(float *param1, float *param2, float param3) {*param1=0;param3=0;uid7(param1, param2, 5);uid2(5);}\n" +
                         "void uid4(float param1, float param2) {}\n")
-
-                /*arguments(setUpLoop + " proc proc1(Num var1) { func Num func1(Num var2) { return var2 + 3; } func1(var1+2);}",
-                        "\nvoid loop() {}\nvoid uid2(float var1) {}\nvoid setup() {}\nfloat uid4(float *var1, float var2) {return var2+3;}\nuid4(&var1+2);")*/
         );
     }
 

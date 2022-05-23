@@ -132,7 +132,6 @@ public class ScopeTests {
         test.add("var60");
         Scope scope = symbolTable.symbolTbl.globalScope;
         String result = getAccessibleSymbols(scope, symbolTable, test);
-        System.out.println(result);
         assertEquals(expected, result);
     }
 

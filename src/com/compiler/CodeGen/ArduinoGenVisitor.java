@@ -312,7 +312,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return result;
     }
 
-    private CommaSeparatedFunc makeHead = (t) -> {
+    private CommaSeparatedFunc makeParamPointer = (t) -> {
         TypeSymbol symbol = (TypeSymbol) t;
         refVarsAddress.add(symbol.getId());
         return visit(symbol.getType()) + "*" + symbol.getId();
@@ -325,14 +325,14 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
         result += idCtx;
         result += "(";
-        List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope.parent);
-        result += addCommaSeparated(symbols, makeHead, parameters.size() > 0);
-        result += addCommaSeparated(parameters, makeParseTree, false);
+        List<TypeSymbol> symbols = symbolTbl.getTypeSymbolsFromScope(scope.parent);
+        result += addCommaSeparated(symbols, makeParamPointer, parameters.size() > 0);
+        result += addCommaSeparated(parameters, makeVisit, false);
         result += ") {";
         return result;
     }
 
-    CommaSeparatedFunc makeActualParam = (id) -> {
+    private CommaSeparatedFunc makeActualParam = (id) -> {
         if (refVarsAddress.contains(id)) {
             return id;
         }
@@ -341,7 +341,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
     };
 
-    private CommaSeparatedFunc makeParseTree = (a) -> visit((ParseTree) a);
+    private CommaSeparatedFunc makeVisit = (a) -> visit((ParseTree) a);
 
     @Override
     public String visitArguments(ArgumentsContext ctx) {
@@ -349,25 +349,24 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String calledId = ctx.parent.getChild(0).getText();
         Scope calledScope = symbolTbl.getScope(calledId);
         Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
-        if (symbolTbl.getInnerScope(calledId, scope) == null) {
+        if (!symbolTbl.isInnerScope(calledId, scope)) {
             scope = calledScope.parent;
         }
         if (calledScope.equals(scope)) {
             result += addCommaSeparated(refVarsAddress, makeActualParam, ctx.expr().size() > 0);
         }
         else {
-            List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope);
+            List<TypeSymbol> symbols = symbolTbl.getTypeSymbolsFromScope(scope);
             List<String> strSymbols = new ArrayList<>();
             for (TypeSymbol ts: symbols) {
                 strSymbols.add(ts.getId());
             }
             result += addCommaSeparated(strSymbols, makeActualParam, ctx.expr().size() > 0);
         }
-        result += addCommaSeparated(ctx.expr(), makeParseTree, false);
+        result += addCommaSeparated(ctx.expr(), makeVisit, false);
         return result;
     }
-
-
+    
     private <T> String addCommaSeparated(List<T> list, CommaSeparatedFunc func, boolean endWithComma) {
         if (list.size() == 0) {
             return defaultResult();

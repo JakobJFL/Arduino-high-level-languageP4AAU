@@ -97,9 +97,8 @@ public class SymbolTbl {
         return getScopeHelper(id, globalScope);
     }
 
-    public Scope getInnerScope(String id, Scope scope) {
-        return getScopeHelper(id, scope);
-
+    public boolean isInnerScope(String id, Scope scope) {
+        return getScopeHelper(id, scope) != null;
     }
 
     private Scope getScopeHelper(String id, Scope scope) {
@@ -116,7 +115,7 @@ public class SymbolTbl {
         return null;
     }
 
-    public List<TypeSymbol> getParamsVarsFromScope(Scope scope) {
+    public List<TypeSymbol> getTypeSymbolsFromScope(Scope scope) {
         List<TypeSymbol> result = new ArrayList<>();
         return getParamsVarsFromScopeHelper(scope, result);
     }
