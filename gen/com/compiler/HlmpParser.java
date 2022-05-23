@@ -2852,9 +2852,6 @@ public class HlmpParser extends Parser {
 	public static class ValueContext extends ValContext {
 		public TerminalNode TRUE() { return getToken(HlmpParser.TRUE, 0); }
 		public TerminalNode FALSE() { return getToken(HlmpParser.FALSE, 0); }
-		public SfloatContext sfloat() {
-			return getRuleContext(SfloatContext.class,0);
-		}
 		public TerminalNode TOGGLE() { return getToken(HlmpParser.TOGGLE, 0); }
 		public ValueContext(ValContext ctx) { copyFrom(ctx); }
 		@Override
@@ -2868,6 +2865,25 @@ public class HlmpParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof HlmpVisitor ) return ((HlmpVisitor<? extends T>)visitor).visitValue(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class ValueFloatContext extends ValContext {
+		public SfloatContext sfloat() {
+			return getRuleContext(SfloatContext.class,0);
+		}
+		public ValueFloatContext(ValContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof HlmpListener ) ((HlmpListener)listener).enterValueFloat(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof HlmpListener ) ((HlmpListener)listener).exitValueFloat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof HlmpVisitor ) return ((HlmpVisitor<? extends T>)visitor).visitValueFloat(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2898,7 +2914,7 @@ public class HlmpParser extends Parser {
 			case INT:
 			case SFLOAT:
 			case NEGATIVE:
-				_localctx = new ValueContext(_localctx);
+				_localctx = new ValueFloatContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(346);

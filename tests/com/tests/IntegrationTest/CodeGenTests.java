@@ -20,7 +20,7 @@ public class CodeGenTests {
     private static Stream<Arguments> generatedCodeStrings() {
         return Stream.of(
                 arguments("proc setup() { } proc loop() { proc kat(Num kat1, Num kat2) { } kat(5, 4); }",
-                        "\nvoid loop() {}\nvoid setup() {}\nvoid uid2(float kat1, float kat2) {}\nuid2(5, 4);"),
+                        "\nvoid loop() {uid2(5, 4);}\nvoid setup() {}\nvoid uid2(float kat1, float kat2) {}\n"),
 
                 arguments(setUpLoop + " proc func1() { func Num kat(Num kat1, Bool kat2) { kat2 = true; if(kat2) { return kat1 + 10; } return kat1; } } Bool var3 = true; Num var4 = 2;",
                         "\nvoid loop() {}\nvoid uid2() {}\nbool var3=true;float var4=2;void setup() {}\nfloat uid3(float kat1, bool kat2) {kat2=true;if (kat2) {return kat1+10;}return kat1;}\n"),

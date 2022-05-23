@@ -634,6 +634,18 @@ public interface HlmpListener extends ParseTreeListener {
 	 */
 	void exitValue(HlmpParser.ValueContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code valueFloat}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void enterValueFloat(HlmpParser.ValueFloatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code valueFloat}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 */
+	void exitValueFloat(HlmpParser.ValueFloatContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code valueId}
 	 * labeled alternative in {@link HlmpParser#val}.
 	 * @param ctx the parse tree

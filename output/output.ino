@@ -1,48 +1,12 @@
-int led = 5; int sensor = A0; int tempSensor = A1;
+int ledStripR = 11;int ledStripG = 10;int ledStripB = 9;int sensorPin = 3;
 void loop() {}
-void setup() {
-  pinMode(5, OUTPUT);
-  pinMode(A0, INPUT);
-  pinMode(A1, INPUT);
-  uid7();
-}
-byte uid6() {
-  return map(analogRead(tempSensor), 0, 1023, 0, 255);
-}
-byte uid5() {
-  return uid6();
-}
-bool uid17WhileWait(int delayTime) {
-  unsigned long startTime = millis();
-  while (millis() < startTime + delayTime) {
-    if (!uid17()) {
-      return true;
-    }
-  } return false;
-} void uid8() {
-  byte counter = 0;
-  if (uid5(&counter) > 40) {
-    uid17WhileWait(1000);
-    uid14(&counter);
-  } if (uid5(&counter) > 60) {
-    uid17WhileWait(10);
-    uid15(&counter, counter);
-  }
-}
-void uid14() {
-  digitalWrite(led, !digitalRead(led));
-  uid8();
-}
-void uid15(byte counter) {
-  counter = counter + 1;
-  uid8(&counter);
-}
-void uid7() {
-  uid8();
-}
-bool uid17() {
-  byte outputValue = map(analogRead(sensor), 0, 1023, 0, 255);
-  if (outputValue > 128) {
-    return false;
-  } return true;
-}
+void setup() {pinMode(11,OUTPUT);pinMode(10,OUTPUT);pinMode(9,OUTPUT);pinMode(3,INPUT);}
+float uid9(float *sensorBias, byte *inputValue) {if (uid18(sensorBias, inputValue, 230)) {return 1;}if (uid18(sensorBias, inputValue, 230)) {return 2;}if (uid18(sensorBias, inputValue, 240)) {return 3;}if (uid18(sensorBias, inputValue, 250)) {return 4;}return 0;}
+bool uid18(float *sensorBias, byte *inputValue, byte expected) {return *inputValue-*sensorBias>expected&&*inputValue+*sensorBias<expected;}
+float uid6() {float sensorBias=10;byte inputValue=map(analogRead(sensorPin), 0, 1023, 0, 255);return uid9(&sensorBias, &inputValue);}
+void uid21() {if (uid6()==1) {uid30();uid21();}if (uid6()==2) {uid31();uid21();}if (uid6()==3) {uid32();uid21();}if (uid6()==4) {uid33();uid21();}}
+void uid30() {}
+void uid31() {digitalWrite(ledStripR,HIGH);}
+void uid32() {}
+void uid33() {}
+void uid20() {uid21();}

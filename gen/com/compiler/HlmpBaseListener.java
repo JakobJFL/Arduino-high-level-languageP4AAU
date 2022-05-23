@@ -652,6 +652,18 @@ public class HlmpBaseListener implements HlmpListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterValueFloat(HlmpParser.ValueFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValueFloat(HlmpParser.ValueFloatContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterValueId(HlmpParser.ValueIdContext ctx) { }
 	/**
 	 * {@inheritDoc}

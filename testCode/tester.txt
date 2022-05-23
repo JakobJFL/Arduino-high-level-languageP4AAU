@@ -1,49 +1,67 @@
-Pin led {D5,out};
-Pin sensor {A0,in};
-Pin tempSensor {A1,in};
+Pin ledStripR {D11,out};
+Pin ledStripG {D10,out};
+Pin ledStripB {D9,out};
+Pin sensorPin {D3,in};
 
-proc setup() {
-	ledHandler();
-}
 
-proc loop() {}
+proc setup() { }
+proc loop() { }
 
-func Pwm sensorHandler() {
-	return readSensor();
-	func Pwm readSensor() {
-		return tempSensor.ReadPwm();
+func Num sensor() {
+	Num sensorBias = 10;
+	Pwm inputValue = sensorPin.ReadPwm();
+	func Num getMode() {
+		if (bias(230)) {
+			return 1;
+		} 
+		if (bias(230)){
+			return 2;
+		}
+		if (bias(240)){
+			return 3;
+		}
+		if (bias(250)){
+			return 4;
+		}
+		return 0;
 	}
+	func Bool bias(Pwm expected) {
+		return inputValue-sensorBias > expected && inputValue+sensorBias < expected;
+	}
+	return getMode();
 }
 
-proc ledHandler() {
+proc ledStrip() {
 	checkSensor();
 	proc checkSensor() {
-		Pwm counter = 0;
-		if (sensorHandler() > 40) {
-			whileWait(1000, interrupt);
-			blink();
+		if (sensor() == 1) {
+			colorFade();
+			checkSensor();
 		}
-		if (sensorHandler() > 60) {
-			whileWait(10, interrupt);
-			fadeUp(counter);
+		if (sensor() == 2) {
+			colorStrobe();
+			checkSensor();
+		}
+		if (sensor() == 3) {
+			sunset();
+			checkSensor();
+		}
+		if (sensor() == 4) {
+			orangeBlue();
+			checkSensor();
 		}
 	}
-	proc blink() {
-		led.Write(toggle);
-		checkSensor();
-	}
-	proc fadeUp(Pwm counter) {
-		counter = counter + 1;
-		led.Write(counter);
-		checkSensor();
-	}
-}
 
-func Bool interrupt() {
-    Pwm outputValue = sensor.ReadPwm();
-    if(outputValue > 128) {
-        return false; 
-    } 
-    return true;
+    proc colorFade() {
+        // color fade code
+    }
+    proc colorStrobe() {
+        ledStripR.Write(true);
+    }
+    proc sunset() {
+        // sunset code
+    }
+    proc orangeBlue() {
+        // orange blue code
+    }
 }
-

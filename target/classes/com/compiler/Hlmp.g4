@@ -81,7 +81,7 @@ writeFunc: id WRITE LPAREN val RPAREN                       #writeFuncDef;
 
 val: TRUE                                                   #value
    | FALSE                                                  #value
-   | sfloat                                                 #value
+   | sfloat                                                 #valueFloat
    | id                                                     #valueId
    | TOGGLE                                                 #value;
 

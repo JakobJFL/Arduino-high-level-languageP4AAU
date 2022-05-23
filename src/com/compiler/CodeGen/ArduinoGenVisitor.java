@@ -60,6 +60,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return sb.toString();
     }
 
+
     private void resetRefVarsAddress() {
         refVarsAddress = new ArrayList<>();
     }
@@ -225,7 +226,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
 
     @Override
     public String visitExprBinaryBoolEqual(ExprBinaryBoolEqualContext ctx) {
-        String operator = switch (ctx.op.getTokenIndex()) {
+        String operator = switch (ctx.op.getType()) {
             case HlmpLexer.EQUAL -> "==";
             case HlmpLexer.NOTEQUAL -> "!=";
             default -> defaultResult();
@@ -275,18 +276,14 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String result = switch (ctx.val().start.getType()) {
             case HlmpLexer.TRUE -> "digitalWrite("+ctx.id().getText()+","+ "HIGH" +");";
             case HlmpLexer.FALSE -> "digitalWrite("+ctx.id().getText()+","+ "LOW" +");";
-            case HlmpLexer.SFLOAT -> "analogWrite("+ctx.id().getText()+","+ ctx.val().getText() +");";
             case HlmpLexer.TOGGLE -> "digitalWrite("+ctx.id().getText()+","+ "!digitalRead("+ ctx.id().getText() +"));";
-            default -> defaultResult();
+            case HlmpLexer.INT, HlmpLexer.SFLOAT, HlmpLexer.FLOAT ->
+                    "analogWrite("+ctx.id().getText()+","+ ctx.val().getText() +");";
+            case HlmpLexer.ID -> "analogWrite("+ctx.id().getText()+","+ shouldDeRef(visit(ctx.val())) + visit(ctx.val()) +");";
+            default -> defaultResult() ;
         };
         return result;
     }
-
-    @Override
-    public String visitValueId(ValueIdContext ctx) {
-        return shouldDeRef(ctx.id().getText()) + super.visitValueId(ctx);
-    }
-
 
 
     @Override
@@ -343,6 +340,11 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     public String visitArguments(ArgumentsContext ctx) {
         String result = "";
         Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
+        symbolTbl.updateCurrentScope(ctx.parent);
+        if (scope.parent.id != null) {
+            //scope = symbolTbl.getScope(ctx.parent.getChild(0).getText());
+        }
+
         List<TypeSymbol> symbols = symbolTbl.getParamsVarsFromScope(scope);
         if (symbols.size() > 0) {
             result += makeActualParam(symbols.get(0).getId());

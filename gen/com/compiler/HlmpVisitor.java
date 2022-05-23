@@ -377,6 +377,13 @@ public interface HlmpVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitValue(HlmpParser.ValueContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code valueFloat}
+	 * labeled alternative in {@link HlmpParser#val}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValueFloat(HlmpParser.ValueFloatContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code valueId}
 	 * labeled alternative in {@link HlmpParser#val}.
 	 * @param ctx the parse tree
