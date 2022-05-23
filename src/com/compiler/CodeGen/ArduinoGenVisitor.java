@@ -312,7 +312,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         return result;
     }
 
-    CommaSeparatedFunc makeHead = (t) -> {
+    private CommaSeparatedFunc makeHead = (t) -> {
         TypeSymbol symbol = (TypeSymbol) t;
         refVarsAddress.add(symbol.getId());
         return visit(symbol.getType()) + "*" + symbol.getId();
@@ -341,7 +341,7 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         }
     };
 
-    CommaSeparatedFunc makeParseTree = (a) -> visit((ParseTree) a);
+    private CommaSeparatedFunc makeParseTree = (a) -> visit((ParseTree) a);
 
     @Override
     public String visitArguments(ArgumentsContext ctx) {
