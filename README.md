@@ -14,6 +14,7 @@ The project contains the following directories:
 * pom.xml contains the dependency injections for ANTLR
 * gen/com/compiler/ contains the generated code from ANTLR.
 * output/ contains the generated code from the compiler.
+* P4_Rapport_SW_4_15.pdf is the report related to the project.
 
 ## Getting Started
 Before the compiler can be run, the ANTLR plugin needs to be installed. Information about this, can be found in pom.xml.
