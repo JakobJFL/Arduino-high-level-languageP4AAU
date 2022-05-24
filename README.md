@@ -2,6 +2,9 @@
 
 This repository is a compiler for the language HLMP (High-level Microcontroller Programming) and was developed as a 4th semester project at Aalborg University.
 
+Link to the repository:
+https://github.com/JakobJFL/Arduino-high-level-languageP4AAU
+
 ## Directory Guide
 The project contains the following directories: 
 
