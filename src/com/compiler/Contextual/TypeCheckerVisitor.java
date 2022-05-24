@@ -242,7 +242,7 @@ public class TypeCheckerVisitor extends HlmpBaseVisitor<Integer> {
         String id = ctx.getParent().children.get(0).getText();
         FuncDefSymbol symbol = (FuncDefSymbol) symbolTbl.getSymbol(id);
         if (symbol == null) {
-            return defaultResult();
+            throw new NotDeclared("A function or procedure match could not be found for call");
         }
         List<TypeSymbol> parameters = symbol.getParameters();
         if (parametersType.size() != parameters.size()) {

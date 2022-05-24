@@ -37,25 +37,13 @@ public class SymbolTblTest {
     }
 
     @Test
-    public void enterScope_idDoesNotExist_shouldCreateNewScope() {
+    public void enterScope_newId_shouldCreateNewScope() {
         // Arrange
         SymbolTbl symbolTbl = new SymbolTbl();
         String id = "func";
         symbolTbl.enterScope(id, null);
 
         Assertions.assertEquals(id, symbolTbl.currentScope.id);
-    }
-
-    @Test
-    public void enterScope_idAlreadyExist_shouldReturnSameScope() {
-        // Arrange
-        SymbolTbl symbolTbl = new SymbolTbl();
-        String id = "func";
-        symbolTbl.enterScope(id, null);
-        Scope preScope = symbolTbl.currentScope;
-        symbolTbl.enterScope(id, null);
-
-        Assertions.assertEquals(preScope.id, symbolTbl.currentScope.id);
     }
 
     @Test

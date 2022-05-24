@@ -24,14 +24,6 @@ public class SymbolTbl {
     }
 
     public void enterScope(String id, ParseTree tree) {
-        for (Scope s: currentScope.getSubScopes()) {
-            if (s.id == id) {
-                currentScope = s;
-                return;
-            }
-        }
-
-        //No match in loop, so we need to add a new scope
         Scope scope = new Scope(currentScope, id);
         currentScope.addSubScope(scope);
         currentScope = scope;

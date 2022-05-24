@@ -2,7 +2,6 @@ package com.compiler.Contextual;
 
 import com.compiler.Contextual.Symbols.Symbol;
 import com.compiler.Contextual.Symbols.TypeSymbol;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
