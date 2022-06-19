@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Scope {
-    Map<String, Symbol> symbolDictionary = new HashMap<String, Symbol>();
+    Map<String, Symbol> symbolDictionary = new HashMap<>();
     private List<Scope> subScopes = new ArrayList<>();
     public Scope parent;
     public String id;

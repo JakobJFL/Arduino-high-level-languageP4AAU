@@ -70,9 +70,9 @@ readFunc: id READPWM LPAREN RPAREN                          #readFuncPWM
 
 returnExpr: RETURN expr                                     #returnExpression;
 
-whileWaitCall: WHILEWAIT LPAREN expr ',' id RPAREN           #whileWait;
+whileWaitCall: WHILEWAIT LPAREN expr ',' id RPAREN          #whileWait;
 
-waitCall: WAIT LPAREN expr RPAREN                            #wait;
+waitCall: WAIT LPAREN expr RPAREN                           #wait;
 
 funcCall: id LPAREN args RPAREN                             #functionCall;
 args: (expr (',' expr)*)?                                   #arguments;

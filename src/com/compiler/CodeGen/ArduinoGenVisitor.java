@@ -22,7 +22,6 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
     private String setupContent = "";
     private String globalContent = "";
     private String topContent = "";
-
     List<String> refVarsAddress = new ArrayList<>();
     List<String> whileWaitsAdded = new ArrayList<>();
 
@@ -349,13 +348,13 @@ public class ArduinoGenVisitor extends HlmpBaseVisitor<String> {
         String calledId = ctx.parent.getChild(0).getText();
         Scope calledScope = symbolTbl.getScope(calledId);
         Scope scope = symbolTbl.scopesProperty.get(ctx.parent);
-        if (!symbolTbl.isInnerScope(calledId, scope)) {
+        if (!symbolTbl.isInnerScope(calledId, scope)) { // Inner scope
             scope = calledScope.parent;
         }
-        if (calledScope.equals(scope)) {
+        if (calledScope.equals(scope)) { // Should not be else if
             result += addCommaSeparated(refVarsAddress, makeActualParam, ctx.expr().size() > 0);
         }
-        else {
+        else { // Calling an inner or outer scope
             List<TypeSymbol> symbols = symbolTbl.getTypeSymbolsFromScope(scope);
             List<String> strSymbols = new ArrayList<>();
             for (TypeSymbol ts: symbols) {

@@ -1,0 +1,90 @@
+Pin ledPinR {D3,out};
+Pin ledPinG {D5,out};
+Pin ledPinB {D6,out};
+Pin joystickYPin {A0,in};
+Pin joystickXPin {A1,in};
+Pin lightSensor {A2,in};
+
+Num errorMargin = 2;
+
+proc setup() {
+	ledHandler();
+}
+
+proc loop() {}
+
+func Num joystickHandler(Pwm rawData) {
+	return convertToNum(subtractError());
+	func Num convertToNum(Pwm pwmData) {
+		return pwmData-127;
+	}
+	func Pwm subtractError() {
+		if (rawData > 127+errorMargin) {
+			return rawData;
+		}
+		if (rawData < 127-errorMargin) {
+			return rawData;
+		}
+		return 127;
+	}
+}
+
+func Num getJoystickY() {
+	return joystickHandler(joystickYPin.ReadPwm());
+}
+func Num getJoystickX() {
+	return joystickHandler(joystickXPin.ReadPwm());
+}
+
+func Pwm getLightSensor() {
+	return lightSensor.ReadPwm();
+}
+
+proc ledHandler() {
+	Pwm currentRBir = 0;
+	Pwm currentBBir = 0;
+	while(true) {
+		checkSensor();
+	}
+	proc checkSensor() {
+		Num valY = getJoystickY();
+		Num valX = getJoystickX();
+		if (valY != 0) {
+			currentRBir = fade(valY, currentRBir);
+			ledPinR.Write(currentRBir);
+			wait(5);
+		}
+		if (valX != 0) {
+			currentBBir = fade(valX, currentBBir);
+			ledPinB.Write(currentBBir);
+			wait(5);
+		}
+		if (isBright()) {
+			blink();
+			whileWait(2000, isBright);
+		}
+		else {
+			ledPinG.Write(false);
+		}
+	}
+	proc blink() {
+		ledPinG.Write(toggle);
+	}
+	func Num fade(Num val, Num bir) {
+		if (val > 0) {
+			if (bir < 254) {
+				return bir+1;
+			}
+		}
+		else {
+			if (bir > 0) {
+				return bir-1;
+			}
+		}
+		return bir;
+	}
+}
+
+func Bool isBright() {
+    return getLightSensor() > 200;
+}
